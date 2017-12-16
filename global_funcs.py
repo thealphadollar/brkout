@@ -1,20 +1,19 @@
+# this file contains functions for global use
 import pygame
-import os
-import sys
 
 # function to render font
 
 
-def textObj (text, font, color):
-    textSurface = font.render(text, True, color)
-    return textSurface, textSurface.get_rect()
+def text_obj(text, font, color):
+    text_surface = font.render(text, True, color)
+    return text_surface, text_surface.get_rect()
 
 # function to display text
-def dispText(screen, text, center, fontAndSize, color):
-    TextSurf, TextRect = textObj(text, fontAndSize, color)
-    TextRect.center = center
-    screen.blit(TextSurf, TextRect)
 
 
+def disp_text(screen, text, center, font_and_size, color):
+    text_surf, text_rect = text_obj(text, font_and_size, color)
+    text_rect.center = center
+    screen.blit(text_surf, text_rect)
 
 
