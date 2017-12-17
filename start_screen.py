@@ -99,7 +99,7 @@ def menu_screen(screen, clock):
         draw_walls(screen)
 
         # display moving ball
-        menu_ball.move(delta_time)
+        menu_ball.menu_screen_move(delta_time)
         menu_ball.check_collide_wall()
         menu_ball.check_collide_palette()
         menu_ball.draw(screen)

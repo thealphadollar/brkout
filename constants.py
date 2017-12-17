@@ -6,6 +6,14 @@ pygame.init()
 # asset directory
 assets_directory = os.path.join(os.path.dirname(__file__), 'assets')
 
+# brick constants
+# horizontal brick
+horizontal_brick_width = 70
+horizontal_brick_height = 30
+# vertical brick
+vertical_brick_width = 35
+vertical_brick_height = 60
+
 # screen constants
 FPS = 60
 scr_width = 900
@@ -16,7 +24,9 @@ wall_brick_height = 30
 # ball constants
 ball_radius = 10
 menu_ball_speed = 15
+main_ball_speed = 20
 ball_mass = 10
+friction = .05
 
 # text formats
 game_title_text_large = pygame.font.Font(os.path.join(assets_directory, 'Weston Free.otf'), 120)
