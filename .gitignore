@@ -2,3 +2,5 @@ global_funcs.pyc
 assets/logo.xcf
 constants.pyc
 start_screen.pyc
+.idea/
+global_objects.pyc

@@ -1,5 +1,4 @@
 # this file contains functions for global use
-import pygame
 
 # function to render font
 

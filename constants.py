@@ -10,6 +10,13 @@ assets_directory = os.path.join(os.path.dirname(__file__), 'assets')
 FPS = 60
 scr_width = 900
 scr_height = 700
+wall_brick_width = 100
+wall_brick_height = 30
+
+# ball constants
+ball_radius = 10
+menu_ball_speed = 15
+ball_mass = 10
 
 # text formats
 game_title_text_large = pygame.font.Font(os.path.join(assets_directory, 'Weston Free.otf'), 120)
@@ -26,7 +33,9 @@ message_text = pygame.font.Font(os.path.join(assets_directory,'Calendas_Plus.otf
 black = (0, 0, 0)
 white = (255, 255, 255)
 grey = (128, 128, 128)
+wall_silver = (188, 198, 204)
 silver = (192, 192, 192)
+wall_orange = (212, 175, 55)
 orange = (220, 126, 34)
 yellow = (244, 208, 63)
 green = (31, 181, 44)

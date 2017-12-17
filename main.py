@@ -1,7 +1,7 @@
-import pygame
-import sys
-from start_screen import *
+from start_screen import menu_screen
 from global_funcs import *
+from constants import *
+import os
 import time
 
 # function to initialise pygame
@@ -35,4 +35,4 @@ if __name__ == "__main__":
         if choice == 0:
             gameloop(color_choice)
         elif choice == 1:
-            sys.exit()
+            os._exit(0)
