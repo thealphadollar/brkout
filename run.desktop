@@ -6,3 +6,5 @@ Exec=/bin/bash -c 'cd "$(dirname "$0")"; python2 main.py' %k
 Name=Launch Game
 Comment=Click to play BrkOut
 Icon=logo.png
+Comment[en_IN]=
+GenericName[en_IN]=Click to play BrkOut
