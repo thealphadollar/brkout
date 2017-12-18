@@ -95,4 +95,4 @@ if __name__ == "__main__":
         if choice == 0:
             gameloop(striker_colors[color_choice])
         elif choice == 1:
-            os._exit(0)
+			credits_screen(screen,clock)
