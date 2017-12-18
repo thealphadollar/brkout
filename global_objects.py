@@ -194,7 +194,6 @@ class Ball:
 
         return True
 
-
     def draw(self, screen):
         pygame.draw.circle(screen, yellow, (int(self.x), int(self.y)), self.radius)
 
@@ -247,7 +246,6 @@ class Striker:
         angle = math.atan2(dx, dy)
         self.x = main_game_middle_x + ((strike_bound_radius - self.radius) * math.sin(angle))
         self.y = main_game_middle_y + ((strike_bound_radius - self.radius) * math.cos(angle))
-
 
     def draw(self, screen, color):
         pygame.draw.circle(screen, color, (int(self.x), int(self.y)), self.radius)
