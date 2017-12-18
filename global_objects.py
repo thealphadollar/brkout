@@ -154,12 +154,13 @@ class Ball:
 
         # if not colliding return
         if distance > striker.radius + self.radius:
-            return
+            return False
 
         # using elastic collision
-        approach_angle = math.atan(dx/dy)
-        ball_velocity_along_line = math.cos(approach_angle - self.angle) * self.speed
-        ball_velocity_perp_line = math.sin(approach_angle - self.angle) * self.speed
+        approach_angle = math.atan2(dx, dy)
+        ball_angle = math.atan2(math.sin(self.angle), math.cos(self.angle))
+        ball_velocity_along_line = math.cos(approach_angle - ball_angle) * self.speed
+        ball_velocity_perp_line = math.sin(approach_angle - ball_angle) * self.speed
         striker_velocity_along_line = (striker.x_velocity * math.sin(approach_angle)) + (striker.y_velocity * math.cos(approach_angle))
         striker_velocity_x_perp_line = striker.x_velocity * math.cos(approach_angle)
         striker_velocity_y_perp_line = striker.y_velocity * math.sin(approach_angle)
@@ -178,7 +179,7 @@ class Ball:
         self.speed = math.hypot(ball_velocity_along_line, ball_velocity_perp_line)
         ball_x_velocity = ball_velocity_along_line * math.sin(approach_angle) - ball_velocity_perp_line * math.cos(approach_angle)
         ball_y_velocity = ball_velocity_along_line * math.cos(approach_angle) + ball_velocity_perp_line * math.sin(approach_angle)
-        self.angle = math.atan(ball_x_velocity / ball_y_velocity)
+        self.angle = math.atan2(ball_x_velocity, ball_y_velocity)
 
         if self.speed > MAX_BALL_SPEED:
             self.speed = MAX_BALL_SPEED
@@ -186,6 +187,12 @@ class Ball:
             striker.x_velocity = MAX_STRIKER_SPEED * (striker.x_velocity / abs(striker.x_velocity))
         if abs(striker.y_velocity) > MAX_STRIKER_SPEED:
             striker.y_velocity = MAX_STRIKER_SPEED * (striker.y_velocity / abs(striker.y_velocity))
+
+        angle = math.atan2(dx, dy)
+        self.x = striker.x + ((striker.radius + self.radius) * math.sin(angle))
+        self.y = striker.y + ((striker.radius + self.radius) * math.cos(angle))
+
+        return True
 
 
     def draw(self, screen):
@@ -222,6 +229,11 @@ class Striker:
             if self.y_velocity > 0:
                 self.y_velocity = 0
 
+        if abs(self.y_velocity) > MAX_STRIKER_SPEED:
+            self.y_velocity = MAX_STRIKER_SPEED * (self.y_velocity / abs(self.y_velocity))
+        if abs(self.x_velocity) > MAX_STRIKER_SPEED:
+            self.x_velocity = MAX_STRIKER_SPEED * (self.x_velocity/ abs(self.x_velocity))
+
     def check_bound(self):
         dx = self.x - main_game_middle_x
         dy = self.y - main_game_middle_y
@@ -232,12 +244,13 @@ class Striker:
         self.x_velocity = -self.x_velocity
         self.y_velocity = -self.y_velocity
 
-        angle = math.atan(dx/dy)
-        self.x = (strike_bound_radius - self.radius) * math.sin(angle)
-        self.y = (strike_bound_radius - self.radius) * math.cos(angle)
+        angle = math.atan2(dx, dy)
+        self.x = main_game_middle_x + ((strike_bound_radius - self.radius) * math.sin(angle))
+        self.y = main_game_middle_y + ((strike_bound_radius - self.radius) * math.cos(angle))
+
 
     def draw(self, screen, color):
-        pygame.draw.circle(screen, color, (self.x, self.y), self.radius)
-        pygame.draw.circle(screen, black, (self.x, self.y), self.radius, 1)
-        pygame.draw.circle(screen, black, (self.x, self.y), self.radius - 10, 1)
-        pygame.draw.circle(screen, black, (self.x, self.y), self.radius - 30, 1)
+        pygame.draw.circle(screen, color, (int(self.x), int(self.y)), self.radius)
+        pygame.draw.circle(screen, silver, (int(self.x), int(self.y)), self.radius, 1)
+        pygame.draw.circle(screen, wall_silver, (int(self.x), int(self.y)), self.radius - 10, 1)
+        pygame.draw.circle(screen, wall_silver, (int(self.x), int(self.y)), self.radius - 30, 1)

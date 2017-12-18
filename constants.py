@@ -20,41 +20,49 @@ scr_width = 900
 scr_height = 700
 wall_brick_width = 100
 wall_brick_height = 30
-strike_bound_radius = 175
+strike_bound_radius = 200
 main_game_middle_x = 450
 main_game_middle_y = 370
+post_brick_width = 100
+post_brick_height = 4
 
 # striker constants
-striker_radius = 50
-striker_mass = 100
-striker_friction = 0.5
-MAX_STRIKER_SPEED = 7
+striker_radius = 40
+striker_mass = 500
+striker_friction = .1
+MAX_STRIKER_SPEED = 15
 striker_velocity = 0
 
 # ball constants
-ball_radius = 10
+ball_radius = 13
 menu_ball_speed = 15
-main_ball_speed = 20
-MAX_BALL_SPEED = 22
-ball_mass = 10
-friction = .05
+main_ball_speed = 0
+MAX_BALL_SPEED = 20
+ball_mass = 5
+friction = .01
 
 # text formats
 game_title_text_large = pygame.font.Font(os.path.join(assets_directory, 'Weston Free.otf'), 120)
 game_title_text_small = pygame.font.Font(os.path.join(assets_directory, 'Weston Free.otf'), 100)
 menu_item_text_selected = pygame.font.Font(os.path.join(assets_directory, 'nougatine.ttf'), 35)
 menu_item_text = pygame.font.Font(os.path.join(assets_directory, 'nougatine.ttf'), 30)
-message_text = pygame.font.Font(os.path.join(assets_directory,'Calendas_Plus.otf'), 20)
-credits_text = pygame.font.Font(pygame.font.match_font("chiller"),60)
-credits_name = pygame.font.Font(pygame.font.match_font("Comic Sans MS"),35)
+message_text = pygame.font.Font(os.path.join(assets_directory, 'ARCADECLASSIC.TTF'), 20)
+credits_text = pygame.font.Font(os.path.join(assets_directory, 'SF Atarian System Extended Bold Italic.ttf'), 45)
+credits_name = pygame.font.Font(os.path.join(assets_directory, 'Halo3.ttf'), 55)
+main_screen_text = pygame.font.Font(os.path.join(assets_directory, 'FutureTimeSplittersupdate.otf'), 36)
+main_screen_number = pygame.font.Font(os.path.join(assets_directory, 'digital-7.ttf'), 25)
+
 # music files
 
 # images
+speed_red = pygame.image.load(os.path.join(assets_directory, 'speed_red.png'))
+speed_blue = pygame.image.load(os.path.join(assets_directory, 'speed_blue.png'))
 
 # colors
 black = (0, 0, 0)
 white = (255, 255, 255)
 grey = (128, 128, 128)
+name_grey = (150, 150, 150)
 light_black = (40, 40, 40)
 wall_silver = (188, 198, 204)
 silver = (192, 192, 192)
