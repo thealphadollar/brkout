@@ -1,9 +1,9 @@
 from start_screen import menu_screen
+from credits_screen import credits_screen
 from global_funcs import *
 from global_objects import *
 from constants import *
 import os
-import time
 
 # function to initialise pygame
 

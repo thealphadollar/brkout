@@ -44,9 +44,10 @@ game_title_text_large = pygame.font.Font(os.path.join(assets_directory, 'Weston 
 game_title_text_small = pygame.font.Font(os.path.join(assets_directory, 'Weston Free.otf'), 100)
 menu_item_text_selected = pygame.font.Font(os.path.join(assets_directory, 'nougatine.ttf'), 35)
 menu_item_text = pygame.font.Font(os.path.join(assets_directory, 'nougatine.ttf'), 30)
-message_text = pygame.font.Font(os.path.join(assets_directory,'Calendas_Plus.otf'), 20)
-credits_text = pygame.font.Font(pygame.font.match_font("chiller"),60)
-credits_name = pygame.font.Font(pygame.font.match_font("Comic Sans MS"),35)
+message_text = pygame.font.Font(os.path.join(assets_directory, 'Calendas_Plus.otf'), 20)
+credits_text = pygame.font.Font(os.path.join(assets_directory, 'comici.ttf'), 45)
+credits_name = pygame.font.Font(os.path.join(assets_directory, 'chiller.ttf'), 55)
+
 # music files
 
 # images
