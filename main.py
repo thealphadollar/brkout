@@ -1,6 +1,7 @@
 from start_screen import menu_screen
 from global_funcs import *
 from constants import *
+from credits_screen import *
 import os
 import time
 
@@ -31,8 +32,7 @@ if __name__ == "__main__":
     while True:
         init()  # used to initialise the pygame module
         choice, color_choice = menu_screen(screen, clock)
-
         if choice == 0:
             gameloop(color_choice)
         elif choice == 1:
-            os._exit(0)
+			credits_screen(screen,clock)

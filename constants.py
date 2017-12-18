@@ -6,14 +6,6 @@ pygame.init()
 # asset directory
 assets_directory = os.path.join(os.path.dirname(__file__), 'assets')
 
-# brick constants
-# horizontal brick
-horizontal_brick_width = 70
-horizontal_brick_height = 30
-# vertical brick
-vertical_brick_width = 35
-vertical_brick_height = 60
-
 # screen constants
 FPS = 60
 scr_width = 900
@@ -24,9 +16,7 @@ wall_brick_height = 30
 # ball constants
 ball_radius = 10
 menu_ball_speed = 15
-main_ball_speed = 20
 ball_mass = 10
-friction = .05
 
 # text formats
 game_title_text_large = pygame.font.Font(os.path.join(assets_directory, 'Weston Free.otf'), 120)
@@ -34,6 +24,8 @@ game_title_text_small = pygame.font.Font(os.path.join(assets_directory, 'Weston 
 menu_item_text_selected = pygame.font.Font(os.path.join(assets_directory, 'nougatine.ttf'), 35)
 menu_item_text = pygame.font.Font(os.path.join(assets_directory, 'nougatine.ttf'), 30)
 message_text = pygame.font.Font(os.path.join(assets_directory,'Calendas_Plus.otf'), 20)
+credits_text = pygame.font.Font(pygame.font.match_font("chiller"),60)
+credits_name = pygame.font.Font(pygame.font.match_font("Comic Sans MS"),35)
 
 # music files
 
@@ -57,4 +49,7 @@ light_magenta = (155, 89, 182)
 blue = (46, 134, 193)
 light_blue = (52, 152, 219)
 striker_colors = [green, red, magenta, blue]
+credit_orange = (240, 146, 54)
+pure_red = (255,0,0)
+pure_green = (0,255,0)
 color_option_palette = [[green, light_green], [red, light_red], [magenta, light_magenta], [blue, light_blue]]
