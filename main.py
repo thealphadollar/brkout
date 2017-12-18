@@ -1,5 +1,6 @@
 from start_screen import menu_screen
 from global_funcs import *
+from global_objects import *
 from constants import *
 import os
 import time
@@ -26,6 +27,65 @@ def init():
     clock = pygame.time.Clock()
 
 
+# rendering static elements
+
+
+def render_field():
+
+    screen.fill(black)
+
+    # drawing prison-field
+    pygame.draw.rect(screen, grey, (100, 40, 700, 660))
+
+    # drawing striker boundary
+    pygame.draw.circle(screen, light_black, (main_game_middle_x, main_game_middle_y), strike_bound_radius)
+
+
+
+
+
+
+
+# main game loop
+
+
+def gameloop(striker_color):
+    global screen, clock
+    ball = Ball(main_game_middle_x, main_game_middle_y + strike_bound_radius)
+    striker = Striker(main_game_middle_x, main_game_middle_y)
+    first_strike = False
+
+    while True:
+
+        render_field()
+
+        # getting in events
+        for event in pygame.event.get():
+
+            #updating striker with inputs
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_UP:
+                    striker.y_velocity += 3
+                if event.key ==  pygame.K_DOWN:
+                    striker.y_velocity -= 3
+                if event.key == pygame.K_RIGHT:
+                    striker.x_velocity += 3
+                if event.key == pygame.K_LEFT:
+                    striker.x_velocity -= 3
+
+                # pausing the game
+                if event.key == pygame.K_SPACE or event.key == pygame.K_ESCAPE:
+                    #pause_game() function to add pause game
+                    pass
+
+            # quitting the game
+            if event.type == pygame.QUIT:
+                os._exit(0)
+
+        pygame.display.update()
+        clock.tick(FPS)
+
+
 if __name__ == "__main__":
 
     while True:
@@ -33,6 +93,6 @@ if __name__ == "__main__":
         choice, color_choice = menu_screen(screen, clock)
 
         if choice == 0:
-            gameloop(color_choice)
+            gameloop(striker_colors[color_choice])
         elif choice == 1:
             os._exit(0)
