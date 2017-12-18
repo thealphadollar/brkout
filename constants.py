@@ -20,11 +20,22 @@ scr_width = 900
 scr_height = 700
 wall_brick_width = 100
 wall_brick_height = 30
+strike_bound_radius = 175
+main_game_middle_x = 450
+main_game_middle_y = 370
+
+# striker constants
+striker_radius = 50
+striker_mass = 100
+striker_friction = 0.5
+MAX_STRIKER_SPEED = 7
+striker_velocity = 0
 
 # ball constants
 ball_radius = 10
 menu_ball_speed = 15
 main_ball_speed = 20
+MAX_BALL_SPEED = 22
 ball_mass = 10
 friction = .05
 
@@ -44,6 +55,7 @@ credits_name = pygame.font.Font(pygame.font.match_font("Comic Sans MS"),35)
 black = (0, 0, 0)
 white = (255, 255, 255)
 grey = (128, 128, 128)
+light_black = (40, 40, 40)
 wall_silver = (188, 198, 204)
 silver = (192, 192, 192)
 wall_orange = (212, 175, 55)

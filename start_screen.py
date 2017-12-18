@@ -152,4 +152,4 @@ def menu_screen(screen, clock):
             disp_text(screen, "Press Enter To Quit", (scr_width / 2, scr_height / 2 + 300), message_text, yellow)
 
         pygame.display.update()
-        clock.tick(60)
+        clock.tick(FPS)
