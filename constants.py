@@ -34,7 +34,8 @@ game_title_text_small = pygame.font.Font(os.path.join(assets_directory, 'Weston 
 menu_item_text_selected = pygame.font.Font(os.path.join(assets_directory, 'nougatine.ttf'), 35)
 menu_item_text = pygame.font.Font(os.path.join(assets_directory, 'nougatine.ttf'), 30)
 message_text = pygame.font.Font(os.path.join(assets_directory,'Calendas_Plus.otf'), 20)
-
+credits_text = pygame.font.Font(pygame.font.match_font("chiller"),60)
+credits_name = pygame.font.Font(pygame.font.match_font("Comic Sans MS"),35)
 # music files
 
 # images
@@ -56,5 +57,8 @@ magenta = (125, 60, 152)
 light_magenta = (155, 89, 182)
 blue = (46, 134, 193)
 light_blue = (52, 152, 219)
+credit_orange = (240, 146, 54)
+pure_red = (255,0,0)
+pure_green = (0,255,0)
 striker_colors = [green, red, magenta, blue]
 color_option_palette = [[green, light_green], [red, light_red], [magenta, light_magenta], [blue, light_blue]]
