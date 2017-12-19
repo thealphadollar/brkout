@@ -34,12 +34,12 @@ MAX_STRIKER_SPEED = 15
 striker_velocity = 0
 
 # ball constants
-ball_radius = 13
+ball_radius = 11
 menu_ball_speed = 15
 main_ball_speed = 0
-MAX_BALL_SPEED = 20
+MAX_BALL_SPEED = 12
 ball_mass = 5
-friction = .01
+friction = .005
 
 # text formats
 game_title_text_large = pygame.font.Font(os.path.join(assets_directory, 'Weston Free.otf'), 120)
@@ -80,5 +80,7 @@ light_blue = (52, 152, 219)
 credit_orange = (240, 146, 54)
 pure_red = (255,0,0)
 pure_green = (0,255,0)
+pure_blue = (0,0,255)
 striker_colors = [green, red, magenta, blue]
+brick_colors = [pure_red, credit_orange, pure_blue]
 color_option_palette = [[green, light_green], [red, light_red], [magenta, light_magenta], [blue, light_blue]]
