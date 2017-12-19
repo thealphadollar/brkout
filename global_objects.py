@@ -1,10 +1,11 @@
 from constants import *
 import random
 import math
+from global_funcs import *
 
-
-class Ball:
+class Ball(pygame.sprite.Sprite):
     def __init__(self, x, y):
+        pygame.sprite.Sprite.__init__(self)
         self.x = x
         self.y = y
         self.radius = ball_radius
@@ -18,29 +19,36 @@ class Ball:
         self.y += math.cos(self.angle) * self.menu_speed * delta_time
 
     def main_screen_move(self, delta_time):
+        self.oldx = self.x
+        self.oldy = self.y
         self.x += math.sin(self.angle) * self.speed * delta_time
         self.y += math.cos(self.angle) * self.speed * delta_time
         if self.speed > 0:
             self.speed -= (friction * delta_time)
         else:
             self.speed = 0
+        
 
     # function to check collision with menu wall
     def check_collide_wall(self):
         if self.x < wall_brick_height + self.radius:
             self.x = wall_brick_height + self.radius
+            self.oldx = self.x
             self.angle = -self.angle
 
         if self.x > scr_width - wall_brick_height - self.radius:
             self.x = scr_width - wall_brick_height - self.radius
+            self.oldx = self.x
             self.angle = -self.angle
 
         if self.y < wall_brick_height + self.radius:
             self.y = wall_brick_height + self.radius
+            self.oldy = self.y
             self.angle = math.pi - self.angle
 
         if self.y > scr_height - wall_brick_height - self.radius:
             self.y = scr_height - wall_brick_height - self.radius
+            self.oldy = self.y
             self.angle = math.pi - self.angle
 
     # function to check collision with color palette
@@ -66,83 +74,32 @@ class Ball:
         # right side
         if self.x >= scr_width - 100:
             self.angle = -self.angle
+            self.x = scr_width - 100
+            return 1
             #return True
         # left side
         elif self.x <= 100:
             self.angle = -self.angle
+            self.x = 100
+            return 1
             #return True
         # bottom
         if self.y >= scr_height:
             self.angle = math.pi - self.angle
+            self.y = scr_height
+            return 1
             #return True
         elif self.y <= 40:
             self.angle = math.pi - self.angle
+            self.y = 40
+            return 1
             #return True
         #return False
 
     # check collision with brick
 
     # horizontal brick
-    def collision_horizontal_brick(self, horizontal_brick):
-        # lower side
-        # returns true if collision takes place
-        did_collide = False
-        x, y = horizontal_brick.get_pos()
-        if (self.x > x - self.radius) and (self.x < x + horizontal_brick_width + self.radius):
-            if (self.y < y + horizontal_brick_height + self.radius) and (self.y > y + horizontal_brick_height):
-                self.y = y + horizontal_brick_height + self.radius
-                self.angle = math.pi - self.angle
-                did_collide = True
-        # upper side
-        elif (self.x > x - self.radius) and (self.x < x + horizontal_brick_width + self.radius):
-            if (self.y > y - self.radius) and (self.y < y):
-                self.y = y - self.radius
-                self.angle = math.pi - self.angle
-                did_collide = True
-        # left side
-        if (self.y < y + horizontal_brick_height + self.radius) and (self.y > y - self.radius):
-            if (self.x > x - self.radius) and (self.x < x):
-                self.x = x - self.radius
-                self. angle = -self.angle
-                did_collide = True
-        # right side
-        elif (self.y < y + horizontal_brick_height + self.radius) and (self.y > y - self.radius):
-            if (self.x < x + horizontal_brick_width + self.radius) and (self.x > x + horizontal_brick_width):
-                self.x = x + horizontal_brick_width + self.radius
-                self.angle = -self.angle
-                did_collide = True
-        return did_collide
-
-    # vertical brick
-    def collision_vertical_brick(self, vertical_brick):
-        # lower side
-        # returns true is collision takes place
-        did_collide = False
-        x, y = vertical_brick.get_pos()
-        if (self.x > x - self.radius) and (self.x < x + vertical_brick_width + self.radius):
-            if (self.y < y + vertical_brick_height + self.radius) and (self.y > y + vertical_brick_height):
-                self.y = y + vertical_brick_height + self.radius
-                self.angle = math.pi - self.angle
-                did_collide = True
-        # upper side
-        elif (self.x > x - self.radius) and (self.x < x + vertical_brick_width + self.radius):
-            if (self.y > y - self.radius) and (self.y < y):
-                self.y = y - self.radius
-                self.angle = math.pi - self.angle
-                did_collide = True
-        # left side
-        if (self.y < y + vertical_brick_height + self.radius) and (self.y > y - self.radius):
-            if (self.x > x - self.radius) and (self.x < x):
-                self.x = x - self.radius
-                self. angle = -self.angle
-                did_collide = True
-        # right side
-        elif (self.y < y + vertical_brick_height + self.radius) and (self.y > y - self.radius):
-            if (self.x < x + vertical_brick_width + self.radius) and (self.x > x + vertical_brick_width):
-                self.x = x + vertical_brick_width + self.radius
-                self.angle = -self.angle
-                did_collide = True
-        return did_collide
+    
 
     # define collision with striker
     def collision_striker(self, striker):
@@ -191,6 +148,8 @@ class Ball:
         angle = math.atan2(dx, dy)
         self.x = striker.x + ((striker.radius + self.radius) * math.sin(angle))
         self.y = striker.y + ((striker.radius + self.radius) * math.cos(angle))
+        self.oldx = self.x
+        self.oldy = self.y
 
         return True
 
@@ -252,3 +211,103 @@ class Striker:
         pygame.draw.circle(screen, silver, (int(self.x), int(self.y)), self.radius, 1)
         pygame.draw.circle(screen, wall_silver, (int(self.x), int(self.y)), self.radius - 10, 1)
         pygame.draw.circle(screen, wall_silver, (int(self.x), int(self.y)), self.radius - 30, 1)
+        
+class Bricks(pygame.sprite.Sprite):
+    def __init__(self,x,y,VH):
+        pygame.sprite.Sprite.__init__(self)
+        self.x = x
+        self.y = y
+        self.brick_value = random.randint(1,3)
+        self.ori_brick_value = self.brick_value
+        self.type = VH
+        self.color = brick_colors[(self.brick_value)%3]
+        if random.random() > 0.94:
+            self.brick_value = 1000000007
+            # self.color = grey
+        if VH == 1:
+            self.image = pygame.Surface((horizontal_brick_width,horizontal_brick_height))
+            self.image.fill(self.color)
+            self.rect = self.image.get_rect()
+            self.rect.topleft = (x,y)
+        elif VH == 0:
+            self.image = pygame.Surface((vertical_brick_width, vertical_brick_height))
+            self.image.fill(self.color)
+            self.rect = self.image.get_rect()
+            self.rect.topleft = (x,y)
+        self.health = self.brick_value * 100
+        
+    def draw23(self,screen):
+        self.image.fill(self.color)
+        screen.blit(self.image,self.rect)
+        pygame.draw.rect(screen,white,self.rect,2)
+        
+    def check_hor_coll(self,ball):
+        # lower side
+        # returns true if collision takes place
+        did_collide = False
+        x, y = self.x, self.y
+        if (ball.x > x - ball.radius) and (ball.x < x + horizontal_brick_width + ball.radius):
+            if (ball.y < y + horizontal_brick_height + ball.radius) and (ball.y > y + horizontal_brick_height):
+                ball.y = y + horizontal_brick_height + ball.radius
+                ball.angle = math.pi - ball.angle
+                did_collide = True
+        # upper side
+        
+            elif (ball.y > y - ball.radius) and (ball.y < y):
+                ball.y = y - ball.radius
+                ball.angle = math.pi - ball.angle
+                did_collide = True
+        # left side
+        if (ball.y < y + horizontal_brick_height + ball.radius) and (ball.y > y - ball.radius):
+            if (ball.x > x - ball.radius) and (ball.x < x):
+                ball.x = x - ball.radius
+                ball. angle = -ball.angle
+                did_collide = True
+        # right side
+       
+            elif (ball.x < x + horizontal_brick_width + ball.radius) and (ball.x > x + horizontal_brick_width):
+                ball.x = x + horizontal_brick_width + ball.radius
+                ball.angle = -ball.angle
+                did_collide = True
+        return did_collide
+    
+    def check_ver_coll(self,ball):
+        # lower side
+        # returns true is collision takes place
+        did_collide = False
+        x, y = self.x, self.y
+        if (ball.x > x - ball.radius) and (ball.x < x + vertical_brick_width + ball.radius):
+            if (ball.y < y + vertical_brick_height + ball.radius) and (ball.y > y + vertical_brick_height):
+                ball.y = y + vertical_brick_height + ball.radius
+                ball.angle = math.pi - ball.angle
+                did_collide = True
+            # upper side
+            elif (ball.y > y - ball.radius) and (ball.y < y):
+                ball.y = y - ball.radius
+                ball.angle = math.pi - ball.angle
+                did_collide = True
+        # left side
+        if (ball.y < y + vertical_brick_height + ball.radius) and (ball.y > y - ball.radius):
+            if (ball.x > x - ball.radius) and (ball.x < x):
+                ball.x = x - ball.radius
+                ball. angle = -ball.angle
+                did_collide = True
+            # right side
+            elif (ball.x < x + vertical_brick_width + ball.radius) and (ball.x > x + vertical_brick_width):
+                ball.x = x + vertical_brick_width + ball.radius
+                ball.angle = -ball.angle
+                did_collide = True
+        return did_collide
+        
+    def update(self,speed):
+        self.brick_value -= 1
+        if self.brick_value == 0:
+            self.kill()
+            return self.ori_brick_value * 200
+        elif self.brick_value <=3 :
+            self.color = brick_colors[(self.brick_value)%3]
+            return 0
+        else:
+            self.color = grey
+            return 0
+            
