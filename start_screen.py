@@ -6,61 +6,6 @@ from global_objects import Ball
 # initiating the ball
 menu_ball = Ball(scr_width/2, scr_height-wall_brick_height-ball_radius)
 
-
-# function to draw walls around screen
-
-
-def draw_walls(screen):
-
-    # drawing rectangles
-    initial_position_x = 0
-    initial_position_y = 0
-
-    # ceiling
-    while initial_position_x <= (scr_width - wall_brick_width):
-        pygame.draw.rect(screen, wall_orange, (initial_position_x, initial_position_y, wall_brick_width, wall_brick_height))
-        initial_position_x += wall_brick_width
-        if not initial_position_x < scr_width:
-            break
-        pygame.draw.rect(screen, wall_silver, (initial_position_x, initial_position_y, wall_brick_width, wall_brick_height))
-        initial_position_x += wall_brick_width
-
-    initial_position_x -= wall_brick_height
-
-    # right wall
-    while initial_position_y <= (scr_height - wall_brick_width):
-        pygame.draw.rect(screen, wall_orange, (initial_position_x, initial_position_y, wall_brick_height, wall_brick_width))
-        initial_position_y += wall_brick_width
-        if not initial_position_y < scr_height:
-            break
-        pygame.draw.rect(screen, wall_silver, (initial_position_x, initial_position_y, wall_brick_height, wall_brick_width))
-        initial_position_y += wall_brick_width
-
-    initial_position_y -= wall_brick_height
-    initial_position_x += wall_brick_height
-
-    # floor
-    while initial_position_x >= wall_brick_width:
-        initial_position_x -= wall_brick_width
-        pygame.draw.rect(screen, wall_orange, (initial_position_x, initial_position_y, wall_brick_width, wall_brick_height))
-        if not initial_position_x > 0:
-            break
-        initial_position_x -= wall_brick_width
-        pygame.draw.rect(screen, wall_silver, (initial_position_x, initial_position_y, wall_brick_width, wall_brick_height))
-
-    initial_position_y += wall_brick_height
-
-    # left wall
-    while initial_position_y >= wall_brick_width:
-        initial_position_y -= wall_brick_width
-        pygame.draw.rect(screen, wall_orange, (initial_position_x, initial_position_y, wall_brick_height, wall_brick_width))
-        if not initial_position_y > 0:
-            break
-        initial_position_y -= wall_brick_width
-        pygame.draw.rect(screen, wall_silver, (initial_position_x, initial_position_y, wall_brick_height, wall_brick_width))
-
-    return
-
 # main function to display and handle menu screen
 
 
@@ -96,7 +41,7 @@ def menu_screen(screen, clock):
                 os._exit(0)
 
         screen.fill(black)  # black background, to be changed later
-        draw_walls(screen)
+        draw_walls(screen, wall_brick_width, wall_brick_height)
 
         # display moving ball
         menu_ball.menu_screen_move(delta_time)
