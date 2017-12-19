@@ -1,5 +1,7 @@
 # this file contains functions for global use
 from constants import *
+import random
+import math
 
 # function to render font
 
@@ -69,6 +71,5 @@ def draw_walls(screen, brick_width, brick_height):
         pygame.draw.rect(screen, wall_silver, (initial_position_x, initial_position_y, brick_height, brick_width))
 
     return
-
 
 

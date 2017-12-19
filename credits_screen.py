@@ -9,7 +9,7 @@ import pygame as pg
 
 
 class Credits(pg.sprite.Sprite):
-    def __init__(self,screen):
+    def __init__(self, screen):
         pg.sprite.Sprite.__init__(self)
         self.x = scr_width/2
         self.y = scr_height + 120
@@ -75,6 +75,8 @@ def credits_screen(screen, clock):
         clock.tick(FPS)
         # If you want to close
         for event in pg.event.get():
+            if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
+                os._exit(0)
             if event.type == pg.QUIT:
                 os._exit(0)
 

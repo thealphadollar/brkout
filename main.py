@@ -10,7 +10,13 @@ import os
 
 def init():
 
-    global screen, clock, flip_image, score, seconds_first, seconds_second, minutes_first, minutes_second, count_to_seconds, ball, striker
+    global screen, clock, flip_image, score, seconds_first, seconds_second, minutes_first, minutes_second, \
+        count_to_seconds, ball, striker, time_count, score_time, hit_count, brick_point
+
+    hit_count = 0  # stores number of bricks hit
+    brick_point = 0  # stores the score accumulated by hitting brick
+    score_time = 0  # timer for the score calculation
+    time_count = 0  # increases score_time after 60 frames
     ball = Ball(main_game_middle_x, main_game_middle_y + strike_bound_radius)
     striker = Striker(main_game_middle_x, main_game_middle_y)
     seconds_first, seconds_second = 0, 0
@@ -65,16 +71,29 @@ def show_time(start_timer):
 # function to show score()
 
 
-def show_score():
-    global score
+def show_score(start_timer):
+    global score, time_count, score_time, hit_count, brick_point
+    # keeping track of time for scoring
+    if start_timer:
+        time_count += 1
 
-    # score logic to be implemented
+    # updating score variable
+    if time_count == 60:
+        score_time += 1
+        time_count = 0
+
+    if score_time > 0:
+        score = int(brick_point / (.7 * math.sqrt(score_time) + .3 * (hit_count ** (1.0/3))))
+
+    # negative score not allowed
+    if score < 0:
+        score = 0
 
     # method same as show_time to be adopted for displaying
 
     # displaying score label
     disp_text(screen, "score : ", (50, 21), main_screen_text, silver)
-    disp_text(screen, "1024", (100, 21), main_screen_number, silver)
+    disp_text(screen, str(score), (100, 21), main_screen_number, silver)
 
 
 # function to show ball speed
@@ -189,7 +208,7 @@ def gameloop(striker_color):
         # show time function
         show_time(start_time)
         # show score
-        show_score()
+        show_score(start_time)
         # show speed
         show_speed(ball)
 
@@ -202,8 +221,10 @@ if __name__ == "__main__":
     while True:
         init()  # used to initialise the pygame module
         choice, color_choice = menu_screen(screen, clock)
+        end_choice = 0  # a variable to maintain what happens in the game_loop
 
         if choice == 0:
-            gameloop(striker_colors[color_choice])
+            gameloop(striker_colors[color_choice])  # returns 0 if the player wins and returns 1 if player loses
         elif choice == 1:
             credits_screen(screen, clock)
+
