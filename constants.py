@@ -37,7 +37,7 @@ striker_velocity = 0
 ball_radius = 11
 menu_ball_speed = 15
 main_ball_speed = 0
-MAX_BALL_SPEED = 12
+MAX_BALL_SPEED = 10
 ball_mass = 5
 friction = .005
 
@@ -51,6 +51,8 @@ credits_text = pygame.font.Font(os.path.join(assets_directory, 'SF Atarian Syste
 credits_name = pygame.font.Font(os.path.join(assets_directory, 'Halo3.ttf'), 55)
 main_screen_text = pygame.font.Font(os.path.join(assets_directory, 'FutureTimeSplittersupdate.otf'), 36)
 main_screen_number = pygame.font.Font(os.path.join(assets_directory, 'digital-7.ttf'), 25)
+pause_text = pygame.font.Font(os.path.join(assets_directory, 'chiller.ttf'), 50)
+pause_text_s = pygame.font.Font(os.path.join(assets_directory, 'chiller.ttf'), 65)
 
 # music files
 
@@ -84,3 +86,5 @@ pure_blue = (0,0,255)
 striker_colors = [green, red, magenta, blue]
 brick_colors = [pure_red, credit_orange, pure_blue]
 color_option_palette = [[green, light_green], [red, light_red], [magenta, light_magenta], [blue, light_blue]]
+pause_col = grey
+pause_sel_col = green
