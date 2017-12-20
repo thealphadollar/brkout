@@ -3,6 +3,7 @@ from credits_screen import credits_screen
 from global_funcs import *
 from global_objects import *
 from constants import *
+from pause_screen import *
 import os
 
 # function to initialise pygame
@@ -11,7 +12,7 @@ import os
 def init():
 
     global screen, clock, flip_image, score, seconds_first, seconds_second, minutes_first, minutes_second, \
-        count_to_seconds, ball, striker, time_count, score_time, hit_count, brick_point
+        count_to_seconds, ball, striker, time_count, score_time, hit_count, brick_point, choice, bricks
 
     hit_count = 0  # stores number of bricks hit
     brick_point = 0  # stores the score accumulated by hitting brick
@@ -24,6 +25,7 @@ def init():
     count_to_seconds = 0
     score = 0
     flip_image = 0
+    choice = 0 # for the pause option
     
     # initialising sound system
     pygame.mixer.pre_init(44100, -16, 2, 2048)
@@ -38,9 +40,13 @@ def init():
 
     # initialising time
     clock = pygame.time.Clock()
+    
+    # initialising bricks
+    bricks = pygame.sprite.Group()
+    add_to_group()
 
 
-# function to show time
+
 
 def add_to_group():
     y=0
@@ -78,13 +84,14 @@ def add_to_group():
         x+=1
 
 
+# function to show time
 def show_time(start_timer):
     global count_to_seconds, seconds_second, seconds_first, minutes_first, minutes_second
 
     if start_timer:
         count_to_seconds += 1
 
-    if count_to_seconds == 60:
+    if count_to_seconds == FPS:
         seconds_first += 1
         count_to_seconds = 0
     if seconds_first == 10:
@@ -136,9 +143,9 @@ def show_score(start_timer):
 def show_speed(ball):
 
     disp_text(screen, "speed :", (scr_width/2 - 30, 21), main_screen_text, silver)
-    if (ball.speed * 10) > 80:
+    if (ball.speed * 10) > 70:
         disp_text(screen, str(int(ball.speed * 10)), (scr_width/2 + 15, 21), main_screen_number, pure_green)
-    elif (ball.speed * 10) > 20:
+    elif (ball.speed * 10) > 30:
         disp_text(screen, str(int(ball.speed * 10)), (scr_width / 2 + 15, 21), main_screen_number, yellow)
     else:
         disp_text(screen, str(int(ball.speed * 10)), (scr_width / 2 + 15, 21), main_screen_number, pure_red)
@@ -154,7 +161,8 @@ def check_collisions():
         else:
             did_collide = br.check_ver_coll(ball)
         if did_collide:
-            hit_count += 1
+            if ball.speed > 3:
+                hit_count += 1
             brick_point += br.update(ball.speed)
 
 def render_field():
@@ -188,13 +196,15 @@ def render_field():
 
 def events():
     # getting in events
+    global choice
     for event in pygame.event.get():
 
         if event.type == pygame.KEYDOWN:
             # pausing the game
             if event.key == pygame.K_SPACE or event.key == pygame.K_ESCAPE:
-                #pause_game() function to add pause game
-                pass           
+                #pause_game() function
+                choice = pause_game(screen,clock)
+                
         # quitting the game
         if event.type == pygame.QUIT:
             os._exit(0)
@@ -215,7 +225,7 @@ def events():
         striker.y_velocity = 0
 
 def gameloop(striker_color):
-    global screen, clock, ball, striker
+    global screen, clock, ball, striker, choice
     start_time = False
 
     while True:
@@ -223,12 +233,16 @@ def gameloop(striker_color):
         # time passed
         delta_time = clock.get_time() / 10
        
-       #drawing the game field
+        # drawing the game field
         render_field()
 
         # getting the events
         events()
-
+        
+        # returning pause options if it is not resume
+        if choice:
+            return choice + 1
+        
         # updating elements
         striker.update(delta_time)
         ball.main_screen_move(delta_time)
@@ -242,7 +256,8 @@ def gameloop(striker_color):
             start_time = ball.collision_striker(striker)
         else:
             ball.collision_striker(striker)
-
+        
+        # checking winning
         if ball.check_escape():
             temp_time = pygame.time.get_ticks()
             while pygame.time.get_ticks() - temp_time < 400:
@@ -252,34 +267,57 @@ def gameloop(striker_color):
         # rendering various elements
         striker.draw(screen, striker_color)
         ball.draw(screen)
-        # show bricks
+        
+        # drawing bricks
         for br in bricks:
             br.draw23(screen)
 
         # show time function
         show_time(start_time)
+       
         # show score
         show_score(start_time)
+
         # show speed
         show_speed(ball)
+
+        # check loosing
         if ball.speed == 0 and start_time:
             temp_time = pygame.time.get_ticks()
             while pygame.time.get_ticks() - temp_time < 400:
                 pass
             return 0
+            
+        # flipping
         pygame.display.update()
         clock.tick(FPS)
-
-bricks = pygame.sprite.Group()
-add_to_group()
 
 if __name__ == "__main__":
 
     while True:
         init()  # used to initialise the pygame module
         choice, color_choice = menu_screen(screen, clock)
+        
+        # if the player presses "Let's Escape"
         if choice == 0:
             end_choice = gameloop(striker_colors[color_choice])
-            os._exit(0)
+            # As long as player presses restart
+            while end_choice == 2:
+                init()
+                end_choice = gameloop(striker_colors[color_choice])
+            
+            # if the player looses
+            if end_choice == 0:
+                os._exit(0)
+                
+            # if the player wins
+            elif end_choice == 1:
+                os._exit(0)
+            
+            # if the player presses "Main Menu"
+            elif end_choice == 3:
+                pass
+                
+        # if the player presses "I m scared"
         elif choice == 1:
             credits_screen(screen, clock)
