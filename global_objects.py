@@ -68,6 +68,23 @@ class Ball(pygame.sprite.Sprite):
             elif (self.y > scr_height/2 + 40 - self.radius) and (self.y < scr_height/2 + 40 - self.radius + 15):
                 self.y = scr_height/2 + 40 - self.radius
                 self.angle = math.pi - self.angle
+                
+    def check_collide_options(self):
+        if (self.y < scr_height/2 + 188 + self.radius) and (self.y > scr_height/2 -188 - self.radius):
+            if (self.x < scr_width/2 + 158 + self.radius) and (self.x > scr_width/2 + 158 + self.radius - 15):
+                self.x = scr_width/2 + 158 + self.radius
+                self.angle = -self.angle
+            elif (self.x > scr_width/2 - 158 - self.radius) and (self.x < scr_width/2 - 158 - self.radius + 15):
+                self.x = scr_width/2 - 158 - self.radius
+                self.angle = -self.angle
+
+        if (self.x < scr_width/2 + 158 + self.radius) and (self.x > scr_width/2 - 158 - self.radius):
+            if (self.y < scr_height/2 + 188 + self.radius) and (self.y > scr_height/2 + 188 + self.radius - 15):
+                self.y = scr_height/2 + 188 + self.radius
+                self.angle = math.pi - self.angle
+            elif (self.y > scr_height/2 - 188 - self.radius) and (self.y < scr_height/2 -188 - self.radius + 15):
+                self.y = scr_height/2 -188 - self.radius
+                self.angle = math.pi - self.angle
 
     # checks collision with game boundary
     def check_escape(self):
@@ -300,6 +317,8 @@ class Bricks(pygame.sprite.Sprite):
         return did_collide
         
     def update(self,speed):
+        if speed <= 3:
+            return 0
         self.brick_value -= 1
         if self.brick_value == 0:
             self.kill()
