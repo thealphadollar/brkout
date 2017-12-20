@@ -14,6 +14,7 @@ def menu_screen(screen, clock):
     # declaring important variables
     color_choice = 0
     option_flag = 0
+    random_hint = random.randint(0, 7)  # displays random quote
 
     while True:
 
@@ -49,6 +50,11 @@ def menu_screen(screen, clock):
         menu_ball.check_collide_palette()
         menu_ball.draw(screen)
 
+        # display quote
+        # displaying random hint
+        disp_text(screen, "\"" + hint_message[random_hint % 7] + "\"", (scr_width / 2, scr_height / 4 + 100),
+                  quote_text, orange)
+
         # display title
         disp_text(screen, "Brk", (scr_width/2 - 85, scr_height/2 - 200), game_title_text_large, orange)
         disp_text(screen, "OUT", (scr_width / 2 + 85, scr_height / 2 - 200), game_title_text_small, white)
@@ -61,7 +67,8 @@ def menu_screen(screen, clock):
             disp_text(screen, "Let's Escape", (scr_width/2, scr_height/2), menu_item_text, grey)
 
         # display white boundary around color palette
-        pygame.draw.rect(screen, white, (scr_width/2 - 200, scr_height/2 + 40, 400, 100), 2)
+        pygame.draw.rect(screen, white, (scr_width/2 - 200, scr_height/2 + 40, 400, 100), 3)
+        pygame.draw.rect(screen, white, (scr_width / 2 - 192, scr_height / 2 + 48, 384, 84), 2)
 
         # display color palette
         if color_choice == 0:
@@ -94,7 +101,7 @@ def menu_screen(screen, clock):
         if option_flag == 0:
             disp_text(screen, "Press Enter To Play", (scr_width/2, scr_height/2 + 300), message_text, yellow)
         elif option_flag == 1:
-            disp_text(screen, "Press Enter To Quit", (scr_width / 2, scr_height / 2 + 300), message_text, yellow)
+            disp_text(screen, "Press Enter To Quit Game", (scr_width / 2, scr_height / 2 + 300), message_text, yellow)
 
         pygame.display.update()
         clock.tick(FPS)

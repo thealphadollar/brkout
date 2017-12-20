@@ -1,10 +1,7 @@
-from start_screen import menu_screen
 from credits_screen import credits_screen
-from global_funcs import *
-from global_objects import *
-from constants import *
 from pause_screen import *
 import os
+from end_screen import end_screen
 
 # function to initialise pygame
 
@@ -44,8 +41,6 @@ def init():
     # initialising bricks
     bricks = pygame.sprite.Group()
     add_to_group()
-
-
 
 
 def add_to_group():
@@ -105,7 +100,7 @@ def show_time(start_timer):
         minutes_first = 0
 
     # displaying time label
-    disp_text(screen, "runtime : ", (scr_width - 110, 21), main_screen_text, silver)
+    disp_text(screen, "pursuit : ", (scr_width - 110, 21), main_screen_text, silver)
     disp_text(screen, str(minutes_second)+str(minutes_first)+":"+str(seconds_second)+str(seconds_first),
               (scr_width - 40, 21), main_screen_number, silver)
 
@@ -294,6 +289,8 @@ def gameloop(striker_color):
 
 if __name__ == "__main__":
 
+    global score, seconds_first, seconds_second, minutes_first, minutes_second, screen
+
     while True:
         init()  # used to initialise the pygame module
         choice, color_choice = menu_screen(screen, clock)
@@ -302,22 +299,24 @@ if __name__ == "__main__":
         if choice == 0:
             end_choice = gameloop(striker_colors[color_choice])
             # As long as player presses restart
-            while end_choice == 2:
-                init()
-                end_choice = gameloop(striker_colors[color_choice])
-            
-            # if the player looses
-            if end_choice == 0:
-                os._exit(0)
+            first = True
+            while end_choice == 2 or first:
+                if not first:
+                    init()
+                    end_choice = gameloop(striker_colors[color_choice])
+
+                # if the player looses
+                if end_choice == 0:
+                    end_choice = end_screen(screen, False, score, seconds_first, seconds_second, minutes_first, minutes_second, clock)
                 
-            # if the player wins
-            elif end_choice == 1:
-                os._exit(0)
+                # if the player wins
+                elif end_choice == 1:
+                    end_choice = end_screen(screen, True, score, seconds_first, seconds_second, minutes_first, minutes_second, clock)
+
+                first = False
             
-            # if the player presses "Main Menu"
-            elif end_choice == 3:
-                pass
-                
+            # if the player presses "Main Menu", loop goes on!
+
         # if the player presses "I m scared"
         elif choice == 1:
             credits_screen(screen, clock)

@@ -1,6 +1,3 @@
-from constants import *
-import random
-import math
 from global_funcs import *
 
 class Ball(pygame.sprite.Sprite):
@@ -54,21 +51,41 @@ class Ball(pygame.sprite.Sprite):
     # function to check collision with color palette
     def check_collide_palette(self):
         if (self.y < scr_height/2 + 140 + self.radius) and (self.y > scr_height/2 + 40 - self.radius):
-            if (self.x < scr_width/2 + 200 + self.radius) and (self.x > scr_width/2 + 200 + self.radius - 15):
+            if (self.x < scr_width/2 + 200 + self.radius) and (self.x > scr_width/2 + 200):
                 self.x = scr_width/2 + 200 + self.radius
                 self.angle = -self.angle
-            elif (self.x > scr_width/2 - 200 - self.radius) and (self.x < scr_width/2 - 200 - self.radius + 15):
+            elif (self.x > scr_width/2 - 200 - self.radius) and (self.x < scr_width/2 - 200):
                 self.x = scr_width/2 - 200 - self.radius
                 self.angle = -self.angle
 
         if (self.x < scr_width/2 + 200 + self.radius) and (self.x > scr_width/2 - 200 - self.radius):
-            if (self.y < scr_height/2 + 140 + self.radius) and (self.y > scr_height/2 + 140 + self.radius - 15):
+            if (self.y < scr_height/2 + 140 + self.radius) and (self.y > scr_height/2 + 140):
                 self.y = scr_height/2 + 140 + self.radius
                 self.angle = math.pi - self.angle
-            elif (self.y > scr_height/2 + 40 - self.radius) and (self.y < scr_height/2 + 40 - self.radius + 15):
+            elif (self.y > scr_height/2 + 40 - self.radius) and (self.y < scr_height/2 + 40):
                 self.y = scr_height/2 + 40 - self.radius
                 self.angle = math.pi - self.angle
-                
+
+    # function to check collision with losing end screen box
+    def check_collide_lose(self):
+        if (self.y < scr_height/2 + 230 + self.radius) and (self.y > scr_height/2 + 40 - self.radius):
+            if (self.x < scr_width/2 + 250 + self.radius) and (self.x > scr_width/2 + 250):
+                self.x = scr_width/2 + 250 + self.radius
+                self.angle = -self.angle
+            elif (self.x > scr_width/2 - 250 - self.radius) and (self.x < scr_width/2 - 250):
+                self.x = scr_width/2 - 250 - self.radius
+                self.angle = -self.angle
+
+        if (self.x < scr_width/2 + 250 + self.radius) and (self.x > scr_width/2 - 250 - self.radius):
+            if (self.y < scr_height/2 + 230 + self.radius) and (self.y > scr_height/2 + 230):
+                self.y = scr_height/2 + 230 + self.radius
+                self.angle = math.pi - self.angle
+            elif (self.y > scr_height/2 + 40 - self.radius) and (self.y < scr_height/2 + 40):
+                self.y = scr_height/2 + 40 - self.radius
+                self.angle = math.pi - self.angle
+
+    # function to check collision with pause screen box
+
     def check_collide_options(self):
         if (self.y < scr_height/2 + 188 + self.radius) and (self.y > scr_height/2 -188 - self.radius):
             if (self.x < scr_width/2 + 158 + self.radius) and (self.x > scr_width/2 + 158 + self.radius - 15):
@@ -216,8 +233,8 @@ class Striker:
         if distance < strike_bound_radius - self.radius:
             return
 
-        self.x_velocity = -self.x_velocity
-        self.y_velocity = -self.y_velocity
+        self.x_velocity = 0
+        self.y_velocity = 0
 
         angle = math.atan2(dx, dy)
         self.x = main_game_middle_x + ((strike_bound_radius - self.radius) * math.sin(angle))
@@ -228,7 +245,8 @@ class Striker:
         pygame.draw.circle(screen, silver, (int(self.x), int(self.y)), self.radius, 1)
         pygame.draw.circle(screen, wall_silver, (int(self.x), int(self.y)), self.radius - 10, 1)
         pygame.draw.circle(screen, wall_silver, (int(self.x), int(self.y)), self.radius - 30, 1)
-        
+
+
 class Bricks(pygame.sprite.Sprite):
     def __init__(self,x,y,VH):
         pygame.sprite.Sprite.__init__(self)
@@ -237,7 +255,7 @@ class Bricks(pygame.sprite.Sprite):
         self.brick_value = random.randint(1,3)
         self.ori_brick_value = self.brick_value
         self.type = VH
-        self.color = brick_colors[(self.brick_value)%3]
+        self.color = brick_colors[self.brick_value % 3]
         if random.random() > 0.94:
             self.brick_value = 1000000007
             # self.color = grey
@@ -263,6 +281,7 @@ class Bricks(pygame.sprite.Sprite):
         # returns true if collision takes place
         did_collide = False
         x, y = self.x, self.y
+        # lower side
         if (ball.x > x - ball.radius) and (ball.x < x + horizontal_brick_width + ball.radius):
             if (ball.y < y + horizontal_brick_height + ball.radius) and (ball.y > y + horizontal_brick_height):
                 ball.y = y + horizontal_brick_height + ball.radius
@@ -319,14 +338,13 @@ class Bricks(pygame.sprite.Sprite):
     def update(self,speed):
         if speed <= 3:
             return 0
-        self.brick_value -= 1
-        if self.brick_value == 0:
+        self.brick_value -= speed / MAX_BALL_SPEED
+        if self.brick_value <= 0:
             self.kill()
             return self.ori_brick_value * 200
         elif self.brick_value <=3 :
-            self.color = brick_colors[(self.brick_value)%3]
+            self.color = brick_colors[int(math.ceil(self.brick_value))%3]
             return 0
         else:
             self.color = grey
             return 0
-            

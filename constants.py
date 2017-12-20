@@ -53,6 +53,11 @@ main_screen_text = pygame.font.Font(os.path.join(assets_directory, 'FutureTimeSp
 main_screen_number = pygame.font.Font(os.path.join(assets_directory, 'digital-7.ttf'), 25)
 pause_text = pygame.font.Font(os.path.join(assets_directory, 'chiller.ttf'), 50)
 pause_text_s = pygame.font.Font(os.path.join(assets_directory, 'chiller.ttf'), 65)
+end_screen_text = pygame.font.Font(os.path.join(assets_directory, 'FutureTimeSplittersupdate.otf'), 50)
+end_screen_number = pygame.font.Font(os.path.join(assets_directory, 'digital-7.ttf'), 30)
+end_title_text_win = pygame.font.Font(os.path.join(assets_directory, 'Jolly Bold.ttf'), 60)
+end_title_text_lose = pygame.font.Font(os.path.join(assets_directory, 'PWScratchy.ttf'), 60)
+quote_text = pygame.font.Font(os.path.join(assets_directory, 'TheHills.ttf'), 37)
 
 # music files
 
@@ -80,11 +85,19 @@ light_magenta = (155, 89, 182)
 blue = (46, 134, 193)
 light_blue = (52, 152, 219)
 credit_orange = (240, 146, 54)
-pure_red = (255,0,0)
-pure_green = (0,255,0)
-pure_blue = (0,0,255)
+pure_red = (255, 0, 0)
+pure_green = (0, 255, 0)
+pure_blue = (0, 0 , 255)
+peace_green = (24, 163, 24)
+blood_red = (138, 7, 7)
 striker_colors = [green, red, magenta, blue]
-brick_colors = [pure_red, pure_green, yellow]
+brick_colors = [pure_green, pure_red, yellow]  # red are weakest, yellow are ok, and green are healthy
 color_option_palette = [[green, light_green], [red, light_red], [magenta, light_magenta], [blue, light_blue]]
 pause_col = grey
 pause_sel_col = green
+
+# hint messages
+hint_message = ["Harder The Hit, Quicker Breaks The Brick", "Lesser The Hits, Higher The Score Picked", "Go For The \
+Red, They Have Brittlest Head", "A Thumb Rule To Follow, Never Hit The Brick That Refuses To Glow", "More Time You \
+Spend Behind Bars, Worse Are You, Once Out", "To A Patch You Are Bound, Since There's Light Around", "Thinking About \
+Rest? Remember The Guards, Gathering Like It's A College Fest!"]
