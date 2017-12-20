@@ -206,15 +206,15 @@ def events():
 
     # updating striker
     pressed = pygame.key.get_pressed()
-    if pressed[pygame.K_RIGHT]:
+    if pressed[pygame.K_RIGHT] or pressed[pygame.K_d]:
         striker.x_velocity += .5
-    elif pressed[pygame.K_LEFT]:
+    elif pressed[pygame.K_LEFT] or pressed[pygame.K_a]:
         striker.x_velocity -= .5
     else:
         striker.x_velocity = 0
-    if pressed[pygame.K_UP]:
+    if pressed[pygame.K_UP] or pressed[pygame.K_w]:
         striker.y_velocity -= .5
-    elif pressed[pygame.K_DOWN]:
+    elif pressed[pygame.K_DOWN] or pressed[pygame.K_s]:
         striker.y_velocity += .5
     else:
         striker.y_velocity = 0

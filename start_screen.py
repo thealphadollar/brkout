@@ -24,15 +24,15 @@ def menu_screen(screen, clock):
         # checking for events
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_UP:
+                if event.key == pygame.K_UP or event.key == pygame.K_w:
                     option_flag = (option_flag + 1) % 2
-                if event.key == pygame.K_DOWN:
+                if event.key == pygame.K_DOWN or event.key == pygame.K_s:
                     option_flag = (option_flag - 1) % 2
-                if event.key == pygame.K_LEFT:
+                if event.key == pygame.K_LEFT or event.key == pygame.K_a:
                     color_choice = (color_choice + 3) % 4
-                if event.key == pygame.K_RIGHT:
+                if event.key == pygame.K_RIGHT or event.key == pygame.K_d:
                     color_choice = (color_choice + 1) % 4
-                if event.key == pygame.K_RETURN:
+                if event.key == pygame.K_RETURN or event.key == pygame.K_SPACE:
                     return option_flag, color_choice  # return index of color in striker_colors
 
                 if event.key == pygame.K_ESCAPE:

@@ -29,11 +29,11 @@ def pause_game(screen,clock):
             if event.type == pygame.KEYDOWN and (event.key == pygame.K_ESCAPE or event.key == pygame.K_SPACE):
                 return 
             
-            if event.type == pygame.KEYDOWN and event.key == pygame.K_UP:
+            if event.type == pygame.KEYDOWN and (event.key == pygame.K_UP or event.key == pygame.K_w):
                 option += 3
                 option %= 4
             
-            if event.type == pygame.KEYDOWN and event.key == pygame.K_DOWN:
+            if event.type == pygame.KEYDOWN and (event.key == pygame.K_DOWN or event.key == pygame.K_s):
                 option += 1
                 option %= 4
                 

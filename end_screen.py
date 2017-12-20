@@ -12,11 +12,11 @@ def events():
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_F4 and (pressed[pygame.K_RALT] or pressed[pygame.K_LALT]):
                 os._exit(0)
-            if event.key == pygame.K_RIGHT or event.key == pygame.K_DOWN:
+            if event.key == pygame.K_RIGHT or event.key == pygame.K_DOWN or event.key == pygame.K_s or event.key == pygame.K_d:
                 option = (option + 1) % 3
-            if event.key == pygame.K_LEFT or event.key == pygame.K_UP:
+            if event.key == pygame.K_LEFT or event.key == pygame.K_UP or event.key == pygame.K_w or event.key == pygame.K_a:
                 option = (option + 2) % 3
-            if event.key == pygame.K_RETURN:
+            if event.key == pygame.K_RETURN or event.key == pygame.K_SPACE:
                 return True  # to indicate that player has made a choice
         if event.type == pygame.QUIT:
             os._exit(0)
@@ -39,18 +39,18 @@ def end_screen(screen, win, score, seconds_first, seconds_second, minutes_first,
         # if player won the game, theme like he is out of the captivity
         if win:
             screen.fill(white)
-            disp_text(screen, "How Freedom Feels?", (scr_width / 2, scr_height / 4), end_title_text_win,
+            disp_text(screen, "Sweet Open Air!", (scr_width / 2, scr_height / 4), end_title_text_win,
                       peace_green)
             # displaying menu options
             if option == 0:
-                disp_text(screen, "Get Dirty Again?", (scr_width / 2, scr_height / 2 + 80), menu_item_text_selected, silver)
+                disp_text(screen, "Get Dirty Again", (scr_width / 2, scr_height / 2 + 80), menu_item_text_selected, silver)
             else:
-                disp_text(screen, "Get Dirty Again?", (scr_width / 2, scr_height / 2 + 80), menu_item_text, grey)
+                disp_text(screen, "Get Dirty Again", (scr_width / 2, scr_height / 2 + 80), menu_item_text, grey)
 
             if option == 1:
-                disp_text(screen, "Rest A While?", (scr_width / 2, scr_height / 2 + 130), menu_item_text_selected, silver)
+                disp_text(screen, "Rest A While", (scr_width / 2, scr_height / 2 + 130), menu_item_text_selected, silver)
             else:
-                disp_text(screen, "Rest A While?", (scr_width / 2, scr_height / 2 + 130), menu_item_text, grey)
+                disp_text(screen, "Rest A While", (scr_width / 2, scr_height / 2 + 130), menu_item_text, grey)
 
             if option == 2:
                 disp_text(screen, "Food Stinks There!", (scr_width / 2, scr_height / 2 + 180), menu_item_text_selected, silver)
@@ -75,14 +75,14 @@ def end_screen(screen, win, score, seconds_first, seconds_second, minutes_first,
 
             # displaying menu options
             if option == 0:
-                disp_text(screen, "Pull It Again?", (scr_width / 2, scr_height / 2 + 80), menu_item_text_selected, silver)
+                disp_text(screen, "Pull It Again", (scr_width / 2, scr_height / 2 + 80), menu_item_text_selected, silver)
             else:
-                disp_text(screen, "Pull It Again?", (scr_width / 2, scr_height / 2 + 80), menu_item_text, grey)
+                disp_text(screen, "Pull It Again", (scr_width / 2, scr_height / 2 + 80), menu_item_text, grey)
 
             if option == 1:
-                disp_text(screen, "Change Disguise?", (scr_width / 2, scr_height / 2 + 130), menu_item_text_selected, silver)
+                disp_text(screen, "Change Disguise", (scr_width / 2, scr_height / 2 + 130), menu_item_text_selected, silver)
             else:
-                disp_text(screen, "Change Disguise?", (scr_width / 2, scr_height / 2 + 130), menu_item_text, grey)
+                disp_text(screen, "Change Disguise", (scr_width / 2, scr_height / 2 + 130), menu_item_text, grey)
 
             if option == 2:
                 disp_text(screen, "Give Up?", (scr_width / 2, scr_height / 2 + 180), menu_item_text_selected, silver)
