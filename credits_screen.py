@@ -83,6 +83,7 @@ def credits_screen(screen, clock):
         cr.update()
         screen.fill(black)
         x = float(1)
+        draw_walls(screen, post_brick_width, post_brick_height)
         while x <= scr_width:
             pg.draw.aaline(screen, wall_silver, (x, 0), (x, scr_height), 2)
             pg.draw.aaline(screen, wall_silver, (x+1, 0), (x, scr_height), 2)
