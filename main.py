@@ -23,7 +23,7 @@ def init():
     score = 0
     flip_image = 0
     choice = 0 # for the pause option
-    
+
     # initialising sound system
     pygame.mixer.pre_init(44100, -16, 2, 2048)
     pygame.mixer.init()
@@ -37,7 +37,7 @@ def init():
 
     # initialising time
     clock = pygame.time.Clock()
-    
+
     # initialising bricks
     bricks = pygame.sprite.Group()
     add_to_group()
@@ -52,7 +52,7 @@ def add_to_group():
             bricks.add(b)
             x += horizontal_brick_width
         y += 1
-    y=0   
+    y=0
     while y<4:
         x=100 + y*vertical_brick_width
         while x < 800-y*vertical_brick_width:
@@ -62,16 +62,16 @@ def add_to_group():
         y += 1
     x=1
     while x<5:
-        y= 40 + x*horizontal_brick_height 
+        y= 40 + x*horizontal_brick_height
         while y < 700 - x*horizontal_brick_height:
             b= Bricks( 100 + (x-1)*vertical_brick_width, y, 0)
             bricks.add(b)
             y += vertical_brick_height
         x+=1
-    
+
     x=1
     while x<5:
-        y= 40 + x*horizontal_brick_height 
+        y= 40 + x*horizontal_brick_height
         while y < 700 - x*horizontal_brick_height:
             b= Bricks( 800 - x*vertical_brick_width, y, 0)
             bricks.add(b)
@@ -118,7 +118,7 @@ def show_score(start_timer):
     if time_count == 60:
         score_time += 1
         time_count = 0
-    
+
     if score_time > 0:
         score = int(brick_point / (.7 * math.sqrt(score_time) + .3 * (hit_count ** (1.0/3))))
 
@@ -199,7 +199,7 @@ def events():
             if event.key == pygame.K_SPACE or event.key == pygame.K_ESCAPE:
                 #pause_game() function
                 choice = pause_game(screen,clock)
-                
+
         # quitting the game
         if event.type == pygame.QUIT:
             os._exit(0)
@@ -227,17 +227,17 @@ def gameloop(striker_color):
 
         # time passed
         delta_time = clock.get_time() / 10
-       
+
         # drawing the game field
         render_field()
 
         # getting the events
         events()
-        
+
         # returning pause options if it is not resume
         if choice:
             return choice + 1
-        
+
         # updating elements
         striker.update(delta_time)
         ball.main_screen_move(delta_time)
@@ -251,7 +251,7 @@ def gameloop(striker_color):
             start_time = ball.collision_striker(striker)
         else:
             ball.collision_striker(striker)
-        
+
         # checking winning
         if ball.check_escape():
             temp_time = pygame.time.get_ticks()
@@ -262,14 +262,14 @@ def gameloop(striker_color):
         # rendering various elements
         striker.draw(screen, striker_color)
         ball.draw(screen)
-        
+
         # drawing bricks
         for br in bricks:
             br.draw23(screen)
 
         # show time function
         show_time(start_time)
-       
+
         # show score
         show_score(start_time)
 
@@ -281,8 +281,8 @@ def gameloop(striker_color):
             temp_time = pygame.time.get_ticks()
             while pygame.time.get_ticks() - temp_time < 400:
                 pass
-            return 0
-            
+            return 1
+
         # flipping
         pygame.display.update()
         clock.tick(FPS)
@@ -294,7 +294,7 @@ if __name__ == "__main__":
     while True:
         init()  # used to initialise the pygame module
         choice, color_choice = menu_screen(screen, clock)
-        
+
         # if the player presses "Let's Escape"
         if choice == 0:
             end_choice = gameloop(striker_colors[color_choice])
@@ -308,13 +308,13 @@ if __name__ == "__main__":
                 # if the player looses
                 if end_choice == 0:
                     end_choice = end_screen(screen, False, score, seconds_first, seconds_second, minutes_first, minutes_second, clock)
-                
+
                 # if the player wins
                 elif end_choice == 1:
                     end_choice = end_screen(screen, True, score, seconds_first, seconds_second, minutes_first, minutes_second, clock)
 
                 first = False
-            
+
             # if the player presses "Main Menu", loop goes on!
 
         # if the player presses "I m scared"
