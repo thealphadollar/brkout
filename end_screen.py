@@ -1,7 +1,7 @@
 from global_objects import *
 from global_funcs import *
 from constants import *
-
+from highscore import *
 # checking for user inputs
 
 
@@ -22,13 +22,15 @@ def events():
             os._exit(0)
         return False
 
+def highscore(score):
+
 
 def end_screen(screen, win, score, seconds_first, seconds_second, minutes_first, minutes_second, clock):
     global option
 
     # initialising ball for this screen
     ball = Ball(scr_width / 2, scr_height - wall_brick_height)
-
+    new_high = highscore(score)
     option = 0
     random_hint = random.randint(0, 7)  # getting value for random hint
     while True:
@@ -43,19 +45,19 @@ def end_screen(screen, win, score, seconds_first, seconds_second, minutes_first,
                       peace_green)
             # displaying menu options
             if option == 0:
-                disp_text(screen, "Get Dirty Again", (scr_width / 2, scr_height / 2 + 80), menu_item_text_selected, silver)
+                disp_text(screen, "Get Dirty Again", (scr_width / 2, scr_height / 2 + 80), menu_item_text_selected, black)
             else:
-                disp_text(screen, "Get Dirty Again", (scr_width / 2, scr_height / 2 + 80), menu_item_text, grey)
+                disp_text(screen, "Get Dirty Again", (scr_width / 2, scr_height / 2 + 80), menu_item_text, light_black)
 
             if option == 1:
-                disp_text(screen, "Rest A While", (scr_width / 2, scr_height / 2 + 130), menu_item_text_selected, silver)
+                disp_text(screen, "Rest A While", (scr_width / 2, scr_height / 2 + 130), menu_item_text_selected, black)
             else:
-                disp_text(screen, "Rest A While", (scr_width / 2, scr_height / 2 + 130), menu_item_text, grey)
+                disp_text(screen, "Rest A While", (scr_width / 2, scr_height / 2 + 130), menu_item_text, light_black)
 
             if option == 2:
-                disp_text(screen, "Food Stinks There!", (scr_width / 2, scr_height / 2 + 180), menu_item_text_selected, silver)
+                disp_text(screen, "Food Stinks There!", (scr_width / 2, scr_height / 2 + 180), menu_item_text_selected, black)
             else:
-                disp_text(screen, "Food Stinks There!", (scr_width / 2, scr_height / 2 + 180), menu_item_text, grey)
+                disp_text(screen, "Food Stinks There!", (scr_width / 2, scr_height / 2 + 180), menu_item_text, light_black)
 
             # drawing box around options
             pygame.draw.rect(screen, black, (scr_width / 2 - 250, scr_height / 2 + 40, 500, 190), 2)
@@ -104,11 +106,11 @@ def end_screen(screen, win, score, seconds_first, seconds_second, minutes_first,
 
         # display message
         if option == 0:
-            disp_text(screen, "Press Enter To Restart", (scr_width / 2, scr_height / 2 + 300), message_text, yellow)
+            disp_text(screen, "Press Enter To Restart", (scr_width / 2, scr_height / 2 + 300), message_text, red)
         elif option == 1:
-            disp_text(screen, "Press Enter To Go To Menu", (scr_width / 2, scr_height / 2 + 300), message_text, yellow)
+            disp_text(screen, "Press Enter To Go To Menu", (scr_width / 2, scr_height / 2 + 300), message_text, red)
         elif option == 2:
-            disp_text(screen, "Press Enter To Quit Game", (scr_width / 2, scr_height / 2 + 300), message_text, yellow)
+            disp_text(screen, "Press Enter To Quit Game", (scr_width / 2, scr_height / 2 + 300), message_text, red)
 
         # displaying random hint
         disp_text(screen, "\""+hint_message[random_hint % 7]+"\"", (scr_width / 2, scr_height / 4 + 100), quote_text, orange)
