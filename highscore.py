@@ -11,7 +11,7 @@ import string
 
 # For other means of disturbing the file have been taken care of
 
-ini_score = "000000000" # combination of time and score
+ini_score = "000000000"  # combination of time and score
 
 def encode(score_str): # function to encode the string
     i = 0

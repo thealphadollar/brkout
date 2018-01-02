@@ -281,11 +281,12 @@ def gameloop(striker_color):
             temp_time = pygame.time.get_ticks()
             while pygame.time.get_ticks() - temp_time < 400:
                 pass
-            return 1
+            return 0
 
         # flipping
         pygame.display.update()
         clock.tick(FPS)
+
 
 if __name__ == "__main__":
 

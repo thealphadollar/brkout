@@ -23,7 +23,7 @@ def events():
         return False
 
 def highscore(score):
-
+    pass
 
 def end_screen(screen, win, score, seconds_first, seconds_second, minutes_first, minutes_second, clock):
     global option
