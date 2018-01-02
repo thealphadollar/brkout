@@ -44,20 +44,23 @@ friction = .015
 # text formats
 game_title_text_large = pygame.font.Font(os.path.join(assets_directory, 'Weston Free.otf'), 120)
 game_title_text_small = pygame.font.Font(os.path.join(assets_directory, 'Weston Free.otf'), 100)
-menu_item_text_selected = pygame.font.Font(os.path.join(assets_directory, 'nougatine.ttf'), 35)
+menu_item_text_selected = pygame.font.Font(os.path.join(assets_directory, 'nougatine.ttf'), 40)
 menu_item_text = pygame.font.Font(os.path.join(assets_directory, 'nougatine.ttf'), 30)
 message_text = pygame.font.Font(os.path.join(assets_directory, 'ARCADECLASSIC.TTF'), 20)
+message_text1 = pygame.font.Font(os.path.join(assets_directory, 'ARCADECLASSIC.TTF'), 30)
 credits_text = pygame.font.Font(os.path.join(assets_directory, 'SF Atarian System Extended Bold Italic.ttf'), 45)
 credits_name = pygame.font.Font(os.path.join(assets_directory, 'Halo3.ttf'), 55)
 main_screen_text = pygame.font.Font(os.path.join(assets_directory, 'FutureTimeSplittersupdate.otf'), 36)
 main_screen_number = pygame.font.Font(os.path.join(assets_directory, 'digital-7.ttf'), 25)
 pause_text = pygame.font.Font(os.path.join(assets_directory, 'chiller.ttf'), 50)
-pause_text_s = pygame.font.Font(os.path.join(assets_directory, 'chiller.ttf'), 65)
+pause_text_s = pygame.font.Font(os.path.join(assets_directory, 'chiller.ttf'), 60)
 end_screen_text = pygame.font.Font(os.path.join(assets_directory, 'FutureTimeSplittersupdate.otf'), 50)
 end_screen_number = pygame.font.Font(os.path.join(assets_directory, 'digital-7.ttf'), 30)
 end_title_text_win = pygame.font.Font(os.path.join(assets_directory, 'Jolly Bold.ttf'), 60)
 end_title_text_lose = pygame.font.Font(os.path.join(assets_directory, 'PWScratchy.ttf'), 60)
 quote_text = pygame.font.Font(os.path.join(assets_directory, 'TheHills.ttf'), 37)
+pause_text_top = pygame.font.Font(os.path.join(assets_directory, 'Halo3.ttf'), 55)
+
 
 # music files
 
@@ -95,9 +98,13 @@ brick_colors = [pure_green, pure_red, yellow]  # red are weakest, yellow are ok,
 color_option_palette = [[green, light_green], [red, light_red], [magenta, light_magenta], [blue, light_blue]]
 pause_col = grey
 pause_sel_col = green
+pause_text_tops = light_red
 
 # hint messages
 hint_message = ["Harder The Hit, Quicker Breaks The Brick", "Lesser The Hits, Higher The Score Picked", "Go For The \
-Red, They Have Brittlest Head", "A Thumb Rule To Follow, Never Hit The Brick That Refuses To Glow", "More Time You \
+Red, They Have The Brittlest Head", "A Thumb Rule To Follow, Never Hit The Brick That Refuses To Glow", "More Time You \
 Spend Behind Bars, Worse Are You, Once Out", "To A Patch You Are Bound, Since There's Light Around", "Thinking About \
 Rest? Remember The Guards, Gathering Like It's A College Fest!"]
+
+# file list
+file_list = [x for x in xrange(33,127) if x!=36]

@@ -24,7 +24,7 @@ class Ball(pygame.sprite.Sprite):
             self.speed -= (friction * delta_time)
         else:
             self.speed = 0
-        
+
 
     # function to check collision with menu wall
     def check_collide_wall(self):
@@ -69,38 +69,38 @@ class Ball(pygame.sprite.Sprite):
     # function to check collision with losing end screen box
     def check_collide_lose(self):
         if (self.y < scr_height/2 + 230 + self.radius) and (self.y > scr_height/2 + 40 - self.radius):
-            if (self.x < scr_width/2 + 250 + self.radius) and (self.x > scr_width/2 + 250):
+            if (self.x < scr_width/2 + 250 + self.radius) and (self.x > scr_width/2 + 250 + self.radius - 15):
                 self.x = scr_width/2 + 250 + self.radius
                 self.angle = -self.angle
-            elif (self.x > scr_width/2 - 250 - self.radius) and (self.x < scr_width/2 - 250):
+            elif (self.x > scr_width/2 - 250 - self.radius) and (self.x < scr_width/2 - 250 - self.radius + 15):
                 self.x = scr_width/2 - 250 - self.radius
                 self.angle = -self.angle
 
         if (self.x < scr_width/2 + 250 + self.radius) and (self.x > scr_width/2 - 250 - self.radius):
-            if (self.y < scr_height/2 + 230 + self.radius) and (self.y > scr_height/2 + 230):
+            if (self.y < scr_height/2 + 230 + self.radius) and (self.y > scr_height/2 + 230 + self.radius - 15):
                 self.y = scr_height/2 + 230 + self.radius
                 self.angle = math.pi - self.angle
-            elif (self.y > scr_height/2 + 40 - self.radius) and (self.y < scr_height/2 + 40):
+            elif (self.y > scr_height/2 + 40 - self.radius) and (self.y < scr_height/2 + 40 - self.radius + 15):
                 self.y = scr_height/2 + 40 - self.radius
                 self.angle = math.pi - self.angle
 
     # function to check collision with pause screen box
 
     def check_collide_options(self):
-        if (self.y < scr_height/2 + 188 + self.radius) and (self.y > scr_height/2 -188 - self.radius):
-            if (self.x < scr_width/2 + 158 + self.radius) and (self.x > scr_width/2 + 158 + self.radius - 15):
-                self.x = scr_width/2 + 158 + self.radius
+        if (self.y < scr_height/2 + 208 + self.radius) and (self.y > scr_height/2 -168 - self.radius):
+            if (self.x < scr_width/2 + 178 + self.radius) and (self.x > scr_width/2 + 178 + self.radius - 15):
+                self.x = scr_width/2 + 178 + self.radius
                 self.angle = -self.angle
-            elif (self.x > scr_width/2 - 158 - self.radius) and (self.x < scr_width/2 - 158 - self.radius + 15):
-                self.x = scr_width/2 - 158 - self.radius
+            elif (self.x > scr_width/2 - 178 - self.radius) and (self.x < scr_width/2 - 178 - self.radius + 15):
+                self.x = scr_width/2 - 178 - self.radius
                 self.angle = -self.angle
 
-        if (self.x < scr_width/2 + 158 + self.radius) and (self.x > scr_width/2 - 158 - self.radius):
-            if (self.y < scr_height/2 + 188 + self.radius) and (self.y > scr_height/2 + 188 + self.radius - 15):
-                self.y = scr_height/2 + 188 + self.radius
+        if (self.x < scr_width/2 + 178 + self.radius) and (self.x > scr_width/2 - 178 - self.radius):
+            if (self.y < scr_height/2 + 208 + self.radius) and (self.y > scr_height/2 + 208 + self.radius - 15):
+                self.y = scr_height/2 + 208 + self.radius
                 self.angle = math.pi - self.angle
-            elif (self.y > scr_height/2 - 188 - self.radius) and (self.y < scr_height/2 -188 - self.radius + 15):
-                self.y = scr_height/2 -188 - self.radius
+            elif (self.y > scr_height/2 - 168 - self.radius) and (self.y < scr_height/2 -168 - self.radius + 15):
+                self.y = scr_height/2 -168 - self.radius
                 self.angle = math.pi - self.angle
 
     # checks collision with game boundary
@@ -133,7 +133,7 @@ class Ball(pygame.sprite.Sprite):
     # check collision with brick
 
     # horizontal brick
-    
+
 
     # define collision with striker
     def collision_striker(self, striker):
@@ -270,12 +270,12 @@ class Bricks(pygame.sprite.Sprite):
             self.rect = self.image.get_rect()
             self.rect.topleft = (x,y)
         self.health = self.brick_value * 100
-        
+
     def draw23(self,screen):
         self.image.fill(self.color)
         screen.blit(self.image,self.rect)
         pygame.draw.rect(screen,white,self.rect,2)
-        
+
     def check_hor_coll(self,ball):
         # lower side
         # returns true if collision takes place
@@ -288,7 +288,7 @@ class Bricks(pygame.sprite.Sprite):
                 ball.angle = math.pi - ball.angle
                 did_collide = True
         # upper side
-        
+
             elif (ball.y > y - ball.radius) and (ball.y < y):
                 ball.y = y - ball.radius
                 ball.angle = math.pi - ball.angle
@@ -300,13 +300,13 @@ class Bricks(pygame.sprite.Sprite):
                 ball. angle = -ball.angle
                 did_collide = True
         # right side
-       
+
             elif (ball.x < x + horizontal_brick_width + ball.radius) and (ball.x > x + horizontal_brick_width):
                 ball.x = x + horizontal_brick_width + ball.radius
                 ball.angle = -ball.angle
                 did_collide = True
         return did_collide
-    
+
     def check_ver_coll(self,ball):
         # lower side
         # returns true is collision takes place
@@ -334,7 +334,7 @@ class Bricks(pygame.sprite.Sprite):
                 ball.angle = -ball.angle
                 did_collide = True
         return did_collide
-        
+
     def update(self,speed):
         if speed <= 3:
             return 0
