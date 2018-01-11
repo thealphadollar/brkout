@@ -15,14 +15,15 @@ def init():
     brick_point = 0  # stores the score accumulated by hitting brick
     score_time = 0  # timer for the score calculation
     time_count = 0  # increases score_time after 60 frames
-    ball = Ball(main_game_middle_x + 50, main_game_middle_y + strike_bound_radius - 75)
+    ball = Ball(main_game_middle_x + 50,
+                main_game_middle_y + strike_bound_radius - 75)
     striker = Striker(main_game_middle_x, main_game_middle_y)
     seconds_first, seconds_second = 0, 0
     minutes_first, minutes_second = 0, 0
     count_to_seconds = 0
     score = 0
     flip_image = 0
-    choice = 0 # for the pause option
+    choice = 0  # for the pause option
 
     # initialising sound system
     pygame.mixer.pre_init(44100, -16, 2, 2048)
@@ -44,39 +45,39 @@ def init():
 
 
 def add_to_group():
-    y=0
-    while y<4:
-        x=100 + y*vertical_brick_width
+    y = 0
+    while y < 4:
+        x = 100 + y*vertical_brick_width
         while x < 800-y*vertical_brick_width:
-            b = Bricks(x,40 + y*horizontal_brick_height,1)
+            b = Bricks(x, 40 + y*horizontal_brick_height, 1)
             bricks.add(b)
             x += horizontal_brick_width
         y += 1
-    y=0
-    while y<4:
-        x=100 + y*vertical_brick_width
+    y = 0
+    while y < 4:
+        x = 100 + y*vertical_brick_width
         while x < 800-y*vertical_brick_width:
-            b = Bricks(x,670 - y*horizontal_brick_height,1)
+            b = Bricks(x, 670 - y*horizontal_brick_height, 1)
             bricks.add(b)
             x += horizontal_brick_width
         y += 1
-    x=1
-    while x<5:
-        y= 40 + x*horizontal_brick_height
+    x = 1
+    while x < 5:
+        y = 40 + x*horizontal_brick_height
         while y < 700 - x*horizontal_brick_height:
-            b= Bricks( 100 + (x-1)*vertical_brick_width, y, 0)
+            b = Bricks(100 + (x-1)*vertical_brick_width, y, 0)
             bricks.add(b)
             y += vertical_brick_height
-        x+=1
+        x += 1
 
-    x=1
-    while x<5:
-        y= 40 + x*horizontal_brick_height
+    x = 1
+    while x < 5:
+        y = 40 + x*horizontal_brick_height
         while y < 700 - x*horizontal_brick_height:
-            b= Bricks( 800 - x*vertical_brick_width, y, 0)
+            b = Bricks(800 - x*vertical_brick_width, y, 0)
             bricks.add(b)
             y += vertical_brick_height
-        x+=1
+        x += 1
 
 
 # function to show time
@@ -100,7 +101,8 @@ def show_time(start_timer):
         minutes_first = 0
 
     # displaying time label
-    disp_text(screen, "pursuit : ", (scr_width - 110, 21), main_screen_text, silver)
+    disp_text(screen, "pursuit : ", (scr_width - 110, 21),
+              main_screen_text, silver)
     disp_text(screen, str(minutes_second)+str(minutes_first)+":"+str(seconds_second)+str(seconds_first),
               (scr_width - 40, 21), main_screen_number, silver)
 
@@ -120,7 +122,8 @@ def show_score(start_timer):
         time_count = 0
 
     if score_time > 0:
-        score = int(brick_point / (.7 * math.sqrt(score_time) + .3 * (hit_count ** (1.0/3))))
+        score = int(
+            brick_point / (.7 * math.sqrt(score_time) + .3 * (hit_count ** (1.0/3))))
 
     # negative score not allowed
     if score < 0:
@@ -133,17 +136,20 @@ def show_score(start_timer):
     disp_text(screen, str(score), (100, 21), main_screen_number, silver)
 
 
-
 # function to show ball speed
 def show_speed(ball):
 
-    disp_text(screen, "speed :", (scr_width/2 - 30, 21), main_screen_text, silver)
+    disp_text(screen, "speed :", (scr_width/2 - 30, 21),
+              main_screen_text, silver)
     if (ball.speed * 10) > 70:
-        disp_text(screen, str(int(ball.speed * 10)), (scr_width/2 + 15, 21), main_screen_number, pure_green)
+        disp_text(screen, str(int(ball.speed * 10)),
+                  (scr_width/2 + 15, 21), main_screen_number, pure_green)
     elif (ball.speed * 10) > 30:
-        disp_text(screen, str(int(ball.speed * 10)), (scr_width / 2 + 15, 21), main_screen_number, yellow)
+        disp_text(screen, str(int(ball.speed * 10)),
+                  (scr_width / 2 + 15, 21), main_screen_number, yellow)
     else:
-        disp_text(screen, str(int(ball.speed * 10)), (scr_width / 2 + 15, 21), main_screen_number, pure_red)
+        disp_text(screen, str(int(ball.speed * 10)),
+                  (scr_width / 2 + 15, 21), main_screen_number, pure_red)
 
 
 # rendering static elements
@@ -159,6 +165,7 @@ def check_collisions():
             if ball.speed > 3:
                 hit_count += 1
             brick_point += br.update(ball.speed)
+
 
 def render_field():
 
@@ -185,9 +192,11 @@ def render_field():
     draw_walls(screen, post_brick_width, post_brick_height)
 
     # drawing striker boundary
-    pygame.draw.circle(screen, light_black, (main_game_middle_x, main_game_middle_y), strike_bound_radius)
+    pygame.draw.circle(screen, light_black, (main_game_middle_x,
+                                             main_game_middle_y), strike_bound_radius)
 
 # main game loop
+
 
 def events():
     # getting in events
@@ -197,8 +206,8 @@ def events():
         if event.type == pygame.KEYDOWN:
             # pausing the game
             if event.key == pygame.K_SPACE or event.key == pygame.K_ESCAPE:
-                #pause_game() function
-                choice = pause_game(screen,clock)
+                # pause_game() function
+                choice = pause_game(screen, clock)
 
         # quitting the game
         if event.type == pygame.QUIT:
@@ -218,6 +227,7 @@ def events():
         striker.y_velocity += .5
     else:
         striker.y_velocity = 0
+
 
 def gameloop(striker_color):
     global screen, clock, ball, striker, choice
@@ -308,11 +318,13 @@ if __name__ == "__main__":
 
                 # if the player looses
                 if end_choice == 0:
-                    end_choice = end_screen(screen, False, score, seconds_first, seconds_second, minutes_first, minutes_second, clock)
+                    end_choice = end_screen(
+                        screen, False, score, seconds_first, seconds_second, minutes_first, minutes_second, clock)
 
                 # if the player wins
                 elif end_choice == 1:
-                    end_choice = end_screen(screen, True, score, seconds_first, seconds_second, minutes_first, minutes_second, clock)
+                    end_choice = end_screen(
+                        screen, True, score, seconds_first, seconds_second, minutes_first, minutes_second, clock)
 
                 first = False
 

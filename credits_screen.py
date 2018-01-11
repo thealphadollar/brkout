@@ -25,9 +25,10 @@ class Credits(pg.sprite.Sprite):
         self.y10 = self.y9 + 100
         self.speed = -1
         self.dis = screen
-        self.gamelogo = pygame.image.load(os.path.join(assets_directory, 'logo.png')).convert()
+        self.gamelogo = pygame.image.load(
+            os.path.join(assets_directory, 'logo.png')).convert()
         self.rect = self.gamelogo.get_rect()
-        self.rect.center = (self.x,self.y)
+        self.rect.center = (self.x, self.y)
         self.color1 = name_grey
         self.color2 = wall_silver
 
@@ -39,7 +40,7 @@ class Credits(pg.sprite.Sprite):
         if keystate[pg.K_SPACE]:
             self.speed = 0
         self.y += self.speed
-        self.rect.center = (self.x,self.y)
+        self.rect.center = (self.x, self.y)
         self.y1 = self.y + 170
         self.y2 = self.y1 + 130
         self.y3 = self.y2 + 60
@@ -54,18 +55,29 @@ class Credits(pg.sprite.Sprite):
             os._exit(0)
 
     def draw(self):
-        self.dis.blit(self.gamelogo,self.rect)
-        disp_text(self.dis, "Brk", (self.x -85, self.y1), game_title_text_large, orange)
-        disp_text(self.dis, "OUT", (self.x + 85,self.y1), game_title_text_small, white)
-        disp_text(self.dis, "Leading and Mapping", (self.x ,self.y2), credits_name, self.color1)
-        disp_text(self.dis, "Kousshik Raj", (self.x ,self.y3), credits_text, self.color2)
-        disp_text(self.dis, "Planning and Forging Keys", (self.x ,self.y4), credits_name, self.color1)
-        disp_text(self.dis, "Shivam Kumar Jha", (self.x ,self.y5), credits_text, self.color2)
-        disp_text(self.dis, "Elements of Disguise", (self.x ,self.y6), credits_name, self.color1)
-        disp_text(self.dis, "Shamin Agarwal", (self.x ,self.y7), credits_text, self.color2)
-        disp_text(self.dis, "Jyoti Agarwal", (self.x ,self.y8), credits_text, self.color2)
-        disp_text(self.dis, "Special thanks to", (self.x ,self.y9), credits_name, self.color1)
-        disp_text(self.dis, "CODECLUB", (self.x ,self.y10), credits_text, self.color2)
+        self.dis.blit(self.gamelogo, self.rect)
+        disp_text(self.dis, "Brk", (self.x - 85, self.y1),
+                  game_title_text_large, orange)
+        disp_text(self.dis, "OUT", (self.x + 85, self.y1),
+                  game_title_text_small, white)
+        disp_text(self.dis, "Leading and Mapping",
+                  (self.x, self.y2), credits_name, self.color1)
+        disp_text(self.dis, "Kousshik Raj", (self.x, self.y3),
+                  credits_text, self.color2)
+        disp_text(self.dis, "Planning and Forging Keys",
+                  (self.x, self.y4), credits_name, self.color1)
+        disp_text(self.dis, "Shivam Kumar Jha",
+                  (self.x, self.y5), credits_text, self.color2)
+        disp_text(self.dis, "Elements of Disguise",
+                  (self.x, self.y6), credits_name, self.color1)
+        disp_text(self.dis, "Shamin Agarwal",
+                  (self.x, self.y7), credits_text, self.color2)
+        disp_text(self.dis, "Jyoti Agarwal",
+                  (self.x, self.y8), credits_text, self.color2)
+        disp_text(self.dis, "Special thanks to",
+                  (self.x, self.y9), credits_name, self.color1)
+        disp_text(self.dis, "CODECLUB", (self.x, self.y10),
+                  credits_text, self.color2)
 
 
 def credits_screen(screen, clock):
@@ -96,4 +108,3 @@ def credits_screen(screen, clock):
             x += (float(scr_width-6)) / 9
         cr.draw()
         pg.display.update()
-

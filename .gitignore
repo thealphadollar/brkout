@@ -9,3 +9,12 @@ pause_screen.pyc
 end_screen.pyc
 main.spec
 highscore.pyc
+.coafile
+credits_screen.py.orig
+end_screen.py.orig
+global_funcs.py.orig
+global_objects.py.orig
+highscore.py.orig
+main.py.orig
+pause_screen.py.orig
+start_screen.py.orig

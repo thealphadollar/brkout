@@ -56,52 +56,70 @@ def menu_screen(screen, clock):
                   quote_text, orange)
 
         # display title
-        disp_text(screen, "Brk", (scr_width/2 - 85, scr_height/2 - 200), game_title_text_large, orange)
-        disp_text(screen, "OUT", (scr_width / 2 + 85, scr_height / 2 - 200), game_title_text_small, white)
+        disp_text(screen, "Brk", (scr_width/2 - 85, scr_height /
+                                  2 - 200), game_title_text_large, orange)
+        disp_text(screen, "OUT", (scr_width / 2 + 85, scr_height /
+                                  2 - 200), game_title_text_small, white)
 
         # display menu
         # display "Let's Play"
         if option_flag == 0:
-            disp_text(screen, "Let's Escape", (scr_width/2, scr_height/2), menu_item_text_selected, silver)
+            disp_text(screen, "Let's Escape", (scr_width/2,
+                                               scr_height/2), menu_item_text_selected, silver)
         else:
-            disp_text(screen, "Let's Escape", (scr_width/2, scr_height/2), menu_item_text, grey)
+            disp_text(screen, "Let's Escape", (scr_width/2,
+                                               scr_height/2), menu_item_text, grey)
 
         # display white boundary around color palette
-        pygame.draw.rect(screen, white, (scr_width/2 - 200, scr_height/2 + 40, 400, 100), 3)
-        pygame.draw.rect(screen, white, (scr_width / 2 - 192, scr_height / 2 + 48, 384, 84), 2)
+        pygame.draw.rect(screen, white, (scr_width/2 - 200,
+                                         scr_height/2 + 40, 400, 100), 3)
+        pygame.draw.rect(screen, white, (scr_width / 2 - 192,
+                                         scr_height / 2 + 48, 384, 84), 2)
 
         # display color palette
         if color_choice == 0:
-            pygame.draw.rect(screen, light_green, (scr_width/2 - 190, scr_height/2 + 50, 80, 80))
+            pygame.draw.rect(screen, light_green,
+                             (scr_width/2 - 190, scr_height/2 + 50, 80, 80))
         else:
-            pygame.draw.rect(screen, green, (scr_width / 2 - 185, scr_height / 2 + 55, 70, 70))
+            pygame.draw.rect(screen, green, (scr_width / 2 -
+                                             185, scr_height / 2 + 55, 70, 70))
 
         if color_choice == 1:
-            pygame.draw.rect(screen, light_red, (scr_width/2 - 90, scr_height/2 + 50, 80, 80))
+            pygame.draw.rect(screen, light_red, (scr_width /
+                                                 2 - 90, scr_height/2 + 50, 80, 80))
         else:
-            pygame.draw.rect(screen, red, (scr_width/2 - 85, scr_height / 2 + 55, 70, 70))
+            pygame.draw.rect(screen, red, (scr_width/2 - 85,
+                                           scr_height / 2 + 55, 70, 70))
 
         if color_choice == 2:
-            pygame.draw.rect(screen, light_magenta, (scr_width/2 + 10, scr_height/2 + 50, 80, 80))
+            pygame.draw.rect(screen, light_magenta,
+                             (scr_width/2 + 10, scr_height/2 + 50, 80, 80))
         else:
-            pygame.draw.rect(screen, magenta, (scr_width / 2 + 15, scr_height / 2 + 55, 70, 70))
+            pygame.draw.rect(screen, magenta, (scr_width /
+                                               2 + 15, scr_height / 2 + 55, 70, 70))
 
         if color_choice == 3:
-            pygame.draw.rect(screen, light_blue, (scr_width/2 + 110, scr_height/2 + 50, 80, 80))
+            pygame.draw.rect(screen, light_blue, (scr_width /
+                                                  2 + 110, scr_height/2 + 50, 80, 80))
         else:
-            pygame.draw.rect(screen, blue, (scr_width / 2 + 115, scr_height / 2 + 55, 70, 70))
+            pygame.draw.rect(screen, blue, (scr_width / 2 +
+                                            115, scr_height / 2 + 55, 70, 70))
 
         # display "I'm Scared"
         if option_flag == 1:
-            disp_text(screen, "I'm Scared", (scr_width/2, scr_height/2 + 180), menu_item_text_selected, silver)
+            disp_text(screen, "I'm Scared", (scr_width/2, scr_height /
+                                             2 + 180), menu_item_text_selected, silver)
         else:
-            disp_text(screen, "I'm Scared", (scr_width/2, scr_height/2 + 180), menu_item_text, grey)
+            disp_text(screen, "I'm Scared", (scr_width/2,
+                                             scr_height/2 + 180), menu_item_text, grey)
 
         # display message
         if option_flag == 0:
-            disp_text(screen, "Press Enter To Play", (scr_width/2, scr_height/2 + 300), message_text, yellow)
+            disp_text(screen, "Press Enter To Play", (scr_width /
+                                                      2, scr_height/2 + 300), message_text, yellow)
         elif option_flag == 1:
-            disp_text(screen, "Press Enter To Quit Game", (scr_width / 2, scr_height / 2 + 300), message_text, yellow)
+            disp_text(screen, "Press Enter To Quit Game", (scr_width /
+                                                           2, scr_height / 2 + 300), message_text, yellow)
 
         pygame.display.update()
         clock.tick(FPS)

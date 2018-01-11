@@ -29,22 +29,26 @@ def draw_walls(screen, brick_width, brick_height):
 
     # ceiling
     while initial_position_x <= (scr_width - wall_brick_width):
-        pygame.draw.rect(screen, wall_orange, (initial_position_x, initial_position_y, brick_width, brick_height))
+        pygame.draw.rect(screen, wall_orange, (initial_position_x,
+                                               initial_position_y, brick_width, brick_height))
         initial_position_x += brick_width
         if not initial_position_x < scr_width:
             break
-        pygame.draw.rect(screen, wall_silver, (initial_position_x, initial_position_y, brick_width, brick_height))
+        pygame.draw.rect(screen, wall_silver, (initial_position_x,
+                                               initial_position_y, brick_width, brick_height))
         initial_position_x += brick_width
 
     initial_position_x -= brick_height
 
     # right wall
     while initial_position_y <= (scr_height - brick_width):
-        pygame.draw.rect(screen, wall_orange, (initial_position_x, initial_position_y, brick_height, brick_width))
+        pygame.draw.rect(screen, wall_orange, (initial_position_x,
+                                               initial_position_y, brick_height, brick_width))
         initial_position_y += brick_width
         if not initial_position_y < scr_height:
             break
-        pygame.draw.rect(screen, wall_silver, (initial_position_x, initial_position_y, brick_height, brick_width))
+        pygame.draw.rect(screen, wall_silver, (initial_position_x,
+                                               initial_position_y, brick_height, brick_width))
         initial_position_y += brick_width
 
     initial_position_y -= brick_height
@@ -53,24 +57,29 @@ def draw_walls(screen, brick_width, brick_height):
     # floor
     while initial_position_x >= brick_width:
         initial_position_x -= brick_width
-        pygame.draw.rect(screen, wall_orange, (initial_position_x, initial_position_y, brick_width, brick_height))
+        pygame.draw.rect(screen, wall_orange, (initial_position_x,
+                                               initial_position_y, brick_width, brick_height))
         if not initial_position_x > 0:
             break
         initial_position_x -= brick_width
-        pygame.draw.rect(screen, wall_silver, (initial_position_x, initial_position_y, brick_width, brick_height))
+        pygame.draw.rect(screen, wall_silver, (initial_position_x,
+                                               initial_position_y, brick_width, brick_height))
 
     initial_position_y += brick_height
 
     # left wall
     while initial_position_y >= brick_width:
         initial_position_y -= brick_width
-        pygame.draw.rect(screen, wall_orange, (initial_position_x, initial_position_y, brick_height, brick_width))
+        pygame.draw.rect(screen, wall_orange, (initial_position_x,
+                                               initial_position_y, brick_height, brick_width))
         if not initial_position_y > 0:
             break
         initial_position_y -= brick_width
-        pygame.draw.rect(screen, wall_silver, (initial_position_x, initial_position_y, brick_height, brick_width))
+        pygame.draw.rect(screen, wall_silver, (initial_position_x,
+                                               initial_position_y, brick_height, brick_width))
 
     return
+
 
 def draw_walls_white(screen, brick_width, brick_height):
 
@@ -80,22 +89,26 @@ def draw_walls_white(screen, brick_width, brick_height):
 
     # ceiling
     while initial_position_x <= (scr_width - wall_brick_width):
-        pygame.draw.rect(screen, white, (initial_position_x, initial_position_y, brick_width, brick_height))
+        pygame.draw.rect(screen, white, (initial_position_x,
+                                         initial_position_y, brick_width, brick_height))
         initial_position_x += brick_width
         if not initial_position_x < scr_width:
             break
-        pygame.draw.rect(screen, white, (initial_position_x, initial_position_y, brick_width, brick_height))
+        pygame.draw.rect(screen, white, (initial_position_x,
+                                         initial_position_y, brick_width, brick_height))
         initial_position_x += brick_width
 
     initial_position_x -= brick_height
 
     # right wall
     while initial_position_y <= (scr_height - brick_width):
-        pygame.draw.rect(screen, white, (initial_position_x, initial_position_y, brick_height, brick_width))
+        pygame.draw.rect(screen, white, (initial_position_x,
+                                         initial_position_y, brick_height, brick_width))
         initial_position_y += brick_width
         if not initial_position_y < scr_height:
             break
-        pygame.draw.rect(screen, white, (initial_position_x, initial_position_y, brick_height, brick_width))
+        pygame.draw.rect(screen, white, (initial_position_x,
+                                         initial_position_y, brick_height, brick_width))
         initial_position_y += brick_width
 
     initial_position_y -= brick_height
@@ -104,24 +117,25 @@ def draw_walls_white(screen, brick_width, brick_height):
     # floor
     while initial_position_x >= brick_width:
         initial_position_x -= brick_width
-        pygame.draw.rect(screen, white, (initial_position_x, initial_position_y, brick_width, brick_height))
+        pygame.draw.rect(screen, white, (initial_position_x,
+                                         initial_position_y, brick_width, brick_height))
         if not initial_position_x > 0:
             break
         initial_position_x -= brick_width
-        pygame.draw.rect(screen, white, (initial_position_x, initial_position_y, brick_width, brick_height))
+        pygame.draw.rect(screen, white, (initial_position_x,
+                                         initial_position_y, brick_width, brick_height))
 
     initial_position_y += brick_height
 
     # left wall
     while initial_position_y >= brick_width:
         initial_position_y -= brick_width
-        pygame.draw.rect(screen, white, (initial_position_x, initial_position_y, brick_height, brick_width))
+        pygame.draw.rect(screen, white, (initial_position_x,
+                                         initial_position_y, brick_height, brick_width))
         if not initial_position_y > 0:
             break
         initial_position_y -= brick_width
-        pygame.draw.rect(screen, white, (initial_position_x, initial_position_y, brick_height, brick_width))
+        pygame.draw.rect(screen, white, (initial_position_x,
+                                         initial_position_y, brick_height, brick_width))
 
     return
-
-
-

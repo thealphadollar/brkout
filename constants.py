@@ -42,31 +42,50 @@ ball_mass = 5
 friction = .015
 
 # text formats
-game_title_text_large = pygame.font.Font(os.path.join(assets_directory, 'Weston Free.otf'), 120)
-game_title_text_small = pygame.font.Font(os.path.join(assets_directory, 'Weston Free.otf'), 100)
-menu_item_text_selected = pygame.font.Font(os.path.join(assets_directory, 'nougatine.ttf'), 40)
-menu_item_text = pygame.font.Font(os.path.join(assets_directory, 'nougatine.ttf'), 30)
-message_text = pygame.font.Font(os.path.join(assets_directory, 'ARCADECLASSIC.TTF'), 20)
-message_text1 = pygame.font.Font(os.path.join(assets_directory, 'ARCADECLASSIC.TTF'), 30)
-credits_text = pygame.font.Font(os.path.join(assets_directory, 'SF Atarian System Extended Bold Italic.ttf'), 45)
-credits_name = pygame.font.Font(os.path.join(assets_directory, 'Halo3.ttf'), 55)
-main_screen_text = pygame.font.Font(os.path.join(assets_directory, 'FutureTimeSplittersupdate.otf'), 36)
-main_screen_number = pygame.font.Font(os.path.join(assets_directory, 'digital-7.ttf'), 25)
-pause_text = pygame.font.Font(os.path.join(assets_directory, 'chiller.ttf'), 50)
-pause_text_s = pygame.font.Font(os.path.join(assets_directory, 'chiller.ttf'), 60)
-end_screen_text = pygame.font.Font(os.path.join(assets_directory, 'FutureTimeSplittersupdate.otf'), 50)
-end_screen_number = pygame.font.Font(os.path.join(assets_directory, 'digital-7.ttf'), 30)
-end_title_text_win = pygame.font.Font(os.path.join(assets_directory, 'Jolly Bold.ttf'), 60)
-end_title_text_lose = pygame.font.Font(os.path.join(assets_directory, 'PWScratchy.ttf'), 60)
-quote_text = pygame.font.Font(os.path.join(assets_directory, 'TheHills.ttf'), 37)
-pause_text_top = pygame.font.Font(os.path.join(assets_directory, 'Halo3.ttf'), 55)
+game_title_text_large = pygame.font.Font(
+    os.path.join(assets_directory, 'Weston Free.otf'), 120)
+game_title_text_small = pygame.font.Font(
+    os.path.join(assets_directory, 'Weston Free.otf'), 100)
+menu_item_text_selected = pygame.font.Font(
+    os.path.join(assets_directory, 'nougatine.ttf'), 40)
+menu_item_text = pygame.font.Font(
+    os.path.join(assets_directory, 'nougatine.ttf'), 30)
+message_text = pygame.font.Font(os.path.join(
+    assets_directory, 'ARCADECLASSIC.TTF'), 20)
+message_text1 = pygame.font.Font(os.path.join(
+    assets_directory, 'ARCADECLASSIC.TTF'), 30)
+credits_text = pygame.font.Font(os.path.join(
+    assets_directory, 'SF Atarian System Extended Bold Italic.ttf'), 45)
+credits_name = pygame.font.Font(
+    os.path.join(assets_directory, 'Halo3.ttf'), 55)
+main_screen_text = pygame.font.Font(os.path.join(
+    assets_directory, 'FutureTimeSplittersupdate.otf'), 36)
+main_screen_number = pygame.font.Font(
+    os.path.join(assets_directory, 'digital-7.ttf'), 25)
+pause_text = pygame.font.Font(os.path.join(
+    assets_directory, 'chiller.ttf'), 50)
+pause_text_s = pygame.font.Font(
+    os.path.join(assets_directory, 'chiller.ttf'), 60)
+end_screen_text = pygame.font.Font(os.path.join(
+    assets_directory, 'FutureTimeSplittersupdate.otf'), 50)
+end_screen_number = pygame.font.Font(
+    os.path.join(assets_directory, 'digital-7.ttf'), 30)
+end_title_text_win = pygame.font.Font(
+    os.path.join(assets_directory, 'Jolly Bold.ttf'), 60)
+end_title_text_lose = pygame.font.Font(
+    os.path.join(assets_directory, 'PWScratchy.ttf'), 60)
+quote_text = pygame.font.Font(os.path.join(
+    assets_directory, 'TheHills.ttf'), 37)
+pause_text_top = pygame.font.Font(
+    os.path.join(assets_directory, 'Halo3.ttf'), 55)
 
 
 # music files
 
 # images
 speed_red = pygame.image.load(os.path.join(assets_directory, 'speed_red.png'))
-speed_blue = pygame.image.load(os.path.join(assets_directory, 'speed_blue.png'))
+speed_blue = pygame.image.load(
+    os.path.join(assets_directory, 'speed_blue.png'))
 
 # colors
 black = (0, 0, 0)
@@ -90,12 +109,14 @@ light_blue = (52, 152, 219)
 credit_orange = (240, 146, 54)
 pure_red = (255, 0, 0)
 pure_green = (0, 255, 0)
-pure_blue = (0, 0 , 255)
+pure_blue = (0, 0, 255)
 peace_green = (24, 163, 24)
 blood_red = (138, 7, 7)
 striker_colors = [green, red, magenta, blue]
-brick_colors = [pure_green, pure_red, yellow]  # red are weakest, yellow are ok, and green are healthy
-color_option_palette = [[green, light_green], [red, light_red], [magenta, light_magenta], [blue, light_blue]]
+# red are weakest, yellow are ok, and green are healthy
+brick_colors = [pure_green, pure_red, yellow]
+color_option_palette = [[green, light_green], [red, light_red], [
+    magenta, light_magenta], [blue, light_blue]]
 pause_col = grey
 pause_sel_col = green
 pause_text_tops = light_red
@@ -107,4 +128,4 @@ Spend Behind Bars, Worse Are You, Once Out", "To A Patch You Are Bound, Since Th
 Rest? Remember The Guards, Gathering Like It's A College Fest!"]
 
 # file list
-file_list = [x for x in xrange(33,127) if x!=36]
+file_list = [x for x in xrange(33, 127) if x != 36]
