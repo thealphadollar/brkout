@@ -15,6 +15,16 @@ def menu_screen(screen, clock):
     color_choice = 0
     option_flag = 0
     random_hint = random.randint(0, 7)  # displays random quote
+    timer = 0
+
+    while timer <= 180:
+        timer += 1
+        screen.blit(start_img_resized, (0, 0))
+        draw_walls(screen, wall_brick_width, wall_brick_height)
+        disp_text(screen, "Will You Make It Out... Alive?", (scr_width/2, 100), start_horror_text, peace_green)
+#        screen.fill((255, 0, 0))
+        pygame.display.update()
+        clock.tick(FPS)
 
     while True:
 
@@ -36,7 +46,6 @@ def menu_screen(screen, clock):
                     return option_flag, color_choice  # return index of color in striker_colors
 
                 if event.key == pygame.K_ESCAPE:
-                    print("I'm here")
                     os._exit(0)
             if event.type == pygame.QUIT:
                 os._exit(0)

@@ -66,6 +66,8 @@ pause_text = pygame.font.Font(os.path.join(
     assets_directory, 'chiller.ttf'), 50)
 pause_text_s = pygame.font.Font(
     os.path.join(assets_directory, 'chiller.ttf'), 60)
+start_horror_text = pygame.font.Font(
+    os.path.join(assets_directory, 'chiller.ttf'), 90)
 end_screen_text = pygame.font.Font(os.path.join(
     assets_directory, 'FutureTimeSplittersupdate.otf'), 50)
 end_screen_number = pygame.font.Font(
@@ -86,6 +88,8 @@ pause_text_top = pygame.font.Font(
 speed_red = pygame.image.load(os.path.join(assets_directory, 'speed_red.png'))
 speed_blue = pygame.image.load(
     os.path.join(assets_directory, 'speed_blue.png'))
+start_img = pygame.image.load(os.path.join(assets_directory, 'jail.jpeg'))
+start_img_resized = pygame.transform.scale(start_img, (scr_width, scr_height))
 
 # colors
 black = (0, 0, 0)
