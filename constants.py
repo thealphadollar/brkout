@@ -67,7 +67,7 @@ pause_text = pygame.font.Font(os.path.join(
 pause_text_s = pygame.font.Font(
     os.path.join(assets_directory, 'chiller.ttf'), 60)
 start_horror_text = pygame.font.Font(
-    os.path.join(assets_directory, 'chiller.ttf'), 90)
+    os.path.join(assets_directory, 'chiller.ttf'), 85)
 end_screen_text = pygame.font.Font(os.path.join(
     assets_directory, 'FutureTimeSplittersupdate.otf'), 50)
 end_screen_number = pygame.font.Font(

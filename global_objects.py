@@ -51,18 +51,18 @@ class Ball(pygame.sprite.Sprite):
     # function to check collision with color palette
     def check_collide_palette(self):
         if (self.y < scr_height/2 + 140 + self.radius) and (self.y > scr_height/2 + 40 - self.radius):
-            if (self.x < scr_width/2 + 200 + self.radius) and (self.x > scr_width/2 + 200):
+            if (self.x < scr_width/2 + 200 + self.radius) and (self.x > scr_width/2 + 200 + self.radius - 15):
                 self.x = scr_width/2 + 200 + self.radius
                 self.angle = -self.angle
-            elif (self.x > scr_width/2 - 200 - self.radius) and (self.x < scr_width/2 - 200):
+            elif (self.x > scr_width/2 - 200 - self.radius) and (self.x < scr_width/2 - 200 - self.radius + 15):
                 self.x = scr_width/2 - 200 - self.radius
                 self.angle = -self.angle
 
         if (self.x < scr_width/2 + 200 + self.radius) and (self.x > scr_width/2 - 200 - self.radius):
-            if (self.y < scr_height/2 + 140 + self.radius) and (self.y > scr_height/2 + 140):
+            if (self.y < scr_height/2 + 140 + self.radius) and (self.y > scr_height/2 + 140 + self.radius - 15):
                 self.y = scr_height/2 + 140 + self.radius
                 self.angle = math.pi - self.angle
-            elif (self.y > scr_height/2 + 40 - self.radius) and (self.y < scr_height/2 + 40):
+            elif (self.y > scr_height/2 + 40 - self.radius) and (self.y < scr_height/2 + 40 - self.radius + 15):
                 self.y = scr_height/2 + 40 - self.radius
                 self.angle = math.pi - self.angle
 
