@@ -7,6 +7,14 @@ import os
 
 
 def pause_game(screen, clock):
+
+    # pauses music
+    pygame.mixer.music.pause()
+
+    # play pause screen music
+    pause_sound.play(-1)
+    pause_sound.set_volume(1)
+
     oldtime = pygame.time.get_ticks()
     pause_ball = Ball(130, 140)  # Initializing pause_ball
     option = 0
@@ -28,6 +36,9 @@ def pause_game(screen, clock):
                 os._exit(0)
 
             if event.type == pygame.KEYDOWN and (event.key == pygame.K_ESCAPE or event.key == pygame.K_SPACE):
+                # unpause music
+                pause_sound.stop()
+                pygame.mixer.music.unpause()
                 return
 
             if event.type == pygame.KEYDOWN and (event.key == pygame.K_UP or event.key == pygame.K_w):
@@ -39,6 +50,10 @@ def pause_game(screen, clock):
                 option %= 4
 
             if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
+                pause_sound.stop()
+                if option != 3:
+                    # unpause music
+                    pygame.mixer.music.unpause()
                 if option == 0:
                     return 0
                 if option == 1:

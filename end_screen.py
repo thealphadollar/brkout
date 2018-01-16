@@ -30,6 +30,16 @@ def highscore(score):
 def end_screen(screen, win, score, seconds_first, seconds_second, minutes_first, minutes_second, clock):
     global option
 
+    pygame.mixer.music.stop()
+    if win:
+        pygame.mixer.music.load(os.path.join(assets_directory, "victory.ogg"))
+        pygame.mixer.music.play(-1)
+        pygame.mixer.music.set_volume(1)
+    else:
+        pygame.mixer.music.load(os.path.join(assets_directory, "end_loss.mp3"))
+        pygame.mixer.music.play(-1)
+        pygame.mixer.music.set_volume(1)
+
     # initialising ball for this screen
     ball = Ball(scr_width / 2, scr_height - wall_brick_height)
     new_high = highscore(score)

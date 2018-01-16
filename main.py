@@ -161,9 +161,11 @@ def check_collisions():
             did_collide = br.check_hor_coll(ball)
         else:
             did_collide = br.check_ver_coll(ball)
+
+        # returns if collision has taken place
         if did_collide:
-            if ball.speed > 3:
-                hit_count += 1
+
+            hit_count += 1
             brick_point += br.update(ball.speed)
 
 
@@ -232,6 +234,11 @@ def events():
 def gameloop(striker_color):
     global screen, clock, ball, striker, choice
     start_time = False
+
+    pygame.mixer.music.stop()
+    pygame.mixer.music.load(os.path.join(assets_directory, "main_music.mp3"))
+    pygame.mixer.music.play(-1)
+    pygame.mixer.music.set_volume(1)
 
     while True:
 

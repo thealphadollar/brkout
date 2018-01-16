@@ -364,6 +364,7 @@ class Bricks(pygame.sprite.Sprite):
             return 0
         self.brick_value -= speed / MAX_BALL_SPEED
         if self.brick_value <= 0:
+            # add sound for game
             self.kill()
             return self.ori_brick_value * 200
         elif self.brick_value <= 3:

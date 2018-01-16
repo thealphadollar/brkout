@@ -17,6 +17,11 @@ def menu_screen(screen, clock):
     random_hint = random.randint(0, 7)  # displays random quote
     timer = 0
 
+    # playing start sound jail
+    pygame.mixer.music.load(os.path.join(assets_directory, "start.wav"))
+    pygame.mixer.music.play(-1)
+    pygame.mixer.music.set_volume(1)
+
     # display start image
     while timer <= 180:
         timer += 1
@@ -31,6 +36,11 @@ def menu_screen(screen, clock):
 
         pygame.display.update()
         clock.tick(FPS)
+
+    pygame.mixer.music.stop()
+    pygame.mixer.music.load(os.path.join(assets_directory, "start_screen.ogg"))
+    pygame.mixer.music.play(-1)
+    pygame.mixer.music.set_volume(1)
 
     while True:
 

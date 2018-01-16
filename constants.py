@@ -39,7 +39,7 @@ menu_ball_speed = 15
 main_ball_speed = 0
 MAX_BALL_SPEED = 10
 ball_mass = 5
-friction = .015
+friction = .01
 
 # text formats
 game_title_text_large = pygame.font.Font(
@@ -83,6 +83,8 @@ pause_text_top = pygame.font.Font(
 
 
 # music files
+pause_sound = pygame.mixer.Sound(os.path.join(assets_directory, "pause.ogg"))
+
 
 # images
 speed_red = pygame.image.load(os.path.join(assets_directory, 'speed_red.png'))
@@ -96,7 +98,7 @@ black = (0, 0, 0)
 white = (255, 255, 255)
 grey = (128, 128, 128)
 name_grey = (150, 150, 150)
-light_black = (40, 40, 40)
+light_black = (100, 100, 100)
 wall_silver = (188, 198, 204)
 silver = (192, 192, 192)
 wall_orange = (212, 175, 55)
@@ -111,6 +113,8 @@ light_magenta = (155, 89, 182)
 blue = (46, 134, 193)
 light_blue = (52, 152, 219)
 credit_orange = (240, 146, 54)
+brick_red = (100, 10, 10)
+brick_green = (40, 170, 40)
 pure_red = (255, 0, 0)
 pure_green = (0, 255, 0)
 pure_blue = (0, 0, 255)
@@ -118,7 +122,7 @@ peace_green = (24, 163, 24)
 blood_red = (138, 7, 7)
 striker_colors = [green, red, magenta, blue]
 # red are weakest, yellow are ok, and green are healthy
-brick_colors = [pure_green, pure_red, yellow]
+brick_colors = [brick_green, brick_red, yellow]
 color_option_palette = [[green, light_green], [red, light_red], [
     magenta, light_magenta], [blue, light_blue]]
 pause_col = grey
