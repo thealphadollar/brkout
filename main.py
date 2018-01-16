@@ -238,7 +238,7 @@ def gameloop(striker_color):
     pygame.mixer.music.stop()
     pygame.mixer.music.load(os.path.join(assets_directory, "main_music.mp3"))
     pygame.mixer.music.play(-1)
-    pygame.mixer.music.set_volume(1)
+    pygame.mixer.music.set_volume(2)
 
     while True:
 
@@ -266,8 +266,14 @@ def gameloop(striker_color):
         # check first strike to start timer
         if not start_time:
             start_time = ball.collision_striker(striker)
+            if start_time:
+                striker_sound.set_volume(1)
+                striker_sound.play()
+
         else:
-            ball.collision_striker(striker)
+            if ball.collision_striker(striker):
+                striker_sound.set_volume(1)
+                striker_sound.play()
 
         # checking winning
         if ball.check_escape():
