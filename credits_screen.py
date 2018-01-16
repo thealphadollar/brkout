@@ -68,15 +68,15 @@ class Credits(pg.sprite.Sprite):
                   (self.x, self.y4), credits_name, self.color1)
         disp_text(self.dis, "Shivam Kumar Jha",
                   (self.x, self.y5), credits_text, self.color2)
-        disp_text(self.dis, "Elements of Disguise",
+        disp_text(self.dis, "Disguise And Distraction",
                   (self.x, self.y6), credits_name, self.color1)
-        disp_text(self.dis, "Shamin Agarwal",
+        disp_text(self.dis, "www.zapsplat.com",
                   (self.x, self.y7), credits_text, self.color2)
-        disp_text(self.dis, "Jyoti Agarwal",
+        disp_text(self.dis, "opengameart.org",
                   (self.x, self.y8), credits_text, self.color2)
-        disp_text(self.dis, "Special thanks to",
+        disp_text(self.dis, "Special Thanks To",
                   (self.x, self.y9), credits_name, self.color1)
-        disp_text(self.dis, "CODECLUB", (self.x, self.y10),
+        disp_text(self.dis, "CODECLUB, IIT KGP", (self.x, self.y10),
                   credits_text, self.color2)
 
 

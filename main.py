@@ -241,7 +241,7 @@ def gameloop(striker_color):
     pygame.mixer.music.stop()
     pygame.mixer.music.load(os.path.join(assets_directory, "main_music.mp3"))
     pygame.mixer.music.play(-1)
-    pygame.mixer.music.set_volume(0)
+    pygame.mixer.music.set_volume(.5)
 
     while True:
 
