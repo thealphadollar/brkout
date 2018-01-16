@@ -50,7 +50,7 @@ class Ball(pygame.sprite.Sprite):
 
     # function to check collision with color palette
     def check_collide_palette(self):
-        if (self.y < scr_height/2 + 140 + self.radius) and (self.y > scr_height/2 + 40 - self.radius):
+        if (self.y < scr_height/2 + 200 + self.radius) and (self.y > scr_height/2 + 200 - self.radius):
             if (self.x < scr_width/2 + 200 + self.radius) and (self.x > scr_width/2 + 200 + self.radius - 15):
                 self.x = scr_width/2 + 200 + self.radius
                 self.angle = -self.angle
@@ -59,11 +59,11 @@ class Ball(pygame.sprite.Sprite):
                 self.angle = -self.angle
 
         if (self.x < scr_width/2 + 200 + self.radius) and (self.x > scr_width/2 - 200 - self.radius):
-            if (self.y < scr_height/2 + 140 + self.radius) and (self.y > scr_height/2 + 140 + self.radius - 15):
-                self.y = scr_height/2 + 140 + self.radius
+            if (self.y < scr_height/2 + 200 + self.radius) and (self.y > scr_height/2 + 200 + self.radius - 15):
+                self.y = scr_height/2 + 200 + self.radius
                 self.angle = math.pi - self.angle
-            elif (self.y > scr_height/2 + 40 - self.radius) and (self.y < scr_height/2 + 40 - self.radius + 15):
-                self.y = scr_height/2 + 40 - self.radius
+            elif (self.y > scr_height/2 + 100 - self.radius) and (self.y < scr_height/2 + 100 - self.radius + 15):
+                self.y = scr_height/2 + 100 - self.radius
                 self.angle = math.pi - self.angle
 
     # function to check collision with losing end screen box

@@ -48,7 +48,7 @@ def read_highscore():
             encoded_score = contents[position + 1:position + 10]
             decoded_score = decode(encoded_score)
             if decoded_score.isdigit():
-                return 0, int(decoded_score[:5]), int(decoded_score[-4:])
+                return decoded_score[:5], decoded_score[-4:]
             else:
                 raise IOError
 
@@ -74,7 +74,7 @@ def read_highscore():
         file_name.seek(5733)
         file_name.write("$"+encode(ini_score))
         file_name.close()
-        return 1, int(ini_score[:5]), int(ini_score[-4:])
+        return ini_score[:5], ini_score[-4:]
 
 # Writes the score and time
 

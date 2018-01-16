@@ -22,13 +22,8 @@ def events():
             os._exit(0)
         return False
 
-
-def highscore(score):
-    pass
-
-
 def end_screen(screen, win, score, seconds_first, seconds_second, minutes_first, minutes_second, clock):
-    global option
+    global option,mute
 
     pygame.mixer.music.stop()
     if win:
@@ -40,9 +35,16 @@ def end_screen(screen, win, score, seconds_first, seconds_second, minutes_first,
         pygame.mixer.music.play(-1)
         pygame.mixer.music.set_volume(1)
 
+    if not mute:
+        pygame.mixer.music.unpause()
+    else:
+        pygame.mixer.music.pause()
     # initialising ball for this screen
     ball = Ball(scr_width / 2, scr_height - wall_brick_height)
-    new_high = highscore(score)
+    new_high, new_time = read_highscore()
+    new_high = int(new_high)
+    if new_high < score :
+        write_highscore(score,minutes_second,minutes_first,seconds_second,seconds_first)
     option = 0
     random_hint = random.randint(0, 7)  # getting value for random hint
     while True:
