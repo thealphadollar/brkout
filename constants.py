@@ -97,7 +97,9 @@ start_screen_number1 = pygame.font.Font(
 
 # music files
 pause_sound = pygame.mixer.Sound(os.path.join(assets_directory, "pause.ogg"))
-
+collision_sound = pygame.mixer.Sound(os.path.join(assets_directory, "hit.mp3"))
+striker_sound = pygame.mixer.Sound(os.path.join(assets_directory, "striker.mp3"))
+break_sound = pygame.mixer.Sound(os.path.join(assets_directory, "break.mp3"))
 
 # images
 speed_red = pygame.image.load(os.path.join(assets_directory, 'speed_red.png'))

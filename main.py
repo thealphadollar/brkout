@@ -160,7 +160,8 @@ def check_collisions():
 
         # returns if collision has taken place
         if did_collide:
-
+            collision_sound.set_volume(1.5)
+            collision_sound.play()
             hit_count += 1
             brick_point += br.update(ball.speed)
 
@@ -228,10 +229,12 @@ def gameloop(striker_color):
     global screen, clock, ball, striker, choice, mute
     start_time = False
 
+    alert = pygame.mixer.Channel(2)
+
     pygame.mixer.music.stop()
     pygame.mixer.music.load(os.path.join(assets_directory, "main_music.mp3"))
     pygame.mixer.music.play(-1)
-    pygame.mixer.music.set_volume(1)
+    pygame.mixer.music.set_volume(.5)
 
     if not mute:
         pygame.mixer.music.unpause()
@@ -264,8 +267,19 @@ def gameloop(striker_color):
         # check first strike to start timer
         if not start_time:
             start_time = ball.collision_striker(striker)
+
+            # correct code for striker sound
+#            if start_time:
+#                striker_sound.set_volume(1)
+#                striker_sound.play()
+
         else:
-            ball.collision_striker(striker)
+            if ball.collision_striker(striker):
+                pass
+
+                # correct code for striker sound
+#                striker_sound.set_volume(1)
+#                striker_sound.play()
 
         # checking winning
         if ball.check_escape():

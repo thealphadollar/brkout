@@ -12,6 +12,8 @@ python --version
 ```
 ## Installing Pygame
 
+You can use the below commands or launch "Set_Dependencies" to install it.
+
 ```
 sudo apt-get install python-pip
 pip install --upgrade pip
@@ -31,14 +33,13 @@ For more info, visit [Pygame download page](http://www.pygame.org/download.shtml
 
 ### On Linux
 
-1. Create the branch on your local machine and switch in this branch :
+1. Clone the branch on your local machine:
 ```
-git branch [name_of_your_new_branch]
-git checkout [name_of_your_branch]
+git clone https://github.com/thealphadollar/brkout.git
 ```
-2. Open the directory, open properties for "set_icon.desktop", toggle "Allow executing file as program" and launch it. This is only required for the first time launch.
+2. Open the directory, open properties for "set_dependencies.desktop", toggle "Allow executing file as program" and launch it. This is only required for the first time launch.
 
-NOTE: The administrative permission is required to place the AHlogo.png file into the usr/share/icons directory.
+NOTE: The administrative permission is required to place the AHlogo.png file into the usr/share/icons directory and install PyGame.
 
 4. Open properties for run.desktop, toggle "Allow executing file as program" and click Play.
 

@@ -41,7 +41,7 @@ def menu_screen(screen, clock):
     pygame.mixer.music.stop()
     pygame.mixer.music.load(os.path.join(assets_directory, "start_screen.ogg"))
     pygame.mixer.music.play(-1)
-    pygame.mixer.music.set_volume(1)
+    pygame.mixer.music.set_volume(2)
 
     while True:
 

@@ -10,7 +10,7 @@ class Ball(pygame.sprite.Sprite):
         self.mass = ball_mass
         self.menu_speed = menu_ball_speed
         self.speed = main_ball_speed
-        self.angle = random.uniform(-math.pi, math.pi)
+        self.angle = random.uniform(-math.pi/4, math.pi/4)
 
     def menu_screen_move(self, delta_time):
         self.x += math.sin(self.angle) * self.menu_speed * delta_time
@@ -364,7 +364,9 @@ class Bricks(pygame.sprite.Sprite):
             return 0
         self.brick_value -= speed / MAX_BALL_SPEED
         if self.brick_value <= 0:
-            # add sound for game
+            # add sound for breaking
+            break_sound.set_volume(2)
+            break_sound.play()
             self.kill()
             return self.ori_brick_value * 200
         elif self.brick_value <= 3:
