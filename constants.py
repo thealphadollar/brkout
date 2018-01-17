@@ -6,6 +6,9 @@ pygame.init()
 # asset directory
 assets_directory = os.path.join(os.path.dirname(__file__), 'assets')
 
+# mute
+mute = 1
+
 # brick constants
 # horizontal brick
 horizontal_brick_width = 70
@@ -80,6 +83,16 @@ quote_text = pygame.font.Font(os.path.join(
     assets_directory, 'TheHills.ttf'), 37)
 pause_text_top = pygame.font.Font(
     os.path.join(assets_directory, 'Halo3.ttf'), 55)
+prison_text_big = pygame.font.Font(
+    os.path.join(assets_directory, 'Jolly Bold.ttf'), 45)
+prison_text1 = pygame.font.Font(
+    os.path.join(assets_directory, 'Halo3.ttf'), 35)
+prison_text = pygame.font.Font(
+    os.path.join(assets_directory, 'Halo3.ttf'), 28)
+start_screen_number = pygame.font.Font(
+    os.path.join(assets_directory, 'digital-7.ttf'), 36)
+start_screen_number1 = pygame.font.Font(
+    os.path.join(assets_directory, 'digital-7.ttf'), 32)
 
 
 # music files
@@ -94,6 +107,10 @@ speed_blue = pygame.image.load(
     os.path.join(assets_directory, 'speed_blue.png'))
 start_img = pygame.image.load(os.path.join(assets_directory, 'jail.jpeg'))
 start_img_resized = pygame.transform.scale(start_img, (scr_width, scr_height))
+mute_img = pygame.transform.scale(pygame.image.load(os.path.join(assets_directory, 'mute.png')),(32,32))
+unmute_img = pygame.transform.scale(pygame.image.load(os.path.join(assets_directory, 'unmute.png')),(32,32))
+help_img = pygame.transform.scale(pygame.image.load(os.path.join(assets_directory, 'information.png')),(30,30))
+reset_img = pygame.transform.scale(pygame.image.load(os.path.join(assets_directory, 'restart.png')),(32,32))
 
 # colors
 black = (0, 0, 0)
@@ -134,8 +151,7 @@ pause_text_tops = light_red
 # hint messages
 hint_message = ["Harder The Hit, Quicker Breaks The Brick", "Lesser The Hits, Higher The Score Picked", "Go For The \
 Red, They Have The Brittlest Head", "A Thumb Rule To Follow, Never Hit The Brick That Refuses To Glow", "More Time You \
-Spend Behind Bars, Worse Are You, Once Out", "To A Patch You Are Bound, Since There's Light Around", "Thinking About \
-Rest? Remember The Guards, Gathering Like It's A College Fest!"]
+Spend Behind Bars, Worse Are You, Once Out", "To A Patch You Are Bound, Since There's Light Around", "Remember The Guards, Gathering Like It's A College Fest!"]
 
 # file list
 file_list = [x for x in xrange(33, 127) if x != 36]

@@ -5,7 +5,6 @@ from end_screen import end_screen
 
 # function to initialise pygame
 
-
 def init():
 
     global screen, clock, flip_image, score, seconds_first, seconds_second, minutes_first, minutes_second, \
@@ -79,8 +78,8 @@ def add_to_group():
             y += vertical_brick_height
         x += 1
 
-
 # function to show time
+
 def show_time(start_timer):
     global count_to_seconds, seconds_second, seconds_first, minutes_first, minutes_second
 
@@ -106,9 +105,7 @@ def show_time(start_timer):
     disp_text(screen, str(minutes_second)+str(minutes_first)+":"+str(seconds_second)+str(seconds_first),
               (scr_width - 40, 21), main_screen_number, silver)
 
-
 # function to show score()
-
 
 def show_score(start_timer):
     global score, time_count, score_time, hit_count, brick_point
@@ -135,8 +132,8 @@ def show_score(start_timer):
     disp_text(screen, "score : ", (50, 21), main_screen_text, silver)
     disp_text(screen, str(score), (100, 21), main_screen_number, silver)
 
-
 # function to show ball speed
+
 def show_speed(ball):
 
     disp_text(screen, "speed :", (scr_width/2 - 30, 21),
@@ -150,7 +147,6 @@ def show_speed(ball):
     else:
         disp_text(screen, str(int(ball.speed * 10)),
                   (scr_width / 2 + 15, 21), main_screen_number, pure_red)
-
 
 # rendering static elements
 
@@ -168,7 +164,6 @@ def check_collisions():
             collision_sound.play()
             hit_count += 1
             brick_point += br.update(ball.speed)
-
 
 def render_field():
 
@@ -200,7 +195,6 @@ def render_field():
 
 # main game loop
 
-
 def events():
     # getting in events
     global choice
@@ -231,9 +225,8 @@ def events():
     else:
         striker.y_velocity = 0
 
-
 def gameloop(striker_color):
-    global screen, clock, ball, striker, choice
+    global screen, clock, ball, striker, choice, mute
     start_time = False
 
     alert = pygame.mixer.Channel(2)
@@ -242,6 +235,11 @@ def gameloop(striker_color):
     pygame.mixer.music.load(os.path.join(assets_directory, "main_music.mp3"))
     pygame.mixer.music.play(-1)
     pygame.mixer.music.set_volume(.5)
+
+    if not mute:
+        pygame.mixer.music.unpause()
+    else:
+        pygame.mixer.music.pause()
 
     while True:
 
@@ -317,7 +315,6 @@ def gameloop(striker_color):
         # flipping
         pygame.display.update()
         clock.tick(FPS)
-
 
 if __name__ == "__main__":
 
