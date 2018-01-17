@@ -2,6 +2,7 @@ from start_screen import *
 from global_funcs import *
 from global_objects import *
 from constants import *
+import constants
 import pygame
 import os
 
@@ -12,7 +13,7 @@ def pause_game(screen, clock):
     pygame.mixer.music.pause()
 
     # play pause screen music
-    if not mute:
+    if constants.mute:
         pause_sound.play(-1)
         pause_sound.set_volume(1)
 
@@ -39,7 +40,7 @@ def pause_game(screen, clock):
             if event.type == pygame.KEYDOWN and (event.key == pygame.K_ESCAPE or event.key == pygame.K_SPACE):
                 # unpause music
                 pause_sound.stop()
-                if not mute:
+                if constants.mute:
                     pygame.mixer.music.unpause()
                 return
 
@@ -53,7 +54,7 @@ def pause_game(screen, clock):
 
             if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
                 pause_sound.stop()
-                if option != 3 and not mute:
+                if option != 3 and constants.mute:
                     # unpause music
                     pygame.mixer.music.unpause()
                 if option == 0:

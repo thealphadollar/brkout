@@ -2,7 +2,7 @@ from credits_screen import credits_screen
 from pause_screen import *
 import os
 from end_screen import end_screen
-
+import constants
 # function to initialise pygame
 
 def init():
@@ -226,7 +226,7 @@ def events():
         striker.y_velocity = 0
 
 def gameloop(striker_color):
-    global screen, clock, ball, striker, choice, mute
+    global screen, clock, ball, striker, choice
     start_time = False
 
     alert = pygame.mixer.Channel(2)
@@ -236,10 +236,10 @@ def gameloop(striker_color):
     pygame.mixer.music.play(-1)
     pygame.mixer.music.set_volume(.5)
 
-    if not mute:
-        pygame.mixer.music.unpause()
-    else:
+    if not constants.mute:
         pygame.mixer.music.pause()
+    else:
+        pygame.mixer.music.unpause()
 
     while True:
 

@@ -1,5 +1,5 @@
 from global_funcs import *
-
+import constants
 
 class Ball(pygame.sprite.Sprite):
     def __init__(self, x, y):
@@ -22,7 +22,7 @@ class Ball(pygame.sprite.Sprite):
         self.x += math.sin(self.angle) * self.speed * delta_time
         self.y += math.cos(self.angle) * self.speed * delta_time
         if self.speed > 0:
-            self.speed -= (friction * delta_time)
+            self.speed -= (constants.friction * delta_time)
         else:
             self.speed = 0
 
