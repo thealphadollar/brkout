@@ -29,7 +29,7 @@ class Credits(pg.sprite.Sprite):
             os.path.join(assets_directory, 'logo.png')).convert()
         self.rect = self.gamelogo.get_rect()
         self.rect.center = (self.x, self.y)
-        self.color1 = brick_red
+        self.color1 = blood_red
         self.color2 = wall_silver
 
     def update(self):

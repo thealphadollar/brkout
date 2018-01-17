@@ -226,7 +226,7 @@ def events():
         striker.y_velocity = 0
 
 def gameloop(striker_color):
-    global screen, clock, ball, striker, choice
+    global screen, clock, ball, striker, choice, mute
     start_time = False
 
     alert = pygame.mixer.Channel(2)
@@ -236,10 +236,17 @@ def gameloop(striker_color):
     pygame.mixer.music.play(-1)
     pygame.mixer.music.set_volume(.5)
 
+<<<<<<< HEAD
     if not constants.mute:
         pygame.mixer.music.pause()
     else:
         pygame.mixer.music.unpause()
+=======
+    if not mute:
+        pygame.mixer.music.unpause()
+    else:
+        pygame.mixer.music.pause()
+>>>>>>> 9ebaedcae6b856c70cd0cabe3d0ac424ed6b3abf
 
     while True:
 

@@ -8,8 +8,7 @@ import constants
 menu_ball = Ball(scr_width/2, scr_height-wall_brick_height-ball_radius)
 first = 1
 # main function to display and handle menu screen
-mute = 1
-frction = 0.01
+
 def menu_screen(screen, clock):
 
     # declaring important variables
