@@ -167,24 +167,24 @@ def check_collisions():
 
 def render_field():
 
-    global flip_image
+    global flip_image,screen
 
     screen.fill(black)
 
     # drawing prison-field
     #pygame.draw.rect(screen, grey, (100, 40, 700, 660))
 
-    flip_image = (flip_image + 1) % 40
+    flip_image = (flip_image + 1) % 60
     # rendering speed images
-    if flip_image < 20:
-        screen.blit(speed_red, (-2, 40))
-    else:
-        screen.blit(speed_blue, (-2, 40))
+    if flip_image < 30:
+        pygame.draw.rect(screen,black,(0,40,100,scr_height-40))
+    else :
+        pygame.draw.rect(screen,white,(0,40,100,scr_height-40))
 
-    if flip_image < 20:
-        screen.blit(speed_red, (802, 40))
-    else:
-        screen.blit(speed_blue, (802, 40))
+    if flip_image < 30:
+        pygame.draw.rect(screen,white,(800,40,100,scr_height-40))
+    else :
+        pygame.draw.rect(screen,black,(800,40,100,scr_height-40))
 
     # drawing the prison styled thin bars
     draw_walls(screen, post_brick_width, post_brick_height)
