@@ -2,7 +2,18 @@
 A prison escape game with a blend of brick breaking gameplay and innovative implementation of the same to get the look of an escape.
 
 ## Screenshots and Gameplay
--- To Be Added
+
+When you decide to escape
+![alt text](https://github.com/TheLethalCode/brkout/blob/master/game/assets/HomeScreen.png)
+
+As you fight your way through the unbreakable wall
+![alt text](https://github.com/TheLethalCode/brkout/blob/master/game/assets/MainGame.png)
+
+You realise that escape might not be as easy as you thought
+![alt text](https://github.com/TheLethalCode/brkout/blob/master/game/assets/LosingScreen.png)
+
+And when you finally taste the free air after numerous attempts
+![alt text](https://github.com/TheLethalCode/brkout/blob/master/game/assets/WinningScreen.png)
 
 ## Prerequisite
 
@@ -10,26 +21,28 @@ Python2 is the default language needed for playing this game,to check which vers
 ```
 python --version
 ```
-## Installing Pygame
+## Downloading Brkout and Playing
 
-You can use the below commands or launch "Set_Dependencies" to install it.
+You can use the below commands.
 
 ```
 sudo apt-get install python-pip
 pip install --upgrade pip
 ```
 ```
-pip install pygame
+pip install brkout
 ```
 If this does not work, then
 ```
-sudo -H pip install pygame
+sudo -H pip install brkout 
+```
+
+brkout
 ```
 
 For more info, visit [Pygame download page](http://www.pygame.org/download.shtml)
 
-## Running the game
-
+## Developing on the Game
 
 ### On Linux
 
@@ -37,17 +50,11 @@ For more info, visit [Pygame download page](http://www.pygame.org/download.shtml
 ```
 git clone https://github.com/thealphadollar/brkout.git
 ```
-2. Open the directory, open properties for "set_dependencies.desktop", toggle "Allow executing file as program" and launch it. This is only required for the first time launch.
-
-NOTE: The administrative permission is required to place the AHlogo.png file into the usr/share/icons directory and install PyGame.
-
-4. Open properties for run.desktop, toggle "Allow executing file as program" and click Play.
+2. Make the required changes and send a Pull Request
 
 ### On Windows
 
 1. Clone the repository by the method appropriate for the Git interface you are using.
-
-2. Run main.py in a Python2 IDE.
 
 ## Gameplay Help
 
