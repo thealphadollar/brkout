@@ -56,6 +56,8 @@ git clone https://github.com/thealphadollar/brkout.git
 
 1. The game can be controlled using arrows keys or the 'w', 'a', 's' and 'd' keys.
 2. Spacebar and enter key both act as the selection key.
-3. Spacebar can be used to pause the game.
+3. Spacebar or escape key can be used to pause the game.
+4. Choose the required difficulty level by clicking on it.
+5. Reset the highscore, if needed, by clicking on the 'reset' icon.
 
 # Enjoy The Game
