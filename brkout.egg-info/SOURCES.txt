@@ -23,12 +23,16 @@ game/assets/ARCADECLASSIC.TTF
 game/assets/Future TimeSplitters.otf
 game/assets/FutureTimeSplittersupdate.otf
 game/assets/Halo3.ttf
+game/assets/HomeScreen.png
 game/assets/Jolly Bold.ttf
+game/assets/LosingScreen.png
+game/assets/MainGame.png
 game/assets/PWScratchy.ttf
 game/assets/Power Bots Loop.wav
 game/assets/SF Atarian System Extended Bold Italic.ttf
 game/assets/TheHills.ttf
 game/assets/Weston Free.otf
+game/assets/WinningScreen.png
 game/assets/break.mp3
 game/assets/chiller.ttf
 game/assets/comici.ttf

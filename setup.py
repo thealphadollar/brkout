@@ -11,7 +11,7 @@ setup(
     
     name='brkout',
 
-    version='0.8', 
+    version='0.9', 
 
     description='A game combining the concept of prison escape and brick breaking', 
 

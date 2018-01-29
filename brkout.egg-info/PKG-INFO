@@ -1,6 +1,6 @@
 Metadata-Version: 1.1
 Name: brkout
-Version: 0.8
+Version: 0.9
 Summary: A game combining the concept of prison escape and brick breaking
 Home-page: https://github.com/thealphadollar/brkout
 Author: thealphadollar
@@ -10,7 +10,18 @@ Description: # BrkOut
         A prison escape game with a blend of brick breaking gameplay and innovative implementation of the same to get the look of an escape.
         
         ## Screenshots and Gameplay
-        -- To Be Added
+        
+        When you decide to escape
+        ![alt text](/game/assets/HomeScreen.png)
+        
+        As you fight your way through the unbreakable wall
+        ![alt text](/game/assets/MainGame.png)
+        
+        You realise that escape might not be as easy as you thought
+        ![alt text](/game/assets/LosingScreen.png)
+        
+        And when you finally taste the free air after numerous attempts
+        ![alt text](/game/assets/WinningScreen.png)
         
         ## Prerequisite
         
@@ -18,26 +29,24 @@ Description: # BrkOut
         ```
         python --version
         ```
-        ## Installing Pygame
+        ## Downloading Brkout and Playing
         
-        You can use the below commands or launch "Set_Dependencies" to install it.
+        You can use the below commands.
         
         ```
         sudo apt-get install python-pip
         pip install --upgrade pip
         ```
         ```
-        pip install pygame
+        pip install brkout
         ```
         If this does not work, then
         ```
-        sudo -H pip install pygame
+        sudo -H pip install brkout
         ```
-        
         For more info, visit [Pygame download page](http://www.pygame.org/download.shtml)
         
-        ## Running the game
-        
+        ## Developing on the Game
         
         ### On Linux
         
@@ -45,23 +54,19 @@ Description: # BrkOut
         ```
         git clone https://github.com/thealphadollar/brkout.git
         ```
-        2. Open the directory, open properties for "set_dependencies.desktop", toggle "Allow executing file as program" and launch it. This is only required for the first time launch.
-        
-        NOTE: The administrative permission is required to place the AHlogo.png file into the usr/share/icons directory and install PyGame.
-        
-        4. Open properties for run.desktop, toggle "Allow executing file as program" and click Play.
+        2. Make the required changes and send a Pull Request
         
         ### On Windows
         
         1. Clone the repository by the method appropriate for the Git interface you are using.
         
-        2. Run main.py in a Python2 IDE.
-        
         ## Gameplay Help
         
         1. The game can be controlled using arrows keys or the 'w', 'a', 's' and 'd' keys.
         2. Spacebar and enter key both act as the selection key.
-        3. Spacebar can be used to pause the game.
+        3. Spacebar or escape key can be used to pause the game.
+        4. Choose the required difficulty level by clicking on it.
+        5. Reset the highscore, if needed, by clicking on the 'reset' icon.
         
         # Enjoy The Game
         
