@@ -36,10 +36,6 @@ If this does not work, then
 ```
 sudo -H pip install brkout
 ```
-
-brkout
-```
-
 For more info, visit [Pygame download page](http://www.pygame.org/download.shtml)
 
 ## Developing on the Game
