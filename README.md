@@ -34,7 +34,7 @@ pip install brkout
 ```
 If this does not work, then
 ```
-sudo -H pip install brkout 
+sudo -H pip install brkout
 ```
 
 brkout
@@ -63,4 +63,3 @@ git clone https://github.com/thealphadollar/brkout.git
 3. Spacebar can be used to pause the game.
 
 # Enjoy The Game
-
