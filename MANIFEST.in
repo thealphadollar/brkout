@@ -1,0 +1,6 @@
+# include all the required files
+include LICENSE
+include README.md
+
+# inlcude recursively
+recursive-include game/assets *
