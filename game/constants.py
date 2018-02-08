@@ -1,4 +1,5 @@
 # this file includes all the variables' initial value and constants.
+from builtins import range
 import pygame
 import os
 pygame.init()
@@ -97,9 +98,9 @@ start_screen_number1 = pygame.font.Font(
 
 # music files
 pause_sound = pygame.mixer.Sound(os.path.join(assets_directory, "pause.ogg"))
-collision_sound = pygame.mixer.Sound(os.path.join(assets_directory, "hit.mp3"))
-striker_sound = pygame.mixer.Sound(os.path.join(assets_directory, "striker.mp3"))
-break_sound = pygame.mixer.Sound(os.path.join(assets_directory, "break.mp3"))
+collision_sound = pygame.mixer.Sound(os.path.join(assets_directory, "hit.ogg"))
+striker_sound = pygame.mixer.Sound(os.path.join(assets_directory, "striker.ogg"))
+break_sound = pygame.mixer.Sound(os.path.join(assets_directory, "break.ogg"))
 
 # images
 speed_red = pygame.image.load(os.path.join(assets_directory, 'speed_red.png'))
@@ -154,4 +155,4 @@ Red, They Have The Brittlest Head", "A Thumb Rule To Follow, Never Hit The Brick
 Spend Behind Bars, Worse Are You, Once Out", "To A Patch You Are Bound, Since There's Light Around", "Remember The Guards, Gathering Like It's A College Fest!"]
 
 # file list
-file_list = [x for x in xrange(33, 127) if x != 36]
+file_list = [x for x in range(33, 127) if x != 36]

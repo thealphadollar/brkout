@@ -1,9 +1,11 @@
 from __future__ import absolute_import
+from __future__ import division
 # Credits scroll upwards
 # Space bar pauses the credits
 # Enter or Escape fastforwards
 
 # function to set path to current folder (py 2 to 3)
+from past.utils import old_div
 def import_modify():
     if __name__ == '__main__':
         if __package__ is None:
@@ -20,7 +22,7 @@ import pygame as pg
 class Credits(pg.sprite.Sprite):
     def __init__(self, screen):
         pg.sprite.Sprite.__init__(self)
-        self.x = scr_width/2
+        self.x = old_div(scr_width,2)
         self.y = scr_height + 120
         self.y1 = self.y + 170
         self.y2 = self.y1 + 100
@@ -114,6 +116,6 @@ def credits_screen(screen, clock):
             pg.draw.aaline(screen, wall_silver, (x+1, scr_height), (x, 0), 2)
             pg.draw.aaline(screen, wall_silver, (x+2, scr_height), (x, 0), 2)
             pg.draw.aaline(screen, wall_silver, (x+3, scr_height), (x, 0), 2)
-            x += (float(scr_width-6)) / 9
+            x += old_div((float(scr_width-6)), 9)
         cr.draw()
         pg.display.update()

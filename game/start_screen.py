@@ -1,6 +1,8 @@
 from __future__ import absolute_import
+from __future__ import division
 
 # function to set path to current folder (py 2 to 3)
+from past.utils import old_div
 def import_modify():
     if __name__ == '__main__':
         if __package__ is None:
@@ -15,7 +17,7 @@ from highscore import *
 import constants
 
 # initiating the ball
-menu_ball = Ball(scr_width/2, scr_height-wall_brick_height-ball_radius)
+menu_ball = Ball(old_div(scr_width,2), scr_height-wall_brick_height-ball_radius)
 first = 1
 # main function to display and handle menu screen
 
@@ -40,7 +42,7 @@ def menu_screen(screen, clock):
         timer += 1
         screen.blit(start_img_resized, (0, 0))
         draw_walls(screen, wall_brick_width, wall_brick_height)
-        disp_text(screen, "Will You Make It Out... Alive?", (scr_width/2, 100), start_horror_text, peace_green)
+        disp_text(screen, "Will You Make It Out... Alive?", (old_div(scr_width,2), 100), start_horror_text, peace_green)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 os._exit(0)
@@ -60,7 +62,7 @@ def menu_screen(screen, clock):
         else:
             pygame.mixer.music.unpause()
         # time passed
-        delta_time = clock.get_time() / 10
+        delta_time = old_div(clock.get_time(), 10)
         mouse_x, mouse_y = pygame.mouse.get_pos()
         # checking for events
         for event in pygame.event.get():
@@ -112,38 +114,38 @@ def menu_screen(screen, clock):
 
         # display quote
         # displaying random hint
-        disp_text(screen, "\"" + hint_message[random_hint % 7] + "\"", (scr_width / 2, scr_height / 4 + 20),
+        disp_text(screen, "\"" + hint_message[random_hint % 7] + "\"", (old_div(scr_width, 2), old_div(scr_height, 4) + 20),
                   quote_text, orange)
 
         # display title
-        disp_text(screen, "Brk", (scr_width/2 - 70, scr_height /
-                                  2 - 240), game_title_text_large, orange)
-        disp_text(screen, "OUT", (scr_width / 2 + 100, scr_height /
-                                  2 - 240), game_title_text_small, white)
+        disp_text(screen, "Brk", (old_div(scr_width,2) - 70, old_div(scr_height,
+                                  2) - 240), game_title_text_large, orange)
+        disp_text(screen, "OUT", (old_div(scr_width, 2) + 100, old_div(scr_height,
+                                  2) - 240), game_title_text_small, white)
 
-        disp_text(screen, "YOUR PRISON", (scr_width / 2, scr_height /
-                                  2 - 80), prison_text_big, blood_red)
+        disp_text(screen, "YOUR PRISON", (old_div(scr_width, 2), old_div(scr_height,
+                                  2) - 80), prison_text_big, blood_red)
 
         if prison_choice == 0:
-            disp_text(screen, "HOME", (scr_width / 2 -250, scr_height /
-                                    2 - 24), prison_text1, blue)
+            disp_text(screen, "HOME", (old_div(scr_width, 2) -250, old_div(scr_height,
+                                    2) - 24), prison_text1, blue)
         else :
-            disp_text(screen, "HOME", (scr_width / 2 -250, scr_height /
-                                    2 - 24), prison_text, yellow)
+            disp_text(screen, "HOME", (old_div(scr_width, 2) -250, old_div(scr_height,
+                                    2) - 24), prison_text, yellow)
 
         if prison_choice == 1:
-            disp_text(screen, "DUNGEON", (scr_width / 2 - 25, scr_height /
-                                    2 - 24), prison_text1, blue)
+            disp_text(screen, "DUNGEON", (old_div(scr_width, 2) - 25, old_div(scr_height,
+                                    2) - 24), prison_text1, blue)
         else :
-            disp_text(screen, "DUNGEON", (scr_width / 2 - 25, scr_height /
-                                    2 - 24), prison_text, yellow)
+            disp_text(screen, "DUNGEON", (old_div(scr_width, 2) - 25, old_div(scr_height,
+                                    2) - 24), prison_text, yellow)
 
         if prison_choice == 2:
-            disp_text(screen, "TARTARUS", (scr_width / 2 + 240, scr_height /
-                                    2 - 24), prison_text1, blue)
+            disp_text(screen, "TARTARUS", (old_div(scr_width, 2) + 240, old_div(scr_height,
+                                    2) - 24), prison_text1, blue)
         else :
-            disp_text(screen, "TARTARUS", (scr_width / 2 + 240, scr_height /
-                                    2 - 24), prison_text, yellow)
+            disp_text(screen, "TARTARUS", (old_div(scr_width, 2) + 240, old_div(scr_height,
+                                    2) - 24), prison_text, yellow)
 
         disp_text(screen, "HIGHSCORE", (130, 65), start_screen_number, white)
         disp_text(screen, high_score , (130, 105), start_screen_number1, white)
@@ -158,75 +160,75 @@ def menu_screen(screen, clock):
         # display menu
         # display "Let's Play"
         if option_flag == 0:
-            disp_text(screen, "Let's Escape", (scr_width/2,
-                                               scr_height/2 + 60), menu_item_text_selected, silver)
+            disp_text(screen, "Let's Escape", (old_div(scr_width,2),
+                                               old_div(scr_height,2) + 60), menu_item_text_selected, silver)
         else:
-            disp_text(screen, "Let's Escape", (scr_width/2,
-                                               scr_height/2 + 60), menu_item_text, grey)
+            disp_text(screen, "Let's Escape", (old_div(scr_width,2),
+                                               old_div(scr_height,2) + 60), menu_item_text, grey)
 
         # display white boundary around color palette
-        pygame.draw.rect(screen, white, (scr_width/2 - 200,
-                                         scr_height/2 + 100, 400, 100), 3)
-        pygame.draw.rect(screen, white, (scr_width / 2 - 192,
-                                         scr_height / 2 + 108, 384, 84), 2)
+        pygame.draw.rect(screen, white, (old_div(scr_width,2) - 200,
+                                         old_div(scr_height,2) + 100, 400, 100), 3)
+        pygame.draw.rect(screen, white, (old_div(scr_width, 2) - 192,
+                                         old_div(scr_height, 2) + 108, 384, 84), 2)
 
         # display color palette
         if color_choice == 0:
             pygame.draw.rect(screen, light_green,
-                             (scr_width/2 - 190, scr_height/2 + 110, 80, 80))
+                             (old_div(scr_width,2) - 190, old_div(scr_height,2) + 110, 80, 80))
         else:
-            pygame.draw.rect(screen, green, (scr_width / 2 -
-                                             185, scr_height / 2 + 115, 70, 70))
+            pygame.draw.rect(screen, green, (old_div(scr_width, 2) -
+                                             185, old_div(scr_height, 2) + 115, 70, 70))
 
         if color_choice == 1:
-            pygame.draw.rect(screen, light_red, (scr_width /
-                                                 2 - 90, scr_height/2 + 110, 80, 80))
+            pygame.draw.rect(screen, light_red, (old_div(scr_width,
+                                                 2) - 90, old_div(scr_height,2) + 110, 80, 80))
         else:
-            pygame.draw.rect(screen, red, (scr_width/2 - 85,
-                                           scr_height / 2 + 115, 70, 70))
+            pygame.draw.rect(screen, red, (old_div(scr_width,2) - 85,
+                                           old_div(scr_height, 2) + 115, 70, 70))
 
         if color_choice == 2:
             pygame.draw.rect(screen, light_magenta,
-                             (scr_width/2 + 10, scr_height/2 + 110, 80, 80))
+                             (old_div(scr_width,2) + 10, old_div(scr_height,2) + 110, 80, 80))
         else:
-            pygame.draw.rect(screen, magenta, (scr_width /
-                                               2 + 15, scr_height / 2 + 115, 70, 70))
+            pygame.draw.rect(screen, magenta, (old_div(scr_width,
+                                               2) + 15, old_div(scr_height, 2) + 115, 70, 70))
 
         if color_choice == 3:
-            pygame.draw.rect(screen, light_blue, (scr_width /
-                                                  2 + 110, scr_height/2 + 110, 80, 80))
+            pygame.draw.rect(screen, light_blue, (old_div(scr_width,
+                                                  2) + 110, old_div(scr_height,2) + 110, 80, 80))
         else:
-            pygame.draw.rect(screen, blue, (scr_width / 2 +
-                                            115, scr_height / 2 + 115, 70, 70))
+            pygame.draw.rect(screen, blue, (old_div(scr_width, 2) +
+                                            115, old_div(scr_height, 2) + 115, 70, 70))
 
         # display "I'm Scared"
         if option_flag == 1:
-            disp_text(screen, "I'm Scared", (scr_width/2, scr_height /
-                                             2 + 240), menu_item_text_selected, silver)
+            disp_text(screen, "I'm Scared", (old_div(scr_width,2), old_div(scr_height,
+                                             2) + 240), menu_item_text_selected, silver)
         else:
-            disp_text(screen, "I'm Scared", (scr_width/2,
-                                             scr_height/2 + 240), menu_item_text, grey)
+            disp_text(screen, "I'm Scared", (old_div(scr_width,2),
+                                             old_div(scr_height,2) + 240), menu_item_text, grey)
 
         # display message
         if mouse_x < scr_width - 70 and mouse_x > scr_width -100 and mouse_y < 100 and mouse_y > 70 :
             if mute:
-                disp_text(screen, "Click To Mute", (scr_width /
-                                                        2, scr_height/2 + 300), message_text, yellow)
+                disp_text(screen, "Click To Mute", (old_div(scr_width,
+                                                        2), old_div(scr_height,2) + 300), message_text, yellow)
             else :
-                disp_text(screen, "Click To Unmute", (scr_width /
-                                                        2, scr_height/2 + 300), message_text, yellow)
+                disp_text(screen, "Click To Unmute", (old_div(scr_width,
+                                                        2), old_div(scr_height,2) + 300), message_text, yellow)
         elif mouse_x < scr_width - 70 and mouse_x > scr_width - 100 and mouse_y < 150 and mouse_y > 120 :
-            disp_text(screen, "Click For Help", (scr_width /
-                                                      2, scr_height/2 + 300), message_text, yellow)
+            disp_text(screen, "Click For Help", (old_div(scr_width,
+                                                      2), old_div(scr_height,2) + 300), message_text, yellow)
         elif mouse_x < scr_width - 70 and mouse_x > scr_width - 100 and mouse_y < 200 and mouse_y > 170 :
-            disp_text(screen, "Click To Reset Highscore", (scr_width /
-                                                      2, scr_height/2 + 300), message_text, yellow)
+            disp_text(screen, "Click To Reset Highscore", (old_div(scr_width,
+                                                      2), old_div(scr_height,2) + 300), message_text, yellow)
         elif option_flag == 0:
-            disp_text(screen, "Press Enter To Play", (scr_width /
-                                                      2, scr_height/2 + 300), message_text, yellow)
+            disp_text(screen, "Press Enter To Play", (old_div(scr_width,
+                                                      2), old_div(scr_height,2) + 300), message_text, yellow)
         elif option_flag == 1:
-            disp_text(screen, "Press Enter To Quit Game", (scr_width /
-                                                           2, scr_height / 2 + 300), message_text, yellow)
+            disp_text(screen, "Press Enter To Quit Game", (old_div(scr_width,
+                                                           2), old_div(scr_height, 2) + 300), message_text, yellow)
 
         pygame.display.update()
         clock.tick(FPS)

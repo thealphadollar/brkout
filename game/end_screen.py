@@ -1,6 +1,9 @@
 from __future__ import absolute_import
+from __future__ import division
 
 # function to set path to current folder (py 2 to 3)
+from builtins import str
+from past.utils import old_div
 def import_modify():
     if __name__ == '__main__':
         if __package__ is None:
@@ -52,7 +55,7 @@ def end_screen(screen, win, score, seconds_first, seconds_second, minutes_first,
     else:
         pygame.mixer.music.unpause()
     # initialising ball for this screen
-    ball = Ball(scr_width / 2, scr_height - wall_brick_height)
+    ball = Ball(old_div(scr_width, 2), scr_height - wall_brick_height)
     new_high, new_time = read_highscore()
     new_high = int(new_high)
     if new_high < score :
@@ -62,47 +65,47 @@ def end_screen(screen, win, score, seconds_first, seconds_second, minutes_first,
     while True:
 
         # time passed
-        delta_time = clock.get_time() / 10
+        delta_time = old_div(clock.get_time(), 10)
 
         # if player won the game, theme like he is out of the captivity
         if win:
             screen.fill(white)
-            disp_text(screen, "Sweet Open Air!", (scr_width / 2, scr_height / 4), end_title_text_win,
+            disp_text(screen, "Sweet Open Air!", (old_div(scr_width, 2), old_div(scr_height, 4)), end_title_text_win,
                       peace_green)
             # displaying menu options
             if option == 0:
-                disp_text(screen, "Get Dirty Again", (scr_width / 2,
-                                                      scr_height / 2 + 80), menu_item_text_selected, black)
+                disp_text(screen, "Get Dirty Again", (old_div(scr_width, 2),
+                                                      old_div(scr_height, 2) + 80), menu_item_text_selected, black)
             else:
-                disp_text(screen, "Get Dirty Again", (scr_width / 2,
-                                                      scr_height / 2 + 80), menu_item_text, light_black)
+                disp_text(screen, "Get Dirty Again", (old_div(scr_width, 2),
+                                                      old_div(scr_height, 2) + 80), menu_item_text, light_black)
 
             if option == 1:
-                disp_text(screen, "Rest A While", (scr_width / 2,
-                                                   scr_height / 2 + 130), menu_item_text_selected, black)
+                disp_text(screen, "Rest A While", (old_div(scr_width, 2),
+                                                   old_div(scr_height, 2) + 130), menu_item_text_selected, black)
             else:
-                disp_text(screen, "Rest A While", (scr_width / 2,
-                                                   scr_height / 2 + 130), menu_item_text, light_black)
+                disp_text(screen, "Rest A While", (old_div(scr_width, 2),
+                                                   old_div(scr_height, 2) + 130), menu_item_text, light_black)
 
             if option == 2:
-                disp_text(screen, "Food Stinks There!", (scr_width / 2,
-                                                         scr_height / 2 + 180), menu_item_text_selected, black)
+                disp_text(screen, "Food Stinks There!", (old_div(scr_width, 2),
+                                                         old_div(scr_height, 2) + 180), menu_item_text_selected, black)
             else:
-                disp_text(screen, "Food Stinks There!", (scr_width / 2,
-                                                         scr_height / 2 + 180), menu_item_text, light_black)
+                disp_text(screen, "Food Stinks There!", (old_div(scr_width, 2),
+                                                         old_div(scr_height, 2) + 180), menu_item_text, light_black)
 
             # drawing box around options
-            pygame.draw.rect(screen, black, (scr_width / 2 -
-                                             250, scr_height / 2 + 40, 500, 190), 2)
-            pygame.draw.rect(screen, black, (scr_width / 2 -
-                                             242, scr_height / 2 + 48, 484, 174), 2)
+            pygame.draw.rect(screen, black, (old_div(scr_width, 2) -
+                                             250, old_div(scr_height, 2) + 40, 500, 190), 2)
+            pygame.draw.rect(screen, black, (old_div(scr_width, 2) -
+                                             242, old_div(scr_height, 2) + 48, 484, 174), 2)
 
         # if player caught
         else:
             screen.fill(black)
             draw_walls(screen, wall_brick_width, wall_brick_height)
-            disp_text(screen, "Dragged Behind Bars!!", (scr_width / 2,
-                                                        scr_height / 4), end_title_text_lose, blood_red)
+            disp_text(screen, "Dragged Behind Bars!!", (old_div(scr_width, 2),
+                                                        old_div(scr_height, 4)), end_title_text_lose, blood_red)
 
             # ball updates
             ball.menu_screen_move(delta_time)
@@ -112,58 +115,58 @@ def end_screen(screen, win, score, seconds_first, seconds_second, minutes_first,
 
             # displaying menu options
             if option == 0:
-                disp_text(screen, "Pull It Again", (scr_width / 2,
-                                                    scr_height / 2 + 80), menu_item_text_selected, silver)
+                disp_text(screen, "Pull It Again", (old_div(scr_width, 2),
+                                                    old_div(scr_height, 2) + 80), menu_item_text_selected, silver)
             else:
-                disp_text(screen, "Pull It Again", (scr_width / 2,
-                                                    scr_height / 2 + 80), menu_item_text, grey)
+                disp_text(screen, "Pull It Again", (old_div(scr_width, 2),
+                                                    old_div(scr_height, 2) + 80), menu_item_text, grey)
 
             if option == 1:
-                disp_text(screen, "Change Disguise", (scr_width / 2,
-                                                      scr_height / 2 + 130), menu_item_text_selected, silver)
+                disp_text(screen, "Change Disguise", (old_div(scr_width, 2),
+                                                      old_div(scr_height, 2) + 130), menu_item_text_selected, silver)
             else:
-                disp_text(screen, "Change Disguise", (scr_width / 2,
-                                                      scr_height / 2 + 130), menu_item_text, grey)
+                disp_text(screen, "Change Disguise", (old_div(scr_width, 2),
+                                                      old_div(scr_height, 2) + 130), menu_item_text, grey)
 
             if option == 2:
-                disp_text(screen, "Give Up?", (scr_width / 2,
-                                               scr_height / 2 + 180), menu_item_text_selected, silver)
+                disp_text(screen, "Give Up?", (old_div(scr_width, 2),
+                                               old_div(scr_height, 2) + 180), menu_item_text_selected, silver)
             else:
-                disp_text(screen, "Give Up?", (scr_width / 2,
-                                               scr_height / 2 + 180), menu_item_text, grey)
+                disp_text(screen, "Give Up?", (old_div(scr_width, 2),
+                                               old_div(scr_height, 2) + 180), menu_item_text, grey)
 
             # drawing box around options
-            pygame.draw.rect(screen, white, (scr_width / 2 -
-                                             250, scr_height / 2 + 40, 500, 190), 3)
-            pygame.draw.rect(screen, white, (scr_width / 2 -
-                                             242, scr_height / 2 + 48, 484, 174), 2)
+            pygame.draw.rect(screen, white, (old_div(scr_width, 2) -
+                                             250, old_div(scr_height, 2) + 40, 500, 190), 3)
+            pygame.draw.rect(screen, white, (old_div(scr_width, 2) -
+                                             242, old_div(scr_height, 2) + 48, 484, 174), 2)
 
         # display score
-        disp_text(screen, "score : ", (scr_width / 4 - 65,
-                                       scr_height / 8 - 30), end_screen_text, grey)
-        disp_text(screen, str(score), (scr_width / 4, scr_height /
-                                       8 + 2 - 30), end_screen_number, light_green)
+        disp_text(screen, "score : ", (old_div(scr_width, 4) - 65,
+                                       old_div(scr_height, 8) - 30), end_screen_text, grey)
+        disp_text(screen, str(score), (old_div(scr_width, 4), old_div(scr_height,
+                                       8) + 2 - 30), end_screen_number, light_green)
 
         # display time
         disp_text(screen, "pursuit : ", (3 * scr_width / 4,
-                                         scr_height / 8 - 30), end_screen_text, grey)
+                                         old_div(scr_height, 8) - 30), end_screen_text, grey)
         disp_text(screen, str(minutes_second) + str(minutes_first) + ":" + str(seconds_second) + str(seconds_first),
-                  (3 * scr_width / 4 + 85, scr_height / 8 + 2 - 30), end_screen_number, light_red)
+                  (3 * scr_width / 4 + 85, old_div(scr_height, 8) + 2 - 30), end_screen_number, light_red)
 
         # display message
         if option == 0:
             disp_text(screen, "Press Enter To Restart",
-                      (scr_width / 2, scr_height / 2 + 300), message_text, red)
+                      (old_div(scr_width, 2), old_div(scr_height, 2) + 300), message_text, red)
         elif option == 1:
             disp_text(screen, "Press Enter To Go To Menu",
-                      (scr_width / 2, scr_height / 2 + 300), message_text, red)
+                      (old_div(scr_width, 2), old_div(scr_height, 2) + 300), message_text, red)
         elif option == 2:
             disp_text(screen, "Press Enter To Quit Game",
-                      (scr_width / 2, scr_height / 2 + 300), message_text, red)
+                      (old_div(scr_width, 2), old_div(scr_height, 2) + 300), message_text, red)
 
         # displaying random hint
         disp_text(screen, "\""+hint_message[random_hint % 7]+"\"",
-                  (scr_width / 2, scr_height / 4 + 100), quote_text, orange)
+                  (old_div(scr_width, 2), old_div(scr_height, 4) + 100), quote_text, orange)
 
         if events():
             if option == 2:

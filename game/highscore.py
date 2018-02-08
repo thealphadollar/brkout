@@ -1,6 +1,8 @@
 from __future__ import absolute_import
 
 # function to set path to current folder (py 2 to 3)
+from builtins import str
+from builtins import chr
 def import_modify():
     if __name__ == '__main__':
         if __package__ is None:
@@ -51,7 +53,7 @@ def read_highscore():
     try:
         file_name = open("highscore.txt")
         contents = file_name.read()
-        position = string.find(contents, '$')
+        position = contents.find('$')
 
         # If length is not 12048 characters or 5734 th character is not $
         if len(contents) == 12048 and contents[5733] == '$':

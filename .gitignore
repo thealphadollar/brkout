@@ -28,3 +28,5 @@ main.py.bak
 pause_screen.py.bak
 start_screen.py.bak
 __pycache__/
+constants.py.bak
+highscore.txt

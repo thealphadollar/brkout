@@ -1,6 +1,8 @@
 from __future__ import absolute_import
+from __future__ import division
 
 # function to set path to current folder (py 2 to 3)
+from past.utils import old_div
 def import_modify():
     if __name__ == '__main__':
         if __package__ is None:
@@ -39,7 +41,7 @@ def pause_game(screen, clock):
         clock.tick(FPS)
 
         newtime = pygame.time.get_ticks()
-        delta_time = (newtime - oldtime)/10
+        delta_time = old_div((newtime - oldtime),10)
         oldtime = newtime
 
         # checking events
@@ -85,56 +87,56 @@ def pause_game(screen, clock):
         screen.fill(black)
         draw_walls(screen, 100, 30)
         # displaying the top text
-        disp_text(screen, "Wait! I saw something", (scr_width / 2,
-                                                    scr_height/2 - 250), pause_text_top, pause_text_tops)
+        disp_text(screen, "Wait! I saw something", (old_div(scr_width, 2),
+                                                    old_div(scr_height,2) - 250), pause_text_top, pause_text_tops)
 
         # displaying highlighted options
         if option == 0:
-            disp_text(screen, "JUST A RAT!", (scr_width / 2,
-                                              scr_height/2 - 100), pause_text_s, pause_sel_col)
-            disp_text(screen, "PRESS ENTER TO RESUME", (scr_width /
-                                                        2, scr_height - 50), message_text1, credit_orange)
+            disp_text(screen, "JUST A RAT!", (old_div(scr_width, 2),
+                                              old_div(scr_height,2) - 100), pause_text_s, pause_sel_col)
+            disp_text(screen, "PRESS ENTER TO RESUME", (old_div(scr_width,
+                                                        2), scr_height - 50), message_text1, credit_orange)
         else:
-            disp_text(screen, "JUST A RAT!", (scr_width / 2,
-                                              scr_height/2 - 100), pause_text, pause_col)
+            disp_text(screen, "JUST A RAT!", (old_div(scr_width, 2),
+                                              old_div(scr_height,2) - 100), pause_text, pause_col)
         if option == 1:
-            disp_text(screen, "YIKES! GUARDS", (scr_width / 2,
-                                                scr_height/2 - 20), pause_text_s, pause_sel_col)
-            disp_text(screen, "PRESS ENTER TO RESTART", (scr_width /
-                                                         2, scr_height - 50), message_text1, credit_orange)
+            disp_text(screen, "YIKES! GUARDS", (old_div(scr_width, 2),
+                                                old_div(scr_height,2) - 20), pause_text_s, pause_sel_col)
+            disp_text(screen, "PRESS ENTER TO RESTART", (old_div(scr_width,
+                                                         2), scr_height - 50), message_text1, credit_orange)
         else:
-            disp_text(screen, "YIKES! GUARDS", (scr_width / 2,
-                                                scr_height/2 - 20), pause_text, pause_col)
+            disp_text(screen, "YIKES! GUARDS", (old_div(scr_width, 2),
+                                                old_div(scr_height,2) - 20), pause_text, pause_col)
         if option == 2:
-            disp_text(screen, "PRESS ENTER FOR MAIN MENU", (scr_width /
-                                                            2, scr_height - 50), message_text1, credit_orange)
-            disp_text(screen, "PULL OUT!", (scr_width / 2,
-                                            scr_height/2 + 60), pause_text_s, pause_sel_col)
+            disp_text(screen, "PRESS ENTER FOR MAIN MENU", (old_div(scr_width,
+                                                            2), scr_height - 50), message_text1, credit_orange)
+            disp_text(screen, "PULL OUT!", (old_div(scr_width, 2),
+                                            old_div(scr_height,2) + 60), pause_text_s, pause_sel_col)
         else:
-            disp_text(screen, "PULL OUT!", (scr_width / 2,
-                                            scr_height/2 + 60), pause_text, pause_col)
+            disp_text(screen, "PULL OUT!", (old_div(scr_width, 2),
+                                            old_div(scr_height,2) + 60), pause_text, pause_col)
         if option == 3:
-            disp_text(screen, "PRESS ENTER TO QUIT", (scr_width / 2,
+            disp_text(screen, "PRESS ENTER TO QUIT", (old_div(scr_width, 2),
                                                       scr_height - 50), message_text1, credit_orange)
-            disp_text(screen, "GIVE UP?", (scr_width / 2,
-                                           scr_height/2 + 140), pause_text_s, pause_sel_col)
+            disp_text(screen, "GIVE UP?", (old_div(scr_width, 2),
+                                           old_div(scr_height,2) + 140), pause_text_s, pause_sel_col)
         else:
-            disp_text(screen, "GIVE UP?", (scr_width / 2,
-                                           scr_height/2 + 140), pause_text, pause_col)
+            disp_text(screen, "GIVE UP?", (old_div(scr_width, 2),
+                                           old_div(scr_height,2) + 140), pause_text, pause_col)
 
         # drawing a box
-        pygame.draw.rect(screen, white, (scr_width/2 - 170,
-                                         scr_height/2 - 160, 340, 360), 2)
-        pygame.draw.rect(screen, white, (scr_width/2 - 178,
-                                         scr_height/2 - 168, 356, 376), 3)
-        pygame.draw.aaline(screen, white, (scr_width/2 - 178, scr_height /
-                                           2 - 168), (scr_width/2 + 178, scr_height/2 - 168), 1)
-        pygame.draw.aaline(screen, white, (scr_width/2 - 178, scr_height /
-                                           2 - 168), (scr_width/2 - 178, scr_height/2 + 208), 1)
-        pygame.draw.aaline(screen, white, (scr_width/2 + 178, scr_height /
-                                           2 + 208), (scr_width/2 - 178, scr_height/2 + 208), 1)
-        pygame.draw.aaline(screen, white, (scr_width/2 + 178, scr_height /
-                                           2 + 208), (scr_width/2 + 178, scr_height/2 - 168), 1)
+        pygame.draw.rect(screen, white, (old_div(scr_width,2) - 170,
+                                         old_div(scr_height,2) - 160, 340, 360), 2)
+        pygame.draw.rect(screen, white, (old_div(scr_width,2) - 178,
+                                         old_div(scr_height,2) - 168, 356, 376), 3)
+        pygame.draw.aaline(screen, white, (old_div(scr_width,2) - 178, old_div(scr_height,
+                                           2) - 168), (old_div(scr_width,2) + 178, old_div(scr_height,2) - 168), 1)
+        pygame.draw.aaline(screen, white, (old_div(scr_width,2) - 178, old_div(scr_height,
+                                           2) - 168), (old_div(scr_width,2) - 178, old_div(scr_height,2) + 208), 1)
+        pygame.draw.aaline(screen, white, (old_div(scr_width,2) + 178, old_div(scr_height,
+                                           2) + 208), (old_div(scr_width,2) - 178, old_div(scr_height,2) + 208), 1)
+        pygame.draw.aaline(screen, white, (old_div(scr_width,2) + 178, old_div(scr_height,
+                                           2) + 208), (old_div(scr_width,2) + 178, old_div(scr_height,2) - 168), 1)
 
         # draw ball
         pause_ball.draw(screen)

@@ -1,6 +1,9 @@
 from __future__ import absolute_import
+from __future__ import division
 
 # function to set path to current folder (py 2 to 3)
+from builtins import object
+from past.utils import old_div
 def import_modify():
     if __name__ == '__main__':
         if __package__ is None:
@@ -20,7 +23,7 @@ class Ball(pygame.sprite.Sprite):
         self.mass = ball_mass
         self.menu_speed = menu_ball_speed
         self.speed = main_ball_speed
-        self.angle = random.uniform(-math.pi/4, math.pi/4)
+        self.angle = random.uniform(old_div(-math.pi,4), old_div(math.pi,4))
 
     def menu_screen_move(self, delta_time):
         self.x += math.sin(self.angle) * self.menu_speed * delta_time
@@ -60,57 +63,57 @@ class Ball(pygame.sprite.Sprite):
 
     # function to check collision with color palette
     def check_collide_palette(self):
-        if (self.y < scr_height/2 + 200 + self.radius) and (self.y > scr_height/2 + 200 - self.radius):
-            if (self.x < scr_width/2 + 200 + self.radius) and (self.x > scr_width/2 + 200 + self.radius - 15):
-                self.x = scr_width/2 + 200 + self.radius
+        if (self.y < old_div(scr_height,2) + 200 + self.radius) and (self.y > old_div(scr_height,2) + 200 - self.radius):
+            if (self.x < old_div(scr_width,2) + 200 + self.radius) and (self.x > old_div(scr_width,2) + 200 + self.radius - 15):
+                self.x = old_div(scr_width,2) + 200 + self.radius
                 self.angle = -self.angle
-            elif (self.x > scr_width/2 - 200 - self.radius) and (self.x < scr_width/2 - 200 - self.radius + 15):
-                self.x = scr_width/2 - 200 - self.radius
+            elif (self.x > old_div(scr_width,2) - 200 - self.radius) and (self.x < old_div(scr_width,2) - 200 - self.radius + 15):
+                self.x = old_div(scr_width,2) - 200 - self.radius
                 self.angle = -self.angle
 
-        if (self.x < scr_width/2 + 200 + self.radius) and (self.x > scr_width/2 - 200 - self.radius):
-            if (self.y < scr_height/2 + 200 + self.radius) and (self.y > scr_height/2 + 200 + self.radius - 15):
-                self.y = scr_height/2 + 200 + self.radius
+        if (self.x < old_div(scr_width,2) + 200 + self.radius) and (self.x > old_div(scr_width,2) - 200 - self.radius):
+            if (self.y < old_div(scr_height,2) + 200 + self.radius) and (self.y > old_div(scr_height,2) + 200 + self.radius - 15):
+                self.y = old_div(scr_height,2) + 200 + self.radius
                 self.angle = math.pi - self.angle
-            elif (self.y > scr_height/2 + 100 - self.radius) and (self.y < scr_height/2 + 100 - self.radius + 15):
-                self.y = scr_height/2 + 100 - self.radius
+            elif (self.y > old_div(scr_height,2) + 100 - self.radius) and (self.y < old_div(scr_height,2) + 100 - self.radius + 15):
+                self.y = old_div(scr_height,2) + 100 - self.radius
                 self.angle = math.pi - self.angle
 
     # function to check collision with losing end screen box
     def check_collide_lose(self):
-        if (self.y < scr_height/2 + 230 + self.radius) and (self.y > scr_height/2 + 40 - self.radius):
-            if (self.x < scr_width/2 + 250 + self.radius) and (self.x > scr_width/2 + 250 + self.radius - 15):
-                self.x = scr_width/2 + 250 + self.radius
+        if (self.y < old_div(scr_height,2) + 230 + self.radius) and (self.y > old_div(scr_height,2) + 40 - self.radius):
+            if (self.x < old_div(scr_width,2) + 250 + self.radius) and (self.x > old_div(scr_width,2) + 250 + self.radius - 15):
+                self.x = old_div(scr_width,2) + 250 + self.radius
                 self.angle = -self.angle
-            elif (self.x > scr_width/2 - 250 - self.radius) and (self.x < scr_width/2 - 250 - self.radius + 15):
-                self.x = scr_width/2 - 250 - self.radius
+            elif (self.x > old_div(scr_width,2) - 250 - self.radius) and (self.x < old_div(scr_width,2) - 250 - self.radius + 15):
+                self.x = old_div(scr_width,2) - 250 - self.radius
                 self.angle = -self.angle
 
-        if (self.x < scr_width/2 + 250 + self.radius) and (self.x > scr_width/2 - 250 - self.radius):
-            if (self.y < scr_height/2 + 230 + self.radius) and (self.y > scr_height/2 + 230 + self.radius - 15):
-                self.y = scr_height/2 + 230 + self.radius
+        if (self.x < old_div(scr_width,2) + 250 + self.radius) and (self.x > old_div(scr_width,2) - 250 - self.radius):
+            if (self.y < old_div(scr_height,2) + 230 + self.radius) and (self.y > old_div(scr_height,2) + 230 + self.radius - 15):
+                self.y = old_div(scr_height,2) + 230 + self.radius
                 self.angle = math.pi - self.angle
-            elif (self.y > scr_height/2 + 40 - self.radius) and (self.y < scr_height/2 + 40 - self.radius + 15):
-                self.y = scr_height/2 + 40 - self.radius
+            elif (self.y > old_div(scr_height,2) + 40 - self.radius) and (self.y < old_div(scr_height,2) + 40 - self.radius + 15):
+                self.y = old_div(scr_height,2) + 40 - self.radius
                 self.angle = math.pi - self.angle
 
     # function to check collision with pause screen box
 
     def check_collide_options(self):
-        if (self.y < scr_height/2 + 208 + self.radius) and (self.y > scr_height/2 - 168 - self.radius):
-            if (self.x < scr_width/2 + 178 + self.radius) and (self.x > scr_width/2 + 178 + self.radius - 15):
-                self.x = scr_width/2 + 178 + self.radius
+        if (self.y < old_div(scr_height,2) + 208 + self.radius) and (self.y > old_div(scr_height,2) - 168 - self.radius):
+            if (self.x < old_div(scr_width,2) + 178 + self.radius) and (self.x > old_div(scr_width,2) + 178 + self.radius - 15):
+                self.x = old_div(scr_width,2) + 178 + self.radius
                 self.angle = -self.angle
-            elif (self.x > scr_width/2 - 178 - self.radius) and (self.x < scr_width/2 - 178 - self.radius + 15):
-                self.x = scr_width/2 - 178 - self.radius
+            elif (self.x > old_div(scr_width,2) - 178 - self.radius) and (self.x < old_div(scr_width,2) - 178 - self.radius + 15):
+                self.x = old_div(scr_width,2) - 178 - self.radius
                 self.angle = -self.angle
 
-        if (self.x < scr_width/2 + 178 + self.radius) and (self.x > scr_width/2 - 178 - self.radius):
-            if (self.y < scr_height/2 + 208 + self.radius) and (self.y > scr_height/2 + 208 + self.radius - 15):
-                self.y = scr_height/2 + 208 + self.radius
+        if (self.x < old_div(scr_width,2) + 178 + self.radius) and (self.x > old_div(scr_width,2) - 178 - self.radius):
+            if (self.y < old_div(scr_height,2) + 208 + self.radius) and (self.y > old_div(scr_height,2) + 208 + self.radius - 15):
+                self.y = old_div(scr_height,2) + 208 + self.radius
                 self.angle = math.pi - self.angle
-            elif (self.y > scr_height/2 - 168 - self.radius) and (self.y < scr_height/2 - 168 - self.radius + 15):
-                self.y = scr_height/2 - 168 - self.radius
+            elif (self.y > old_div(scr_height,2) - 168 - self.radius) and (self.y < old_div(scr_height,2) - 168 - self.radius + 15):
+                self.y = old_div(scr_height,2) - 168 - self.radius
                 self.angle = math.pi - self.angle
 
     # checks collision with game boundary
@@ -176,7 +179,7 @@ class Ball(pygame.sprite.Sprite):
         U = striker_velocity_along_line
         u = ball_velocity_along_line
         # velocities after elastic collision
-        striker_velocity_along_line = (((M-m) * U) + (2 * m * u)) / (M + m)
+        striker_velocity_along_line = old_div((((M-m) * U) + (2 * m * u)), (M + m))
         ball_velocity_along_line = U - u + striker_velocity_along_line
         # setting values after collision
         striker.x_velocity = math.hypot(
@@ -197,10 +200,10 @@ class Ball(pygame.sprite.Sprite):
             self.speed = MAX_BALL_SPEED
         if abs(striker.x_velocity) > MAX_STRIKER_SPEED:
             striker.x_velocity = MAX_STRIKER_SPEED * \
-                (striker.x_velocity / abs(striker.x_velocity))
+                (old_div(striker.x_velocity, abs(striker.x_velocity)))
         if abs(striker.y_velocity) > MAX_STRIKER_SPEED:
             striker.y_velocity = MAX_STRIKER_SPEED * \
-                (striker.y_velocity / abs(striker.y_velocity))
+                (old_div(striker.y_velocity, abs(striker.y_velocity)))
 
         angle = math.atan2(dx, dy)
         self.x = striker.x + ((striker.radius + self.radius) * math.sin(angle))
@@ -216,7 +219,7 @@ class Ball(pygame.sprite.Sprite):
 
 
 # striker class
-class Striker:
+class Striker(object):
     def __init__(self, x, y):
         self.x = x
         self.y = y
@@ -247,10 +250,10 @@ class Striker:
 
         if abs(self.y_velocity) > MAX_STRIKER_SPEED:
             self.y_velocity = MAX_STRIKER_SPEED * \
-                (self.y_velocity / abs(self.y_velocity))
+                (old_div(self.y_velocity, abs(self.y_velocity)))
         if abs(self.x_velocity) > MAX_STRIKER_SPEED:
             self.x_velocity = MAX_STRIKER_SPEED * \
-                (self.x_velocity / abs(self.x_velocity))
+                (old_div(self.x_velocity, abs(self.x_velocity)))
 
     def check_bound(self):
         dx = self.x - main_game_middle_x
@@ -372,7 +375,7 @@ class Bricks(pygame.sprite.Sprite):
     def update(self, speed):
         if speed <= 3:
             return 0
-        self.brick_value -= speed / MAX_BALL_SPEED
+        self.brick_value -= old_div(speed, MAX_BALL_SPEED)
         if self.brick_value <= 0:
             # add sound for breaking
             break_sound.set_volume(2)

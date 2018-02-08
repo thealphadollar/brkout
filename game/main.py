@@ -1,6 +1,9 @@
 from __future__ import absolute_import
+from __future__ import division
 
 # Setting path to current folder
+from builtins import str
+from past.utils import old_div
 if __name__ == '__main__':
     if __package__ is None:
         import sys
@@ -130,7 +133,7 @@ def show_score(start_timer):
 
     if score_time > 0:
         score = int(
-            brick_point / (.7 * math.sqrt(score_time) + .3 * (hit_count ** (1.0/3))))
+            old_div(brick_point, (.7 * math.sqrt(score_time) + .3 * (hit_count ** (old_div(1.0,3))))))
 
     # negative score not allowed
     if score < 0:
@@ -146,17 +149,17 @@ def show_score(start_timer):
 
 def show_speed(ball):
 
-    disp_text(screen, "speed :", (scr_width/2 - 30, 21),
+    disp_text(screen, "speed :", (old_div(scr_width,2) - 30, 21),
               main_screen_text, silver)
     if (ball.speed * 10) > 70:
         disp_text(screen, str(int(ball.speed * 10)),
-                  (scr_width/2 + 15, 21), main_screen_number, pure_green)
+                  (old_div(scr_width,2) + 15, 21), main_screen_number, pure_green)
     elif (ball.speed * 10) > 30:
         disp_text(screen, str(int(ball.speed * 10)),
-                  (scr_width / 2 + 15, 21), main_screen_number, yellow)
+                  (old_div(scr_width, 2) + 15, 21), main_screen_number, yellow)
     else:
         disp_text(screen, str(int(ball.speed * 10)),
-                  (scr_width / 2 + 15, 21), main_screen_number, pure_red)
+                  (old_div(scr_width, 2) + 15, 21), main_screen_number, pure_red)
 
 # rendering static elements
 
@@ -254,7 +257,7 @@ def gameloop(striker_color):
     while True:
 
         # time passed
-        delta_time = clock.get_time() / 10
+        delta_time = old_div(clock.get_time(), 10)
 
         # drawing the game field
         render_field()
