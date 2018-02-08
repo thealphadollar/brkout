@@ -1,6 +1,6 @@
 Metadata-Version: 1.1
 Name: brkout
-Version: 0.9
+Version: 1.0
 Summary: A game combining the concept of prison escape and brick breaking
 Home-page: https://github.com/thealphadollar/brkout
 Author: thealphadollar
@@ -25,7 +25,7 @@ Description: # BrkOut
         
         ## Prerequisite
         
-        Python2 is the default language needed for playing this game,to check which version of Python you have, type the following in terminal:
+        Python2 or Python 3 are the default languages needed for playing this game [on Linux], to check which version of Python you have, type the following in terminal:
         ```
         python --version
         ```
@@ -76,3 +76,4 @@ Classifier: Development Status :: 4 - Beta
 Classifier: License :: OSI Approved :: MIT License
 Classifier: Programming Language :: Python :: 2
 Classifier: Programming Language :: Python :: 2.7
+Classifier: Programming Language :: Python :: 3

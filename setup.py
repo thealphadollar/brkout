@@ -11,7 +11,7 @@ setup(
     
     name='brkout',
 
-    version='0.9', 
+    version='1.0', 
 
     description='A game combining the concept of prison escape and brick breaking', 
 
@@ -30,6 +30,7 @@ setup(
 
         'Programming Language :: Python :: 2',
         'Programming Language :: Python :: 2.7',
+        'Programming Language :: Python :: 3'
     ],
 
     keywords='game prison brkout brick_break',

@@ -17,7 +17,7 @@ And when you finally taste the free air after numerous attempts
 
 ## Prerequisite
 
-Python2 is the default language needed for playing this game,to check which version of Python you have, type the following in terminal:
+Python2 or Python 3 are the default languages needed for playing this game [on Linux], to check which version of Python you have, type the following in terminal:
 ```
 python --version
 ```

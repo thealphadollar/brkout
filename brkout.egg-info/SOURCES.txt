@@ -33,12 +33,12 @@ game/assets/SF Atarian System Extended Bold Italic.ttf
 game/assets/TheHills.ttf
 game/assets/Weston Free.otf
 game/assets/WinningScreen.png
-game/assets/break.mp3
+game/assets/break.ogg
 game/assets/chiller.ttf
 game/assets/comici.ttf
 game/assets/digital-7.ttf
 game/assets/end_loss.mp3
-game/assets/hit.mp3
+game/assets/hit.ogg
 game/assets/information.png
 game/assets/jail.jpeg
 game/assets/logo.png
@@ -52,6 +52,6 @@ game/assets/speed_red.png
 game/assets/start.wav
 game/assets/start_chain_sound.wav
 game/assets/start_screen.ogg
-game/assets/striker.mp3
+game/assets/striker.ogg
 game/assets/unmute.png
 game/assets/victory.ogg
