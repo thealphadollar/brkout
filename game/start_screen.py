@@ -1,3 +1,13 @@
+from __future__ import absolute_import
+
+# function to set path to current folder (py 2 to 3)
+def import_modify():
+    if __name__ == '__main__':
+        if __package__ is None:
+            import sys
+            from os import path
+            sys.path.append(path.abspath(path.join(path.dirname(__file__), '..')))
+
 from global_funcs import *
 from constants import *
 from global_objects import Ball

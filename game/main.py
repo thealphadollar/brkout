@@ -1,8 +1,18 @@
+from __future__ import absolute_import
+
+# Setting path to current folder
+if __name__ == '__main__':
+    if __package__ is None:
+        import sys
+        from os import path
+        sys.path.append(path.abspath(path.join(path.dirname(__file__), '..')))
+        
 from credits_screen import credits_screen
 from pause_screen import *
 import os
 from end_screen import end_screen
 import constants
+        
 # function to initialise pygame
 
 def init():
