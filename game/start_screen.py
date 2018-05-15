@@ -10,11 +10,10 @@ def import_modify():
             from os import path
             sys.path.append(path.abspath(path.join(path.dirname(__file__), '..')))
 
-from global_funcs import *
-from constants import *
-from global_objects import Ball
-from highscore import *
-import constants
+from .global_funcs import *
+from .constants import *
+from .global_objects import Ball
+from .highscore import *
 
 # initiating the ball
 menu_ball = Ball(old_div(scr_width,2), scr_height-wall_brick_height-ball_radius)
@@ -83,7 +82,7 @@ def menu_screen(screen, clock):
             if event.type == pygame.MOUSEBUTTONDOWN and pygame.mouse.get_pressed()[0]:
                 if mouse_x < scr_width - 70 and mouse_x > scr_width -100 and mouse_y < 100 and mouse_y > 70 :
                     mute = not mute
-                    constants.mute = mute
+                    mute = mute
             if event.type == pygame.MOUSEBUTTONDOWN and pygame.mouse.get_pressed()[0]:
                 if mouse_x < scr_width - 70 and mouse_x > scr_width -100 and mouse_y < 200 and mouse_y > 170 :
                     write_highscore(0,0,0,0,0)
@@ -91,15 +90,15 @@ def menu_screen(screen, clock):
             if event.type == pygame.MOUSEBUTTONDOWN and pygame.mouse.get_pressed()[0]:
                 if mouse_x < 284 and mouse_x > 114 and mouse_y < 336 and mouse_y > 318 :
                     prison_choice = 0
-                    constants.friction = 0.01
+                    friction = 0.01
             if event.type == pygame.MOUSEBUTTONDOWN and pygame.mouse.get_pressed()[0]:
                 if mouse_x < 527 and mouse_x > 325 and mouse_y < 336 and mouse_y > 318 :
                     prison_choice = 1
-                    constants.friction = 0.018
+                    friction = 0.018
             if event.type == pygame.MOUSEBUTTONDOWN and pygame.mouse.get_pressed()[0]:
                 if mouse_x < 797 and mouse_x > 584 and mouse_y < 336 and mouse_y > 318 :
                     prison_choice = 2
-                    constants.friction = 0.025
+                    friction = 0.025
             if event.type == pygame.QUIT:
                 os._exit(0)
 

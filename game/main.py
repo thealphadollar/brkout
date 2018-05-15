@@ -10,11 +10,11 @@ if __name__ == '__main__':
         from os import path
         sys.path.append(path.abspath(path.join(path.dirname(__file__), '..')))
         
-from credits_screen import credits_screen
-from pause_screen import *
+from .credits_screen import credits_screen
+from .pause_screen import *
 import os
-from end_screen import end_screen
-import constants
+from .end_screen import end_screen
+from .constants import *
         
 # function to initialise pygame
 
@@ -249,7 +249,7 @@ def gameloop(striker_color):
     pygame.mixer.music.play(-1)
     pygame.mixer.music.set_volume(.5)
 
-    if not constants.mute:
+    if not mute:
         pygame.mixer.music.pause()
     else:
         pygame.mixer.music.unpause()

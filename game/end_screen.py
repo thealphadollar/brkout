@@ -11,12 +11,11 @@ def import_modify():
             from os import path
             sys.path.append(path.abspath(path.join(path.dirname(__file__), '..')))
 
-from global_objects import *
-from global_funcs import *
-from constants import *
-from highscore import *
-from start_screen import *
-import constants
+from .global_objects import *
+from .global_funcs import *
+from .highscore import *
+from .start_screen import *
+from .constants import *
 # checking for user inputs
 
 
@@ -50,7 +49,7 @@ def end_screen(screen, win, score, seconds_first, seconds_second, minutes_first,
         pygame.mixer.music.play(-1)
         pygame.mixer.music.set_volume(1)
 
-    if not constants.mute:
+    if not mute:
         pygame.mixer.music.pause()
     else:
         pygame.mixer.music.unpause()

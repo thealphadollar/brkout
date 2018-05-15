@@ -10,11 +10,10 @@ def import_modify():
             from os import path
             sys.path.append(path.abspath(path.join(path.dirname(__file__), '..')))
 
-from start_screen import *
-from global_funcs import *
-from global_objects import *
-from constants import *
-import constants
+from .start_screen import *
+from .global_funcs import *
+from .global_objects import *
+from .constants import *
 import pygame
 import os
 
@@ -25,7 +24,7 @@ def pause_game(screen, clock):
     pygame.mixer.music.pause()
 
     # play pause screen music
-    if constants.mute:
+    if mute:
         pause_sound.play(-1)
         pause_sound.set_volume(1)
 
@@ -52,7 +51,7 @@ def pause_game(screen, clock):
             if event.type == pygame.KEYDOWN and (event.key == pygame.K_ESCAPE or event.key == pygame.K_SPACE):
                 # unpause music
                 pause_sound.stop()
-                if constants.mute:
+                if mute:
                     pygame.mixer.music.unpause()
                 return
 
@@ -66,7 +65,7 @@ def pause_game(screen, clock):
 
             if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
                 pause_sound.stop()
-                if option != 3 and constants.mute:
+                if option != 3 and mute:
                     # unpause music
                     pygame.mixer.music.unpause()
                 if option == 0:

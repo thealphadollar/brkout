@@ -9,7 +9,7 @@ def import_modify():
             from os import path
             sys.path.append(path.abspath(path.join(path.dirname(__file__), '..')))
 
-from constants import *
+from .constants import *
 import random
 import math
 
