@@ -24,7 +24,7 @@ def events():
             os._exit(0)
         return False
 
-def end_screen(screen, win, score, seconds_first, seconds_second, minutes_first, minutes_second, clock):
+def end_screen(screen, win, score, seconds_first, seconds_second, minutes_first, minutes_second, clock, busts, escapes):
     global option,mute
 
     pygame.mixer.music.stop()
@@ -132,6 +132,17 @@ def end_screen(screen, win, score, seconds_first, seconds_second, minutes_first,
         disp_text(screen, "score : ", (scr_width / 4 - 65,
                                        scr_height / 8 - 30), end_screen_text, grey)
         disp_text(screen, str(score), (scr_width / 4, scr_height /
+                                       8 + 2 - 30), end_screen_number, light_green)
+
+                # display busts
+        disp_text(screen, "busts : ", (scr_width / 2 - 105,
+                                       scr_height / 8 - 30), end_screen_text, grey)
+        disp_text(screen, str(busts), (scr_width / 2 - 45, scr_height /
+                                       8 + 2 - 30), end_screen_number, light_green)
+        # display escapes
+        disp_text(screen, "escapes : ", (scr_width / 2 + 65,
+                                       scr_height / 8 - 30), end_screen_text, grey)
+        disp_text(screen, str(escapes), (scr_width / 2 +130, scr_height /
                                        8 + 2 - 30), end_screen_number, light_green)
 
         # display time

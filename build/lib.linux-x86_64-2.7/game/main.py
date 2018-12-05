@@ -226,7 +226,7 @@ def events():
         striker.y_velocity = 0
 
 def gameloop(striker_color):
-    global screen, clock, ball, striker, choice, mute
+    global screen, clock, ball, striker, choice, mute, busts, escapes
     start_time = False
 
     alert = pygame.mixer.Channel(2)
@@ -284,6 +284,7 @@ def gameloop(striker_color):
         # checking winning
         if ball.check_escape():
             temp_time = pygame.time.get_ticks()
+            escapes=escapes+1
             while pygame.time.get_ticks() - temp_time < 400:
                 pass
             return 1
@@ -307,6 +308,7 @@ def gameloop(striker_color):
 
         # check loosing
         if ball.speed == 0 and start_time:
+            busts=busts+1
             temp_time = pygame.time.get_ticks()
             while pygame.time.get_ticks() - temp_time < 400:
                 pass
@@ -337,12 +339,12 @@ def main():
                 # if the player looses
                 if end_choice == 0:
                     end_choice = end_screen(
-                        screen, False, score, seconds_first, seconds_second, minutes_first, minutes_second, clock)
+                        screen, False, score, seconds_first, seconds_second, minutes_first, minutes_second, clock, busts, escapes)
 
                 # if the player wins
                 elif end_choice == 1:
                     end_choice = end_screen(
-                        screen, True, score, seconds_first, seconds_second, minutes_first, minutes_second, clock)
+                        screen, True, score, seconds_first, seconds_second, minutes_first, minutes_second, clock, busts, escapes)
 
                 first = False
 
