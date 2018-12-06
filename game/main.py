@@ -22,7 +22,7 @@ def init():
 
     global screen, clock, flip_image, score, seconds_first, seconds_second, minutes_first, minutes_second, \
         count_to_seconds, ball, striker, time_count, score_time, hit_count, brick_point, choice, bricks
-
+    mute=1
     hit_count = 0  # stores number of bricks hit
     brick_point = 0  # stores the score accumulated by hitting brick
     score_time = 0  # timer for the score calculation
@@ -351,12 +351,12 @@ def main():
                 # if the player looses
                 if end_choice == 0:
                     end_choice = end_screen(
-                        screen, False, score, seconds_first, seconds_second, minutes_first, minutes_second, clock, busts, escapes)
+                        screen, False, score, seconds_first, seconds_second, minutes_first, minutes_second, clock, busts, escapes, mute)
 
                 # if the player wins
                 elif end_choice == 1:
                     end_choice = end_screen(
-                        screen, True, score, seconds_first, seconds_second, minutes_first, minutes_second, clock, busts, escapes)
+                        screen, True, score, seconds_first, seconds_second, minutes_first, minutes_second, clock, busts, escapes, mute)
 
                 first = False
 
