@@ -248,7 +248,6 @@ def gameloop(striker_color):
     pygame.mixer.music.load(os.path.join(assets_directory, "main_music.mp3"))
     pygame.mixer.music.play(-1)
     pygame.mixer.music.set_volume(.5)
-
     if not mute:
         pygame.mixer.music.pause()
     else:
@@ -333,11 +332,11 @@ def gameloop(striker_color):
 
 def main():
 
-    global score, seconds_first, seconds_second, minutes_first, minutes_second, screen
+    global score, seconds_first, seconds_second, minutes_first, minutes_second, screen, mute
 
     while True:
         init()  # used to initialise the pygame module
-        choice, color_choice = menu_screen(screen, clock)
+        choice, color_choice, mute = menu_screen(screen, clock)
 
         # if the player presses "Let's Escape"
         if choice == 0:
