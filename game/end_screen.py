@@ -36,8 +36,10 @@ def events():
             os._exit(0)
         return False
 
+
 def end_screen(screen, win, score, seconds_first, seconds_second, minutes_first, minutes_second, clock, busts, escapes, mute):
     global option
+
     pygame.mixer.music.stop()
     if win:
         pygame.mixer.music.load(os.path.join(assets_directory, "victory.ogg"))

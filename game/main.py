@@ -356,7 +356,9 @@ def main():
                 # if the player wins
                 elif end_choice == 1:
                     end_choice = end_screen(
+
                         screen, True, score, seconds_first, seconds_second, minutes_first, minutes_second, clock, busts, escapes, mute)
+
 
                 first = False
 
