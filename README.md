@@ -61,3 +61,7 @@ git clone https://github.com/thealphadollar/brkout.git
 5. Reset the highscore, if needed, by clicking on the 'reset' icon.
 
 # Enjoy The Game
+
+# Contribute
+
+Please read CONTRIBUTING.md guide to know more.

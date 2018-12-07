@@ -32,3 +32,4 @@ constants.py.bak
 highscore.txt
 dist/brkout-1.0
 main.pyc
+dist/
