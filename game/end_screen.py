@@ -10,12 +10,27 @@ def import_modify():
             import sys
             from os import path
             sys.path.append(path.abspath(path.join(path.dirname(__file__), '..')))
+try:
+    from .global_objects import *
+except SystemError:
+    from global_objects import *
+try:
+    from .global_funcs import *
+except SystemError:
+    from global_funcs import *
+try:
+    from .highscore import *
+except SystemError:
+    from highscore import *
+try:
+    from .start_screen import *
+except SystemError:
+    from start_screen import *
+try:
+    from .constants import *
+except SystemError:
+    from constants import *
 
-from .global_objects import *
-from .global_funcs import *
-from .highscore import *
-from .start_screen import *
-from .constants import *
 # checking for user inputs
 
 

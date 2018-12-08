@@ -13,8 +13,15 @@ def import_modify():
             from os import path
             sys.path.append(path.abspath(path.join(path.dirname(__file__), '..')))
 
-from .global_funcs import *
-from .constants import *
+try:
+    from .global_funcs import *
+except SystemError:
+    from global_funcs import *
+try:
+    from .constants import *
+except SystemError:
+    from constants import *
+
 import os
 import pygame as pg
 
