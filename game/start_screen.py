@@ -75,7 +75,7 @@ def menu_screen(screen, clock):
                 if event.key == pygame.K_RIGHT or event.key == pygame.K_d:
                     color_choice = (color_choice + 1) % 4
                 if event.key == pygame.K_RETURN or event.key == pygame.K_SPACE:
-                    return option_flag, color_choice  # return index of color in striker_colors
+                    return option_flag, color_choice, mute  # return index of color in striker_colors
 
                 if event.key == pygame.K_ESCAPE:
                     os._exit(0)
