@@ -1,4 +1,8 @@
 # BrkOut
+
+[![forthebadge made-with-python](http://ForTheBadge.com/images/badges/made-with-python.svg)](https://www.python.org/)<br>
+[![Gitter](https://img.shields.io/gitter/room/:user/:repo.svg)](https://gitter.im/brkout_/Lobby)<br>
+
 A prison escape game with a blend of brick breaking gameplay and innovative implementation of the same to get the look of an escape.
 
 ## Screenshots and Gameplay
