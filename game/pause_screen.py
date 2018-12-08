@@ -10,10 +10,17 @@ def import_modify():
             from os import path
             sys.path.append(path.abspath(path.join(path.dirname(__file__), '..')))
 
-from .start_screen import *
-from .global_funcs import *
-from .global_objects import *
-from .constants import *
+try:
+    from .start_screen import *
+    from .global_funcs import *
+    from .global_objects import *
+    from .constants import *
+except SystemError as er:
+    from start_screen import *
+    from global_funcs import *
+    from global_objects import *
+    from constants import *
+
 import pygame
 import os
 

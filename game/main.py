@@ -9,12 +9,17 @@ if __name__ == '__main__':
         import sys
         from os import path
         sys.path.append(path.abspath(path.join(path.dirname(__file__), '..')))
-        
-from credits_screen import credits_screen
-from pause_screen import *
 import os
-from end_screen import end_screen
-from constants import *
+try:
+    from .credits_screen import credits_screen
+    from .pause_screen import *
+    from .end_screen import end_screen
+    from .constants import *
+except SystemError:
+    from credits_screen import credits_screen
+    from pause_screen import *
+    from end_screen import end_screen
+    from constants import *
         
 # function to initialise pygame
 

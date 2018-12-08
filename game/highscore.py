@@ -11,7 +11,10 @@ def import_modify():
             sys.path.append(path.abspath(path.join(path.dirname(__file__), '..')))
 
 import random
-from .constants import *
+try:
+    from .constants import *
+except SystemError:
+    from constants import *    
 import string
 
 # An untampered file will have 12048 characters in it with the only $ character

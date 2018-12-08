@@ -10,11 +10,16 @@ def import_modify():
             from os import path
             sys.path.append(path.abspath(path.join(path.dirname(__file__), '..')))
 
-from .global_funcs import *
-from .constants import *
-from .global_objects import Ball
-from .highscore import *
-
+try:
+    from .global_funcs import *
+    from .constants import *
+    from .global_objects import Ball
+    from .highscore import *
+except SystemError:
+    from global_funcs import *
+    from constants import *
+    from global_objects import Ball
+    from highscore import *
 # initiating the ball
 menu_ball = Ball(old_div(scr_width,2), scr_height-wall_brick_height-ball_radius)
 first = 1
