@@ -164,7 +164,7 @@ def show_speed(ball):
 # rendering static elements
 
 def check_collisions():
-    global hit_count, brick_point
+    global hit_count, brick_point, mute
     for br in bricks:
         if br.type == 1:
             did_collide = br.check_hor_coll(ball)
@@ -173,10 +173,11 @@ def check_collisions():
 
         # returns if collision has taken place
         if did_collide:
-            collision_sound.set_volume(1.5)
-            collision_sound.play()
+            if mute==1:
+            	collision_sound.set_volume(1.5)
+            	collision_sound.play()
             hit_count += 1
-            brick_point += br.update(ball.speed)
+            brick_point += br.update(ball.speed,mute)
 
 def render_field():
 
