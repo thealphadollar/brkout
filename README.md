@@ -50,9 +50,10 @@ For more info, visit [Pygame download page](http://www.pygame.org/download.shtml
 ```
 git clone https://github.com/thealphadollar/brkout.git
 ```
-2. Make the required changes
-3. Test the game by running `python3 -m game` from the repository's directory.
-4. Send a Pull Request
+2. Install pipenv (`pip3 install pipenv`) and then install all dependencies (`pipenv install --dev`).
+3. Make the required changes
+4. Test the game by running `python3 -m game` from the repository's directory.
+5. Send a Pull Request
 
 ### On Windows
 
