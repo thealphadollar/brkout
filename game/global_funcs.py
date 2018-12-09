@@ -29,6 +29,14 @@ def disp_text(screen, text, center, font_and_size, color):
     text_rect.center = center
     screen.blit(text_surf, text_rect)
 
+
+# writes starting from top left corner
+
+def disp_text_origin(screen, text, topleft, font_and_size, color):
+    text_surf, text_rect = text_obj(text, font_and_size, color)
+    text_rect.topleft = topleft
+    screen.blit(text_surf, text_rect)
+
 # function to draw walls around screen
 
 

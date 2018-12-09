@@ -112,6 +112,8 @@ mute_img = pygame.transform.scale(pygame.image.load(os.path.join(assets_director
 unmute_img = pygame.transform.scale(pygame.image.load(os.path.join(assets_directory, 'unmute.png')),(32,32))
 help_img = pygame.transform.scale(pygame.image.load(os.path.join(assets_directory, 'information.png')),(30,30))
 reset_img = pygame.transform.scale(pygame.image.load(os.path.join(assets_directory, 'restart.png')),(32,32))
+edit_start_img = pygame.image.load(os.path.join(assets_directory, 'edit_start.png'))
+edit_end_img = pygame.image.load(os.path.join(assets_directory, 'edit_end.png'))
 
 # colors
 black = (0, 0, 0)
