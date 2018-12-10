@@ -1,4 +1,8 @@
 # BrkOut
+
+[![forthebadge made-with-python](http://ForTheBadge.com/images/badges/made-with-python.svg)](https://www.python.org/)<br>
+[![Gitter](https://img.shields.io/gitter/room/:user/:repo.svg)](https://gitter.im/brkout_/Lobby)<br>
+
 A prison escape game with a blend of brick breaking gameplay and innovative implementation of the same to get the look of an escape.
 
 ## Screenshots and Gameplay
@@ -46,7 +50,10 @@ For more info, visit [Pygame download page](http://www.pygame.org/download.shtml
 ```
 git clone https://github.com/thealphadollar/brkout.git
 ```
-2. Make the required changes and send a Pull Request
+2. Install pipenv (`pip3 install pipenv`) and then install all dependencies (`pipenv install --dev`).
+3. Make the required changes
+4. Test the game by running `python3 -m game` from the repository's directory.
+5. Send a Pull Request
 
 ### On Windows
 
@@ -61,3 +68,7 @@ git clone https://github.com/thealphadollar/brkout.git
 5. Reset the highscore, if needed, by clicking on the 'reset' icon.
 
 # Enjoy The Game
+
+# Contribute
+
+Please read CONTRIBUTING.md guide to know more.

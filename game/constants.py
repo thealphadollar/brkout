@@ -45,6 +45,10 @@ MAX_BALL_SPEED = 10
 ball_mass = 5
 friction = .01
 
+#game constants
+busts=0
+escapes=0
+
 # text formats
 game_title_text_large = pygame.font.Font(
     os.path.join(assets_directory, 'Weston Free.otf'), 120)
