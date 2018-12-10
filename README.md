@@ -58,6 +58,28 @@ git clone https://github.com/thealphadollar/brkout.git
 ### On Windows
 
 1. Clone the repository by the method appropriate for the Git interface you are using.
+2. Install Python 3.x
+3. Install the future library
+```
+pip install future
+```
+4. Start the game using
+```
+python -m game
+```
+5. pip install any missing libraries
+6. Always pull changes from the main repo before adding you changes
+```
+git pull upstream master
+```
+7. Commit your changes
+8. Push your changes to your fork by
+```
+git push origin master
+```
+9. Create a new Pull Request on the main repo
+10. Make any required changes
+11. When the PR is merged, repeat #6 - #11
 
 ## Gameplay Help
 
