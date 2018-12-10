@@ -7,6 +7,9 @@ pygame.init()
 # asset directory
 assets_directory = os.path.join(os.path.dirname(__file__), 'assets')
 
+# mouse buttons
+LEFT = 1
+
 # mute
 mute = 1
 

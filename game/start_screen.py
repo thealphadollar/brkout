@@ -114,7 +114,7 @@ def menu_screen(screen, clock):
                 os._exit(0)
 
             # checking for button clicks
-            if event.type == pygame.MOUSEBUTTONUP:
+            if event.type == pygame.MOUSEBUTTONUP and event.button == LEFT:
                 if is_editing_name:
                     if edit_name_end_button.check_click(event.pos):
                         settings_manager.settings_data['player_name'] = name_input.get_text()
