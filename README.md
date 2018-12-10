@@ -86,13 +86,13 @@ git checkout <feature_branch>
 git checkout master
 git merge <feature_branch>
 ```
-8. Push your changes to your fork by
+11. Push your changes to your fork by
 ```
 git push origin master
 ```
-9. Create a new Pull Request on the main repo
-10. Make any required changes
-11. When the PR is merged, repeat #6 - #11
+12. Create a new Pull Request on the main repo
+13. Make any required changes
+14. When the PR is merged, repeat #6 - #14
 
 ## Gameplay Help
 
