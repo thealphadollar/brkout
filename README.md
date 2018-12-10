@@ -58,6 +58,16 @@ git clone https://github.com/thealphadollar/brkout.git
 ### On Windows
 
 1. Clone the repository by the method appropriate for the Git interface you are using.
+2. Install Python 3.x
+3. 
+'''
+pip install future
+'''
+4. start the game using
+'''
+python -m game
+'''
+5. pip install any missing libraries
 
 ## Gameplay Help
 
