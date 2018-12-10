@@ -68,11 +68,24 @@ pip install future
 python -m game
 ```
 5. pip install any missing libraries
-6. Always pull changes from the main repo before adding you changes
+6. Always pull changes from the main repo before adding your changes
 ```
 git pull upstream master
 ```
-7. Commit your changes
+7. Create a new branch to work on feature
+```
+git branch <feature_branch>
+```
+8. Make it the working branch
+```
+git checkout <feature_branch>
+```
+9. Commit your changes
+10. Merge your feature branch to the master branch when all the changes are done
+```
+git checkout master
+git merge <feature_branch>
+```
 8. Push your changes to your fork by
 ```
 git push origin master
