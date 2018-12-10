@@ -33,3 +33,5 @@ highscore.txt
 dist/brkout-1.0
 main.pyc
 dist/
+player_data.config
+.vscode/
