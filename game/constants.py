@@ -52,6 +52,7 @@ friction = .01
 busts=0
 escapes=0
 spawn=0
+power_picked=0
 
 # text formats
 game_title_text_large = pygame.font.Font(

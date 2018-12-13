@@ -284,18 +284,38 @@ class Striker(object):
 class Powerup(object):
     #randomly spawning powerups
     def __init__(self):
-        self.x = random.randrange(300,600)
-        self.y = random.randrange(300,500)
+        distance=1000
+        while distance>strike_bound_radius:
+            self.x=random.randrange(265,635)
+            self.y=random.randrange(185,555)
+            dx=self.x-main_game_middle_x
+            dy=self.y - main_game_middle_y
+            distance=math.hypot(dx, dy)
     def update(self, screen):
-        global spawn
+        global spawn, power_picked
         if  spawn!=0:
             #powerup appears for 3 seconds
-            if spawn<300:
+            if spawn<300 and power_picked==0:
                 pygame.draw.circle(screen,red,(self.x,self.y),15)
             spawn-=1
         else:
+            power_picked=0
             #random cooldown period b/w 6-15 seconds
+            distance=1000
+            while distance>strike_bound_radius:
+                self.x=random.randrange(265,635)
+                self.y=random.randrange(185,555)
+                dx=self.x-main_game_middle_x
+                dy=self.y - main_game_middle_y
+                distance=math.hypot(dx, dy)
             spawn=random.randrange(900,1800)
+    def touch(self,striker):
+        global spawn, power_picked
+        dx=abs(self.x-striker.x)
+        dy=abs(self.y-striker.y)
+        distance=math.hypot(dx, dy)
+        if(distance<=(striker_radius+15) and spawn<300):
+            power_picked=1
 
 
 class Bricks(pygame.sprite.Sprite):

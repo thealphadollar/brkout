@@ -182,7 +182,7 @@ def check_collisions():
 
 def render_field():
 
-    global flip_image,screen
+    global flip_image,screen, striker
 
     screen.fill(black)
 
@@ -208,6 +208,7 @@ def render_field():
     pygame.draw.circle(screen, light_black, (main_game_middle_x,
                                              main_game_middle_y), strike_bound_radius)
     powerup.update(screen)
+    powerup.touch(striker)
 
 # main game loop
 
