@@ -21,7 +21,7 @@ from .constants import *
 def init():
 
     global screen, clock, flip_image, score, seconds_first, seconds_second, minutes_first, minutes_second, \
-        count_to_seconds, ball, striker, time_count, score_time, hit_count, brick_point, choice, bricks
+        count_to_seconds, ball, striker, time_count, score_time, hit_count, brick_point, choice, bricks, powerup
     mute=1
     hit_count = 0  # stores number of bricks hit
     brick_point = 0  # stores the score accumulated by hitting brick
@@ -30,6 +30,7 @@ def init():
     ball = Ball(main_game_middle_x + 50,
                 main_game_middle_y + strike_bound_radius - 75)
     striker = Striker(main_game_middle_x, main_game_middle_y)
+    powerup = Powerup()
     seconds_first, seconds_second = 0, 0
     minutes_first, minutes_second = 0, 0
     count_to_seconds = 0
@@ -181,7 +182,7 @@ def check_collisions():
 
 def render_field():
 
-    global flip_image,screen
+    global flip_image,screen, striker
 
     screen.fill(black)
 
@@ -206,6 +207,8 @@ def render_field():
     # drawing striker boundary
     pygame.draw.circle(screen, light_black, (main_game_middle_x,
                                              main_game_middle_y), strike_bound_radius)
+    powerup.update(screen)
+    powerup.touch(striker)
 
 # main game loop
 

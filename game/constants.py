@@ -52,6 +52,11 @@ friction = .01
 busts=0
 escapes=0
 
+#powerup constants
+spawn=0
+power_picked=0
+power_radius=15
+
 # text formats
 game_title_text_large = pygame.font.Font(
     os.path.join(assets_directory, 'Weston Free.otf'), 120)
