@@ -281,6 +281,22 @@ class Striker(object):
         pygame.draw.circle(screen, wall_silver, (int(
             self.x), int(self.y)), self.radius - 30, 1)
 
+class Powerup(object):
+    #randomly spawning powerups
+    def __init__(self):
+        self.x = random.randrange(300,600)
+        self.y = random.randrange(300,500)
+    def update(self, screen):
+        global spawn
+        if  spawn!=0:
+            #powerup appears for 3 seconds
+            if spawn<300:
+                pygame.draw.circle(screen,red,(self.x,self.y),15)
+            spawn-=1
+        else:
+            #random cooldown period b/w 6-15 seconds
+            spawn=random.randrange(900,1800)
+
 
 class Bricks(pygame.sprite.Sprite):
     def __init__(self, x, y, VH):
