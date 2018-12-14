@@ -122,6 +122,12 @@ reset_img = pygame.transform.scale(pygame.image.load(os.path.join(assets_directo
 edit_start_img = pygame.image.load(os.path.join(assets_directory, 'edit_start.png'))
 edit_end_img = pygame.image.load(os.path.join(assets_directory, 'edit_end.png'))
 
+# animation sprites
+blast_anim = []
+for i in range(0, 15):
+    blast_anim.append(pygame.image.load(os.path.join(
+        assets_directory, 'animation_sprites/blast1/tile' + str(i).rjust(3, '0') + '.png')))
+
 # colors
 black = (0, 0, 0)
 white = (255, 255, 255)

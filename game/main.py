@@ -15,13 +15,14 @@ from .pause_screen import *
 import os
 from .end_screen import end_screen
 from .constants import *
+from game.animation_package import *
         
 # function to initialise pygame
 
 def init():
 
     global screen, clock, flip_image, score, seconds_first, seconds_second, minutes_first, minutes_second, \
-        count_to_seconds, ball, striker, time_count, score_time, hit_count, brick_point, choice, bricks
+        count_to_seconds, ball, striker, time_count, score_time, hit_count, brick_point, choice, bricks, animation_manager
     mute=1
     hit_count = 0  # stores number of bricks hit
     brick_point = 0  # stores the score accumulated by hitting brick
@@ -54,6 +55,9 @@ def init():
     # initialising bricks
     bricks = pygame.sprite.Group()
     add_to_group()
+
+    animation_manager = Animation_Manager(screen)
+    animation_manager.create_new_effect(blast_anim, 1, True, (0, 0))
 
 
 def add_to_group():
@@ -326,6 +330,9 @@ def gameloop(striker_color):
             while pygame.time.get_ticks() - temp_time < 400:
                 pass
             return 0
+
+        # draw animations
+        animation_manager.draw_animations()
 
         # flipping
         pygame.display.update()
