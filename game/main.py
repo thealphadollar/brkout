@@ -57,8 +57,6 @@ def init():
     add_to_group()
 
     animation_manager = Animation_Manager(screen)
-    animation_manager.create_new_effect(blast_anim, 1, True, (0, 0))
-
 
 def add_to_group():
     y = 0
@@ -181,7 +179,11 @@ def check_collisions():
             	collision_sound.set_volume(1.5)
             	collision_sound.play()
             hit_count += 1
-            brick_point += br.update(ball.speed,mute)
+            brick_point += br.update(ball.speed,mute, animation_manager)
+            
+            # play ball hit animati0n effect
+            animation_manager.create_new_effect(blast_anim2, blast_anim2_size, 0, False, (ball.x, ball.y))
+
 
 def render_field():
 

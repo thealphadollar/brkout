@@ -372,7 +372,7 @@ class Bricks(pygame.sprite.Sprite):
                 did_collide = True
         return did_collide
 
-    def update(self, speed, mute):
+    def update(self, speed, mute, animation_manager):
         if speed <= 3:
             return 0
         self.brick_value -= old_div(speed, MAX_BALL_SPEED)
@@ -381,6 +381,10 @@ class Bricks(pygame.sprite.Sprite):
             if mute==1:
             	break_sound.set_volume(2)
             	break_sound.play()
+
+            # play death animation effect before dying
+            animation_manager.create_new_effect(blast_anim1, blast_anim1_size, 2, False, (self.x, self.y))
+
             self.kill()
             return self.ori_brick_value * 200
         elif self.brick_value <= 3:

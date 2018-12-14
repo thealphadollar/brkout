@@ -123,10 +123,19 @@ edit_start_img = pygame.image.load(os.path.join(assets_directory, 'edit_start.pn
 edit_end_img = pygame.image.load(os.path.join(assets_directory, 'edit_end.png'))
 
 # animation sprites
-blast_anim = []
-for i in range(0, 15):
-    blast_anim.append(pygame.image.load(os.path.join(
-        assets_directory, 'animation_sprites/blast1/tile' + str(i).rjust(3, '0') + '.png')))
+blast_anim1_size = 120
+blast_anim1 = []
+for i in range(0, 6):
+    frame = pygame.image.load(os.path.join(assets_directory, 'animation_sprites/blast1/tile' + str(i).rjust(3, '0') + '.png'))
+    frame = pygame.transform.scale(frame, (blast_anim1_size, blast_anim1_size))
+    blast_anim1.append(frame)
+
+blast_anim2_size = 40
+blast_anim2 = []
+for i in range(0, 8):
+    frame = pygame.image.load(os.path.join(assets_directory, 'animation_sprites/blast2/tile' + str(i).rjust(3, '0') + '.png'))
+    frame = pygame.transform.scale(frame, (blast_anim2_size, blast_anim2_size))
+    blast_anim2.append(frame)
 
 # colors
 black = (0, 0, 0)
