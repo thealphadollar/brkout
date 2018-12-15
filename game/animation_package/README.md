@@ -4,6 +4,7 @@ Where to use:
 - Create visual effects like explosions, hits etc.
 - Continuous animations like a clock, shining effect etc.
 - GUI animations.
+
 # How to use
 
 ### Load animation frames
