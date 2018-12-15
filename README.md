@@ -101,6 +101,8 @@ git push origin master
 3. Spacebar or escape key can be used to pause the game.
 4. Choose the required difficulty level by clicking on it.
 5. Reset the highscore, if needed, by clicking on the 'reset' icon.
+6. The game can also be played with a Joystick, which has to be plugged in before you 
+   launch the game.It works well with AMKETTE game pad but any standard game pad would also work.
 
 # Enjoy The Game
 

@@ -1,9 +1,10 @@
 #######################################
 # Easy to use buttons
 #######################################
-
-from .constants import *
-
+try:
+    from .constants import *
+except SystemError:
+    from constants import *
 
 class Button():
     def __init__(self, pygame, surface, rect, text, button_color, text_color):

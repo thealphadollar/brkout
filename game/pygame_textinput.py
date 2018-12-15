@@ -2,9 +2,10 @@ import os.path
 
 import pygame
 import pygame.locals as pl
-
-from .constants import *
-
+try:
+    from .constants import *
+except SystemError:
+    from constants import *
 pygame.font.init()
 
 

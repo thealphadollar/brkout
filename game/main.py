@@ -12,11 +12,15 @@ if __name__ == '__main__':
 import os
 
 try:
+    from .global_objects import *
     from .end_screen import end_screen
     from .constants import *
+    from .start_screen import *
 except SystemError:
+    from global_objects import *
     from end_screen import end_screen
     from constants import *
+    from start_screen import *
 from game.animation_package import *
         
 # function to initialise pygame
