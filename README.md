@@ -1,4 +1,8 @@
 # BrkOut
+
+[![forthebadge made-with-python](http://ForTheBadge.com/images/badges/made-with-python.svg)](https://www.python.org/)<br>
+[![Gitter](https://img.shields.io/gitter/room/:user/:repo.svg)](https://gitter.im/brkout_/Lobby)<br>
+
 A prison escape game with a blend of brick breaking gameplay and innovative implementation of the same to get the look of an escape.
 
 ## Screenshots and Gameplay
@@ -46,11 +50,49 @@ For more info, visit [Pygame download page](http://www.pygame.org/download.shtml
 ```
 git clone https://github.com/thealphadollar/brkout.git
 ```
-2. Make the required changes and send a Pull Request
+2. Install pipenv (`pip3 install pipenv`) and then install all dependencies (`pipenv install --dev`).
+3. Make the required changes
+4. Test the game by running `python3 -m game` from the repository's directory.
+5. Send a Pull Request
 
 ### On Windows
 
 1. Clone the repository by the method appropriate for the Git interface you are using.
+2. Install Python 3.x
+3. Install the future library
+```
+pip install future
+```
+4. Start the game using
+```
+python -m game
+```
+5. pip install any missing libraries
+6. Always pull changes from the main repo before adding your changes
+```
+git pull upstream master
+```
+7. Create a new branch to work on feature
+```
+git branch <feature_branch>
+```
+8. Make it the working branch
+```
+git checkout <feature_branch>
+```
+9. Commit your changes
+10. Merge your feature branch to the master branch when all the changes are done
+```
+git checkout master
+git merge <feature_branch>
+```
+11. Push your changes to your fork by
+```
+git push origin master
+```
+12. Create a new Pull Request on the main repo
+13. Make any required changes
+14. When the PR is merged, repeat #6 - #14
 
 ## Gameplay Help
 
@@ -61,3 +103,7 @@ git clone https://github.com/thealphadollar/brkout.git
 5. Reset the highscore, if needed, by clicking on the 'reset' icon.
 
 # Enjoy The Game
+
+# Contribute
+
+Please read CONTRIBUTING.md guide to know more.

@@ -10,24 +10,22 @@ if __name__ == '__main__':
         from os import path
         sys.path.append(path.abspath(path.join(path.dirname(__file__), '..')))
 import os
+
 try:
-    from .credits_screen import credits_screen
-    from .pause_screen import *
     from .end_screen import end_screen
     from .constants import *
 except SystemError:
-    from credits_screen import credits_screen
-    from pause_screen import *
     from end_screen import end_screen
     from constants import *
+from game.animation_package import *
         
 # function to initialise pygame
 
 def init():
 
     global screen, clock, flip_image, score, seconds_first, seconds_second, minutes_first, minutes_second, \
-        count_to_seconds, ball, striker, time_count, score_time, hit_count, brick_point, choice, bricks
-
+        count_to_seconds, ball, striker, time_count, score_time, hit_count, brick_point, choice, bricks, animation_manager
+    mute=1
     hit_count = 0  # stores number of bricks hit
     brick_point = 0  # stores the score accumulated by hitting brick
     score_time = 0  # timer for the score calculation
@@ -60,6 +58,7 @@ def init():
     bricks = pygame.sprite.Group()
     add_to_group()
 
+    animation_manager = Animation_Manager(screen)
 
 def add_to_group():
     y = 0
@@ -169,7 +168,7 @@ def show_speed(ball):
 # rendering static elements
 
 def check_collisions():
-    global hit_count, brick_point
+    global hit_count, brick_point, mute
     for br in bricks:
         if br.type == 1:
             did_collide = br.check_hor_coll(ball)
@@ -178,10 +177,15 @@ def check_collisions():
 
         # returns if collision has taken place
         if did_collide:
-            collision_sound.set_volume(1.5)
-            collision_sound.play()
+            if mute==1:
+            	collision_sound.set_volume(1.5)
+            	collision_sound.play()
             hit_count += 1
-            brick_point += br.update(ball.speed)
+            brick_point += br.update(ball.speed,mute, animation_manager)
+            
+            # play ball hit animati0n effect
+            animation_manager.create_new_effect(blast_anim2, blast_anim2_size, 0, False, (ball.x, ball.y))
+
 
 def render_field():
 
@@ -256,7 +260,7 @@ def events(joystick):
         striker.y_velocity = 0
 
 def gameloop(striker_color):
-    global screen, clock, ball, striker, choice, mute
+    global screen, clock, ball, striker, choice, mute, busts, escapes
     start_time = False
 
     pygame.joystick.init()
@@ -271,7 +275,6 @@ def gameloop(striker_color):
     pygame.mixer.music.load(os.path.join(assets_directory, "main_music.mp3"))
     pygame.mixer.music.play(-1)
     pygame.mixer.music.set_volume(.5)
-
     if not mute:
         pygame.mixer.music.pause()
     else:
@@ -320,6 +323,7 @@ def gameloop(striker_color):
         # checking winning
         if ball.check_escape():
             temp_time = pygame.time.get_ticks()
+            escapes+=1
             while pygame.time.get_ticks() - temp_time < 400:
                 pass
             return 1
@@ -344,9 +348,13 @@ def gameloop(striker_color):
         # check loosing
         if ball.speed == 0 and start_time:
             temp_time = pygame.time.get_ticks()
+            busts+=1
             while pygame.time.get_ticks() - temp_time < 400:
                 pass
             return 0
+
+        # draw animations
+        animation_manager.draw_animations()
 
         # flipping
         pygame.display.update()
@@ -354,11 +362,11 @@ def gameloop(striker_color):
 
 def main():
 
-    global score, seconds_first, seconds_second, minutes_first, minutes_second, screen
+    global score, seconds_first, seconds_second, minutes_first, minutes_second, screen, mute
 
     while True:
         init()  # used to initialise the pygame module
-        choice, color_choice = menu_screen(screen, clock)
+        choice, color_choice, mute = menu_screen(screen, clock)
 
 
         # if the player presses "Let's Escape"
@@ -374,12 +382,14 @@ def main():
                 # if the player looses
                 if end_choice == 0:
                     end_choice = end_screen(
-                        screen, False, score, seconds_first, seconds_second, minutes_first, minutes_second, clock)
+                        screen, False, score, seconds_first, seconds_second, minutes_first, minutes_second, clock, busts, escapes, mute)
 
                 # if the player wins
                 elif end_choice == 1:
                     end_choice = end_screen(
-                        screen, True, score, seconds_first, seconds_second, minutes_first, minutes_second, clock)
+
+                        screen, True, score, seconds_first, seconds_second, minutes_first, minutes_second, clock, busts, escapes, mute)
+
 
                 first = False
 

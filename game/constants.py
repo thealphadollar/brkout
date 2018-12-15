@@ -7,6 +7,9 @@ pygame.init()
 # asset directory
 assets_directory = os.path.join(os.path.dirname(__file__), 'assets')
 
+# mouse buttons
+LEFT = 1
+
 # mute
 mute = 1
 
@@ -44,6 +47,10 @@ main_ball_speed = 0
 MAX_BALL_SPEED = 10
 ball_mass = 5
 friction = .01
+
+#game constants
+busts=0
+escapes=0
 
 # text formats
 game_title_text_large = pygame.font.Font(
@@ -112,6 +119,23 @@ mute_img = pygame.transform.scale(pygame.image.load(os.path.join(assets_director
 unmute_img = pygame.transform.scale(pygame.image.load(os.path.join(assets_directory, 'unmute.png')),(32,32))
 help_img = pygame.transform.scale(pygame.image.load(os.path.join(assets_directory, 'information.png')),(30,30))
 reset_img = pygame.transform.scale(pygame.image.load(os.path.join(assets_directory, 'restart.png')),(32,32))
+edit_start_img = pygame.image.load(os.path.join(assets_directory, 'edit_start.png'))
+edit_end_img = pygame.image.load(os.path.join(assets_directory, 'edit_end.png'))
+
+# animation sprites
+blast_anim1_size = 120
+blast_anim1 = []
+for i in range(0, 6):
+    frame = pygame.image.load(os.path.join(assets_directory, 'animation_sprites/blast1/tile' + str(i).rjust(3, '0') + '.png'))
+    frame = pygame.transform.scale(frame, (blast_anim1_size, blast_anim1_size))
+    blast_anim1.append(frame)
+
+blast_anim2_size = 40
+blast_anim2 = []
+for i in range(0, 8):
+    frame = pygame.image.load(os.path.join(assets_directory, 'animation_sprites/blast2/tile' + str(i).rjust(3, '0') + '.png'))
+    frame = pygame.transform.scale(frame, (blast_anim2_size, blast_anim2_size))
+    blast_anim2.append(frame)
 
 # colors
 black = (0, 0, 0)

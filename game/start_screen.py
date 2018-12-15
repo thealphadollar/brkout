@@ -10,16 +10,25 @@ def import_modify():
             from os import path
             sys.path.append(path.abspath(path.join(path.dirname(__file__), '..')))
 
+
 try:
     from .global_funcs import *
     from .constants import *
     from .global_objects import Ball
     from .highscore import *
+    from .settings_manager import Settings_Manager
+    from .button import Button, ImgButton
+    from .pygame_textinput import TextInput
 except SystemError:
     from global_funcs import *
     from constants import *
     from global_objects import Ball
     from highscore import *
+    from settings_manager import Settings_Manager
+    from button import Button, ImgButton
+    from pygame_textinput import TextInput
+
+
 # initiating the ball
 menu_ball = Ball(old_div(scr_width,2), scr_height-wall_brick_height-ball_radius)
 first = 1
@@ -39,6 +48,13 @@ def menu_screen(screen, clock):
     pygame.mixer.music.load(os.path.join(assets_directory, "start.wav"))
     pygame.mixer.music.play(-1)
     pygame.mixer.music.set_volume(1)
+
+    # settings and player name
+    settings_manager = Settings_Manager()
+    is_editing_name = False
+    edit_name_start_button = ImgButton(pygame, screen, (34, scr_height - 70, 32, 32), edit_start_img)
+    edit_name_end_button = ImgButton(pygame, screen, (34, scr_height - 70, 32, 32), edit_end_img)
+    name_input = TextInput('', text_color=(255, 255, 255), cursor_color=(255, 255, 255), font_and_size=message_text1)
 
     # display start image
 
@@ -69,7 +85,8 @@ def menu_screen(screen, clock):
         delta_time = old_div(clock.get_time(), 10)
         mouse_x, mouse_y = pygame.mouse.get_pos()
         # checking for events
-        for event in pygame.event.get():
+        events = pygame.event.get()
+        for event in events:
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_UP or event.key == pygame.K_w:
                     option_flag = (option_flag + 1) % 2
@@ -80,7 +97,7 @@ def menu_screen(screen, clock):
                 if event.key == pygame.K_RIGHT or event.key == pygame.K_d:
                     color_choice = (color_choice + 1) % 4
                 if event.key == pygame.K_RETURN or event.key == pygame.K_SPACE:
-                    return option_flag, color_choice  # return index of color in striker_colors
+                    return option_flag, color_choice, mute  # return index of color in striker_colors
 
                 if event.key == pygame.K_ESCAPE:
                     os._exit(0)
@@ -106,6 +123,22 @@ def menu_screen(screen, clock):
                     friction = 0.025
             if event.type == pygame.QUIT:
                 os._exit(0)
+
+            # checking for button clicks
+            if event.type == pygame.MOUSEBUTTONUP and event.button == LEFT:
+                if is_editing_name:
+                    if edit_name_end_button.check_click(event.pos):
+                        settings_manager.settings_data['player_name'] = name_input.get_text()
+                        settings_manager.save_settings_to_file()
+                        is_editing_name = False
+                else:
+                    if edit_name_start_button.check_click(event.pos):
+                        settings_manager.settings_data['player_name'] = ""
+                        name_input.clear_text()
+                        is_editing_name = True
+
+            # fedd name input box with events
+            name_input.update(events)
 
         screen.fill(black)  # black background, to be changed later
         draw_walls(screen, wall_brick_width, wall_brick_height)
@@ -233,6 +266,18 @@ def menu_screen(screen, clock):
         elif option_flag == 1:
             disp_text(screen, "Press Enter To Quit Game", (old_div(scr_width,
                                                            2), old_div(scr_height, 2) + 300), message_text, yellow)
+
+        # display player name
+        disp_text_origin(screen, settings_manager.settings_data['player_name'], (80, scr_height - 70), message_text1, white, )
+        if is_editing_name:
+            edit_name_end_button.draw()
+        else:
+            edit_name_start_button.draw()
+
+        if is_editing_name:
+            screen.blit(name_input.get_surface(), (80, scr_height - 70))
+
+        
 
         pygame.display.update()
         clock.tick(FPS)
