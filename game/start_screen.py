@@ -10,13 +10,24 @@ def import_modify():
             from os import path
             sys.path.append(path.abspath(path.join(path.dirname(__file__), '..')))
 
-from .global_funcs import *
-from .constants import *
-from .global_objects import Ball
-from .highscore import *
-from .settings_manager import Settings_Manager
-from .button import Button, ImgButton
-from .pygame_textinput import TextInput
+
+try:
+    from .global_funcs import *
+    from .constants import *
+    from .global_objects import Ball
+    from .highscore import *
+    from .settings_manager import Settings_Manager
+    from .button import Button, ImgButton
+    from .pygame_textinput import TextInput
+except SystemError:
+    from global_funcs import *
+    from constants import *
+    from global_objects import Ball
+    from highscore import *
+    from settings_manager import Settings_Manager
+    from button import Button, ImgButton
+    from pygame_textinput import TextInput
+
 
 # initiating the ball
 menu_ball = Ball(old_div(scr_width,2), scr_height-wall_brick_height-ball_radius)

@@ -9,12 +9,18 @@ if __name__ == '__main__':
         import sys
         from os import path
         sys.path.append(path.abspath(path.join(path.dirname(__file__), '..')))
-        
-from .credits_screen import credits_screen
-from .pause_screen import *
 import os
-from .end_screen import end_screen
-from .constants import *
+
+try:
+    from .global_objects import *
+    from .end_screen import end_screen
+    from .constants import *
+    from .start_screen import *
+except SystemError:
+    from global_objects import *
+    from end_screen import end_screen
+    from constants import *
+    from start_screen import *
 from game.animation_package import *
         
 # function to initialise pygame
@@ -215,7 +221,7 @@ def render_field():
 
 # main game loop
 
-def events():
+def events(joystick):
     # getting in events
     global choice
     for event in pygame.event.get():
@@ -231,16 +237,28 @@ def events():
             os._exit(0)
 
     # updating striker
+    if joystick.get_numaxes() >= 4:
+        hat = joystick.get_hat(0)
+        axis1 = joystick.get_axis(0)
+        axis2 = joystick.get_axis(1)
+        axis3 = joystick.get_axis(2)
+        axis4 = joystick.get_axis(3)
+    else:
+        hat = False
+        axis1 = False
+        axis2 = False
+        axis3 = False
+        axis4 = False    
     pressed = pygame.key.get_pressed()
-    if pressed[pygame.K_RIGHT] or pressed[pygame.K_d]:
+    if pressed[pygame.K_RIGHT] or pressed[pygame.K_d] or hat == (1,0) or axis1 >=0.7 or axis3 >= 0.7:
         striker.x_velocity += .5
-    elif pressed[pygame.K_LEFT] or pressed[pygame.K_a]:
+    elif pressed[pygame.K_LEFT] or pressed[pygame.K_a] or hat == (-1,0) or axis1 <= -0.7 or axis3 <= -0.7:
         striker.x_velocity -= .5
     else:
         striker.x_velocity = 0
-    if pressed[pygame.K_UP] or pressed[pygame.K_w]:
+    if pressed[pygame.K_UP] or pressed[pygame.K_w] or hat == (0,1) or axis2 <= -0.7 or axis4 <= -0.7:
         striker.y_velocity -= .5
-    elif pressed[pygame.K_DOWN] or pressed[pygame.K_s]:
+    elif pressed[pygame.K_DOWN] or pressed[pygame.K_s] or hat == (0,-1) or axis2 >= 0.7 or axis4 >= 0.7:
         striker.y_velocity += .5
     else:
         striker.y_velocity = 0
@@ -249,6 +267,12 @@ def gameloop(striker_color):
     global screen, clock, ball, striker, choice, mute, busts, escapes
     start_time = False
 
+    pygame.joystick.init()
+    joystick_count = pygame.joystick.get_count()
+    for i in range(joystick_count):
+        joystick = pygame.joystick.Joystick(i)
+        joystick.init()
+            
     alert = pygame.mixer.Channel(2)
 
     pygame.mixer.music.stop()
@@ -269,7 +293,7 @@ def gameloop(striker_color):
         render_field()
 
         # getting the events
-        events()
+        events(joystick)
 
         # returning pause options if it is not resume
         if choice:
@@ -347,6 +371,7 @@ def main():
     while True:
         init()  # used to initialise the pygame module
         choice, color_choice, mute = menu_screen(screen, clock)
+
 
         # if the player presses "Let's Escape"
         if choice == 0:

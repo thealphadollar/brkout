@@ -8,8 +8,10 @@ def import_modify():
             import sys
             from os import path
             sys.path.append(path.abspath(path.join(path.dirname(__file__), '..')))
-
-from .constants import *
+try :
+    from .constants import *
+except SystemError:
+    from constants import *    
 import random
 import math
 

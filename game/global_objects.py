@@ -10,9 +10,12 @@ def import_modify():
             import sys
             from os import path
             sys.path.append(path.abspath(path.join(path.dirname(__file__), '..')))
-
-from .global_funcs import *
-from .constants import *
+try:
+    from .global_funcs import *
+    from .constants import *
+except SystemError:
+    from global_funcs import *
+    from constants import *
 
 class Ball(pygame.sprite.Sprite):
     def __init__(self, x, y):
