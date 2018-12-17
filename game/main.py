@@ -224,6 +224,14 @@ def render_field():
 def events(joystick):
     # getting in events
     global choice
+    
+    #Jostick variable initizlization
+    hat = False
+    axis1 = False
+    axis2 = False
+    axis3 = False
+    axis4 = False
+
     for event in pygame.event.get():
 
         if event.type == pygame.KEYDOWN:
@@ -237,18 +245,19 @@ def events(joystick):
             os._exit(0)
 
     # updating striker
-    if joystick.get_numaxes() >= 4:
-        hat = joystick.get_hat(0)
-        axis1 = joystick.get_axis(0)
-        axis2 = joystick.get_axis(1)
-        axis3 = joystick.get_axis(2)
-        axis4 = joystick.get_axis(3)
-    else:
-        hat = False
-        axis1 = False
-        axis2 = False
-        axis3 = False
-        axis4 = False    
+    if joystick!=None:
+        if joystick.get_numaxes() >= 4:
+            hat = joystick.get_hat(0)
+            axis1 = joystick.get_axis(0)
+            axis2 = joystick.get_axis(1)
+            axis3 = joystick.get_axis(2)
+            axis4 = joystick.get_axis(3)
+        else:
+            hat = False
+            axis1 = False
+            axis2 = False
+            axis3 = False
+            axis4 = False    
     pressed = pygame.key.get_pressed()
     if pressed[pygame.K_RIGHT] or pressed[pygame.K_d] or hat == (1,0) or axis1 >=0.7 or axis3 >= 0.7:
         striker.x_velocity += .5
@@ -268,6 +277,10 @@ def gameloop(striker_color):
     start_time = False
 
     pygame.joystick.init()
+    
+    #Joystick initialized
+    joystick=None
+    
     joystick_count = pygame.joystick.get_count()
     for i in range(joystick_count):
         joystick = pygame.joystick.Joystick(i)
