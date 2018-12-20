@@ -3,8 +3,7 @@
 #########################################
 from __future__ import division
 import pygame
-from game.constants import *
-from game.global_funcs import *
+from game.global_objects import *
 from past.utils import old_div
 
 

@@ -10,23 +10,10 @@ def import_modify():
             from os import path
             sys.path.append(path.abspath(path.join(path.dirname(__file__), '..')))
 
-
-try:
-    from .global_funcs import *
-    from .constants import *
-    from .global_objects import Ball
-    from .highscore import *
-    from .managers import *
-    from .button import Button, ImgButton
-    from .pygame_textinput import TextInput
-except SystemError:
-    from global_funcs import *
-    from constants import *
-    from global_objects import Ball
-    from highscore import *
-    from managers import *
-    from button import Button, ImgButton
-    from pygame_textinput import TextInput
+from game.managers import *
+from game.gui_package import *
+from game.global_objects import *
+from game.objects import *
 
 
 # initiating the ball

@@ -10,15 +10,8 @@ if __name__ == '__main__':
         from os import path
         sys.path.append(path.abspath(path.join(path.dirname(__file__), '..')))
 import os
-
-try:
-    from .end_screen import end_screen
-    from .constants import *
-    from .start_screen import *
-except SystemError:
-    from end_screen import end_screen
-    from constants import *
-    from start_screen import *
+from game.global_objects import *
+from game.screens import *
 from game.animation_package import *
 from game.objects import *
         
