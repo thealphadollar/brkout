@@ -16,7 +16,7 @@ try:
     from .constants import *
     from .global_objects import Ball
     from .highscore import *
-    from .settings_manager import Settings_Manager
+    from .managers import *
     from .button import Button, ImgButton
     from .pygame_textinput import TextInput
 except SystemError:
@@ -24,7 +24,7 @@ except SystemError:
     from constants import *
     from global_objects import Ball
     from highscore import *
-    from settings_manager import Settings_Manager
+    from managers import *
     from button import Button, ImgButton
     from pygame_textinput import TextInput
 
@@ -72,7 +72,7 @@ def menu_screen(screen, clock):
     first = 0
     pygame.mixer.music.stop()
     pygame.mixer.music.load(os.path.join(assets_directory, "start_screen.ogg"))
-    pygame.mixer.music.play(-1)
+    #pygame.mixer.music.play(-1)
     pygame.mixer.music.set_volume(2)
 
     while True:

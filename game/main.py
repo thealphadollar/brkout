@@ -12,16 +12,15 @@ if __name__ == '__main__':
 import os
 
 try:
-    from .global_objects import *
     from .end_screen import end_screen
     from .constants import *
     from .start_screen import *
 except SystemError:
-    from global_objects import *
     from end_screen import end_screen
     from constants import *
     from start_screen import *
 from game.animation_package import *
+from game.objects import *
         
 # function to initialise pygame
 
@@ -290,7 +289,7 @@ def gameloop(striker_color):
 
     pygame.mixer.music.stop()
     pygame.mixer.music.load(os.path.join(assets_directory, "main_music.mp3"))
-    pygame.mixer.music.play(-1)
+    #pygame.mixer.music.play(-1)
     pygame.mixer.music.set_volume(.5)
     if not mute:
         pygame.mixer.music.pause()
