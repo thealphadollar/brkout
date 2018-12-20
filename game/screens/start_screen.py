@@ -14,38 +14,29 @@ from game.managers import *
 from game.gui_package import *
 from game.global_objects import *
 from game.objects import *
+from game.misc import *
 
-
-# initiating the ball
-menu_ball = Ball(old_div(scr_width,2), scr_height-wall_brick_height-ball_radius)
-first = 1
-# main function to display and handle menu screen
-
-def menu_screen(screen, clock):
-
-    # declaring important variables
-    color_choice = 0
-    option_flag = 0
-    prison_choice = 0
-    random_hint = random.randint(0, 7)  # displays random quote
+def menu_screen(game_manager):
+    screen = game_manager.screen
+    clock = game_manager.clock
+    sound_manager = game_manager.sound_manager
+    settings_manager = game_manager.settings_manager
+    color_choice = E_Striker_Color.green
+    main_menu_option = E_Main_Menu_Option.start_game
+    prison_choice = E_Prison_Choice.home
+    random_hint = random.randint(0, 7)
     high_score, high_time = read_highscore()
     timer = 0
-    global mute, friction, first
-    # playing start sound jail
-    pygame.mixer.music.load(os.path.join(assets_directory, "start.wav"))
-    pygame.mixer.music.play(-1)
-    pygame.mixer.music.set_volume(1)
-
-    # settings and player name
-    settings_manager = Settings_Manager()
+    sound_manager.play_music('start.wav')
     is_editing_name = False
     edit_name_start_button = ImgButton(pygame, screen, (34, scr_height - 70, 32, 32), edit_start_img)
     edit_name_end_button = ImgButton(pygame, screen, (34, scr_height - 70, 32, 32), edit_end_img)
     name_input = TextInput('', text_color=(255, 255, 255), cursor_color=(255, 255, 255), font_and_size=message_text1)
+    menu_ball = Ball(old_div(scr_width,2), scr_height-wall_brick_height-ball_radius)
+    mute = settings_manager.settings_data['mute']
+    game_manager.game_parameters.friction = 0.01
 
-    # display start image
-
-    while timer <= 180 and first:
+    while timer <= 180:
         timer += 1
         screen.blit(start_img_resized, (0, 0))
         draw_walls(screen, wall_brick_width, wall_brick_height)
@@ -56,19 +47,9 @@ def menu_screen(screen, clock):
         pygame.display.update()
         clock.tick(FPS)
 
-    first = 0
-    pygame.mixer.music.stop()
-    pygame.mixer.music.load(os.path.join(assets_directory, "start_screen.ogg"))
-    #pygame.mixer.music.play(-1)
-    pygame.mixer.music.set_volume(2)
+    sound_manager.play_music('start_screen.ogg')
 
     while True:
-
-        if not mute:
-            pygame.mixer.music.pause()
-        else:
-            pygame.mixer.music.unpause()
-        # time passed
         delta_time = old_div(clock.get_time(), 10)
         mouse_x, mouse_y = pygame.mouse.get_pos()
         # checking for events
@@ -76,15 +57,15 @@ def menu_screen(screen, clock):
         for event in events:
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_UP or event.key == pygame.K_w:
-                    option_flag = (option_flag + 1) % 2
+                    main_menu_option = increase_enum(main_menu_option)
                 if event.key == pygame.K_DOWN or event.key == pygame.K_s:
-                    option_flag = (option_flag - 1) % 2
+                    main_menu_option = decrease_enum(main_menu_option)
                 if event.key == pygame.K_LEFT or event.key == pygame.K_a:
-                    color_choice = (color_choice + 3) % 4
+                    color_choice = decrease_enum(color_choice)
                 if event.key == pygame.K_RIGHT or event.key == pygame.K_d:
-                    color_choice = (color_choice + 1) % 4
+                    color_choice = increase_enum(color_choice)
                 if event.key == pygame.K_RETURN or event.key == pygame.K_SPACE:
-                    return option_flag, color_choice, mute  # return index of color in striker_colors
+                    return main_menu_option, color_choice
 
                 if event.key == pygame.K_ESCAPE:
                     os._exit(0)
@@ -92,22 +73,26 @@ def menu_screen(screen, clock):
                 if mouse_x < scr_width - 70 and mouse_x > scr_width -100 and mouse_y < 100 and mouse_y > 70 :
                     mute = not mute
                     mute = mute
+                    if mute:
+                        sound_manager.mute_game()
+                    else:
+                        sound_manager.unmute_game()
             if event.type == pygame.MOUSEBUTTONDOWN and pygame.mouse.get_pressed()[0]:
                 if mouse_x < scr_width - 70 and mouse_x > scr_width -100 and mouse_y < 200 and mouse_y > 170 :
                     write_highscore(0,0,0,0,0)
                     high_score, high_time = read_highscore()
             if event.type == pygame.MOUSEBUTTONDOWN and pygame.mouse.get_pressed()[0]:
                 if mouse_x < 284 and mouse_x > 114 and mouse_y < 336 and mouse_y > 318 :
-                    prison_choice = 0
-                    friction = 0.01
+                    prison_choice = E_Prison_Choice.home
+                    game_manager.game_parameters.friction = 0.01
             if event.type == pygame.MOUSEBUTTONDOWN and pygame.mouse.get_pressed()[0]:
                 if mouse_x < 527 and mouse_x > 325 and mouse_y < 336 and mouse_y > 318 :
-                    prison_choice = 1
-                    friction = 0.018
+                    prison_choice = E_Prison_Choice.dungeon
+                    game_manager.game_parameters.friction = 0.018
             if event.type == pygame.MOUSEBUTTONDOWN and pygame.mouse.get_pressed()[0]:
                 if mouse_x < 797 and mouse_x > 584 and mouse_y < 336 and mouse_y > 318 :
-                    prison_choice = 2
-                    friction = 0.025
+                    prison_choice = E_Prison_Choice.tartarus
+                    game_manager.game_parameters.friction = 0.025
             if event.type == pygame.QUIT:
                 os._exit(0)
 
@@ -150,21 +135,21 @@ def menu_screen(screen, clock):
         disp_text(screen, "YOUR PRISON", (old_div(scr_width, 2), old_div(scr_height,
                                   2) - 80), prison_text_big, blood_red)
 
-        if prison_choice == 0:
+        if prison_choice == E_Prison_Choice.home:
             disp_text(screen, "HOME", (old_div(scr_width, 2) -250, old_div(scr_height,
                                     2) - 24), prison_text1, blue)
         else :
             disp_text(screen, "HOME", (old_div(scr_width, 2) -250, old_div(scr_height,
                                     2) - 24), prison_text, yellow)
 
-        if prison_choice == 1:
+        if prison_choice == E_Prison_Choice.dungeon:
             disp_text(screen, "DUNGEON", (old_div(scr_width, 2) - 25, old_div(scr_height,
                                     2) - 24), prison_text1, blue)
         else :
             disp_text(screen, "DUNGEON", (old_div(scr_width, 2) - 25, old_div(scr_height,
                                     2) - 24), prison_text, yellow)
 
-        if prison_choice == 2:
+        if prison_choice == E_Prison_Choice.tartarus:
             disp_text(screen, "TARTARUS", (old_div(scr_width, 2) + 240, old_div(scr_height,
                                     2) - 24), prison_text1, blue)
         else :
@@ -175,7 +160,7 @@ def menu_screen(screen, clock):
         disp_text(screen, high_score , (130, 105), start_screen_number1, white)
         disp_text(screen, high_time[:2] + ":" + high_time[2:4] , (130, 140), start_screen_number1, white)
 
-        if mute:
+        if not mute:
             screen.blit(unmute_img,(scr_width - 100,70))
         else:
             screen.blit(mute_img,(scr_width - 100,70))
@@ -183,7 +168,7 @@ def menu_screen(screen, clock):
         screen.blit(reset_img,(scr_width - 100,170))
         # display menu
         # display "Let's Play"
-        if option_flag == 0:
+        if main_menu_option == E_Main_Menu_Option.start_game:
             disp_text(screen, "Let's Escape", (old_div(scr_width,2),
                                                old_div(scr_height,2) + 60), menu_item_text_selected, silver)
         else:
@@ -197,28 +182,28 @@ def menu_screen(screen, clock):
                                          old_div(scr_height, 2) + 108, 384, 84), 2)
 
         # display color palette
-        if color_choice == 0:
+        if color_choice == E_Striker_Color.green:
             pygame.draw.rect(screen, light_green,
                              (old_div(scr_width,2) - 190, old_div(scr_height,2) + 110, 80, 80))
         else:
             pygame.draw.rect(screen, green, (old_div(scr_width, 2) -
                                              185, old_div(scr_height, 2) + 115, 70, 70))
 
-        if color_choice == 1:
+        if color_choice == E_Striker_Color.red:
             pygame.draw.rect(screen, light_red, (old_div(scr_width,
                                                  2) - 90, old_div(scr_height,2) + 110, 80, 80))
         else:
             pygame.draw.rect(screen, red, (old_div(scr_width,2) - 85,
                                            old_div(scr_height, 2) + 115, 70, 70))
 
-        if color_choice == 2:
+        if color_choice == E_Striker_Color.magenta:
             pygame.draw.rect(screen, light_magenta,
                              (old_div(scr_width,2) + 10, old_div(scr_height,2) + 110, 80, 80))
         else:
             pygame.draw.rect(screen, magenta, (old_div(scr_width,
                                                2) + 15, old_div(scr_height, 2) + 115, 70, 70))
 
-        if color_choice == 3:
+        if color_choice == E_Striker_Color.blue:
             pygame.draw.rect(screen, light_blue, (old_div(scr_width,
                                                   2) + 110, old_div(scr_height,2) + 110, 80, 80))
         else:
@@ -226,7 +211,7 @@ def menu_screen(screen, clock):
                                             115, old_div(scr_height, 2) + 115, 70, 70))
 
         # display "I'm Scared"
-        if option_flag == 1:
+        if main_menu_option == E_Main_Menu_Option.quit:
             disp_text(screen, "I'm Scared", (old_div(scr_width,2), old_div(scr_height,
                                              2) + 240), menu_item_text_selected, silver)
         else:
@@ -235,7 +220,7 @@ def menu_screen(screen, clock):
 
         # display message
         if mouse_x < scr_width - 70 and mouse_x > scr_width -100 and mouse_y < 100 and mouse_y > 70 :
-            if mute:
+            if not mute:
                 disp_text(screen, "Click To Mute", (old_div(scr_width,
                                                         2), old_div(scr_height,2) + 300), message_text, yellow)
             else :
@@ -247,10 +232,10 @@ def menu_screen(screen, clock):
         elif mouse_x < scr_width - 70 and mouse_x > scr_width - 100 and mouse_y < 200 and mouse_y > 170 :
             disp_text(screen, "Click To Reset Highscore", (old_div(scr_width,
                                                       2), old_div(scr_height,2) + 300), message_text, yellow)
-        elif option_flag == 0:
+        elif main_menu_option == E_Main_Menu_Option.start_game:
             disp_text(screen, "Press Enter To Play", (old_div(scr_width,
                                                       2), old_div(scr_height,2) + 300), message_text, yellow)
-        elif option_flag == 1:
+        elif main_menu_option == E_Main_Menu_Option.quit:
             disp_text(screen, "Press Enter To Quit Game", (old_div(scr_width,
                                                            2), old_div(scr_height, 2) + 300), message_text, yellow)
 
@@ -263,8 +248,6 @@ def menu_screen(screen, clock):
 
         if is_editing_name:
             screen.blit(name_input.get_surface(), (80, scr_height - 70))
-
-        
 
         pygame.display.update()
         clock.tick(FPS)

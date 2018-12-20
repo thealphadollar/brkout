@@ -11,7 +11,7 @@ import os.path
 # template for the data that will be serialised and saved as json
 settings_data = dict(
     player_name="",
-    sound_level=5,
+    volume=0.5,
     mute=False
 )
 
@@ -29,7 +29,7 @@ class Settings_Manager():
         else:
             self.settings_data = dict(
                 player_name="player",
-                sound_level=5,
+                volume=0.5,
                 mute=False
             )
             self.save_settings_to_file()
@@ -38,4 +38,3 @@ class Settings_Manager():
         settings_file = open('player_data.config', 'w')
         json.dump(self.settings_data, settings_file, indent=4)
         settings_file.close()
-

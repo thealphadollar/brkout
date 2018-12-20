@@ -1,77 +1,27 @@
 from __future__ import absolute_import
 from __future__ import division
 
-# Setting path to current folder
-from builtins import str
+# function to set path to current folder (py 2 to 3)
 from past.utils import old_div
-if __name__ == '__main__':
-    if __package__ is None:
-        import sys
-        from os import path
-        sys.path.append(path.abspath(path.join(path.dirname(__file__), '..')))
-import os
+def import_modify():
+    if __name__ == '__main__':
+        if __package__ is None:
+            import sys
+            from os import path
+            sys.path.append(path.abspath(path.join(path.dirname(__file__), '..')))
+
+from game.managers import *
+from game.gui_package import *
 from game.global_objects import *
-from game.screens import *
-from game.animation_package import *
 from game.objects import *
-from game.misc import *
-        
-# function to initialise pygame
+
 
 def init():
-    pygame.init()
-
-    gamelogo = pygame.image.load(os.path.join(assets_directory, 'logo.png'))
-    pygame.display.set_icon(gamelogo)
-    pygame.display.set_caption("BrkOut")
-    screen = pygame.display.set_mode((scr_width, scr_height))
-    clock = pygame.time.Clock()
-
-    settings_manager = Settings_Manager()
-    sound_manager = Sound_Manager(settings_manager, pygame)
-    animation_manager = Animation_Manager(screen)
-    game_parameters = Game_Parameters()
-    game_manager = Game_Manager(pygame, screen, clock, settings_manager, sound_manager, animation_manager, game_parameters)
-
-    return game_manager
-
-def init2():
-
-    global screen, clock, flip_image, score, seconds_first, seconds_second, minutes_first, minutes_second, \
-        count_to_seconds, ball, striker, time_count, score_time, hit_count, brick_point, choice, bricks, animation_manager
-    mute=1
-    hit_count = 0  # stores number of bricks hit
-    brick_point = 0  # stores the score accumulated by hitting brick
-    score_time = 0  # timer for the score calculation
-    time_count = 0  # increases score_time after 60 frames
-    ball = Ball(main_game_middle_x + 50,
-                main_game_middle_y + strike_bound_radius - 75)
+    ball = Ball(main_game_middle_x + 50, main_game_middle_y + strike_bound_radius - 75)
     striker = Striker(main_game_middle_x, main_game_middle_y)
-    seconds_first, seconds_second = 0, 0
-    minutes_first, minutes_second = 0, 0
-    count_to_seconds = 0
-    score = 0
-    flip_image = 0
-    choice = 0  # for the pause option
 
-    # initialising sound system
-    pygame.mixer.pre_init(44100, -16, 2, 2048)
-    pygame.mixer.init()
-    pygame.init()
-
-    # initialising display
-    gamelogo = pygame.image.load(os.path.join(assets_directory, 'logo.png'))
-    pygame.display.set_icon(gamelogo)
-    pygame.display.set_caption("BrkOut")
-    screen = pygame.display.set_mode((scr_width, scr_height))
-
-    # initialising time
-    clock = pygame.time.Clock()
-
-    # initialising bricks
     bricks = pygame.sprite.Group()
     add_to_group()
-
     animation_manager = Animation_Manager(screen)
 
 def add_to_group():
@@ -386,42 +336,3 @@ def gameloop(striker_color):
         # flipping
         pygame.display.update()
         clock.tick(FPS)
-
-def main():
-
-    #global score, seconds_first, seconds_second, minutes_first, minutes_second, screen, mute
-
-    while True:
-        game_manager = init()  # used to initialise the pygame module
-        choice, color_choice = menu_screen(game_manager)
-
-        # if the player presses "Let's Escape"
-        if choice == 0:
-            end_choice = gameloop(striker_colors[color_choice])
-            # As long as player presses restart
-            first = True
-            while end_choice == 2 or first:
-                if not first:
-                    init()
-                    end_choice = gameloop(striker_colors[color_choice])
-
-                # if the player looses
-                if end_choice == 0:
-                    end_choice = end_screen(
-                        screen, False, score, seconds_first, seconds_second, minutes_first, minutes_second, clock, busts, escapes, mute)
-
-                # if the player wins
-                elif end_choice == 1:
-                    end_choice = end_screen(
-
-                        screen, True, score, seconds_first, seconds_second, minutes_first, minutes_second, clock, busts, escapes, mute)
-
-
-                first = False
-
-            # if the player presses "Main Menu", loop goes on!
-
-        # if the player presses "I m scared"
-        elif choice == 1:
-            credits_screen(screen, clock)
-main()
