@@ -15,6 +15,7 @@ def import_modify():
 
 import os
 import pygame as pg
+from game.global_objects import *
 
 
 class Credits(pg.sprite.Sprite):
