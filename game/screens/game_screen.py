@@ -294,7 +294,7 @@ def check_collisions(ball, bricks, run_vars, animation_manager, sound_manager):
 
             # play ball hit animati0n effect
             animation_manager.create_new_effect(
-                blast_anim2, blast_anim2_size, 0, False, (ball.x, ball.y))
+                blast_anim2, blast_anim2_size, 3, False, (ball.x, ball.y))
 
 
 def render_field(pygame, screen, run_vars):

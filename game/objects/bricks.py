@@ -107,7 +107,7 @@ class Bricks(pygame.sprite.Sprite):
 
             # play death animation effect before dying
             animation_manager.create_new_effect(
-                blast_anim1, blast_anim1_size, 2, False, (self.x, self.y))
+                blast_anim1, blast_anim1_size, 3, False, (self.x, self.y))
 
             self.kill()
             return self.ori_brick_value * 200
