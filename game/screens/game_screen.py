@@ -1,10 +1,5 @@
 from __future__ import absolute_import
 from __future__ import division
-from game.objects import *
-from game.global_objects import *
-from game.gui_package import *
-from game.misc import *
-from game.screens.pause_screen import *
 from past.utils import old_div
 
 # function to set path to current folder (py 2 to 3)
@@ -17,6 +12,20 @@ def import_modify():
             from os import path
             sys.path.append(path.abspath(
                 path.join(path.dirname(__file__), '..')))
+
+
+try:
+    from game.objects import *
+    from game.global_objects import *
+    from game.gui_package import *
+    from game.misc import *
+    from game.screens.pause_screen import *
+except SystemError:
+    from .objects import *
+    from .global_objects import *
+    from .gui_package import *
+    from .misc import *
+    from .screens.pause_screen import *
 
 
 class Runtime_Vars():
