@@ -21,9 +21,9 @@ def menu_screen(game_manager):
     clock = game_manager.clock
     sound_manager = game_manager.sound_manager
     settings_manager = game_manager.settings_manager
-    color_choice = E_Striker_Color.green
+    color_option = E_Striker_Color.green
     main_menu_option = E_Main_Menu_Option.start_game
-    prison_choice = E_Prison_Choice.home
+    prison_option = E_Prison_Option.home
     random_hint = random.randint(0, 7)
     high_score, high_time = read_highscore()
     timer = 0
@@ -61,11 +61,11 @@ def menu_screen(game_manager):
                 if event.key == pygame.K_DOWN or event.key == pygame.K_s:
                     main_menu_option = decrease_enum(main_menu_option)
                 if event.key == pygame.K_LEFT or event.key == pygame.K_a:
-                    color_choice = decrease_enum(color_choice)
+                    color_option = decrease_enum(color_option)
                 if event.key == pygame.K_RIGHT or event.key == pygame.K_d:
-                    color_choice = increase_enum(color_choice)
+                    color_option = increase_enum(color_option)
                 if event.key == pygame.K_RETURN or event.key == pygame.K_SPACE:
-                    return main_menu_option, color_choice
+                    return main_menu_option, color_option, prison_option
 
                 if event.key == pygame.K_ESCAPE:
                     os._exit(0)
@@ -83,15 +83,15 @@ def menu_screen(game_manager):
                     high_score, high_time = read_highscore()
             if event.type == pygame.MOUSEBUTTONDOWN and pygame.mouse.get_pressed()[0]:
                 if mouse_x < 284 and mouse_x > 114 and mouse_y < 336 and mouse_y > 318 :
-                    prison_choice = E_Prison_Choice.home
+                    prison_option = E_Prison_Option.home
                     game_manager.game_parameters.friction = 0.01
             if event.type == pygame.MOUSEBUTTONDOWN and pygame.mouse.get_pressed()[0]:
                 if mouse_x < 527 and mouse_x > 325 and mouse_y < 336 and mouse_y > 318 :
-                    prison_choice = E_Prison_Choice.dungeon
+                    prison_option = E_Prison_Option.dungeon
                     game_manager.game_parameters.friction = 0.018
             if event.type == pygame.MOUSEBUTTONDOWN and pygame.mouse.get_pressed()[0]:
                 if mouse_x < 797 and mouse_x > 584 and mouse_y < 336 and mouse_y > 318 :
-                    prison_choice = E_Prison_Choice.tartarus
+                    prison_option = E_Prison_Option.tartarus
                     game_manager.game_parameters.friction = 0.025
             if event.type == pygame.QUIT:
                 os._exit(0)
@@ -135,21 +135,21 @@ def menu_screen(game_manager):
         disp_text(screen, "YOUR PRISON", (old_div(scr_width, 2), old_div(scr_height,
                                   2) - 80), prison_text_big, blood_red)
 
-        if prison_choice == E_Prison_Choice.home:
+        if prison_option == E_Prison_Option.home:
             disp_text(screen, "HOME", (old_div(scr_width, 2) -250, old_div(scr_height,
                                     2) - 24), prison_text1, blue)
         else :
             disp_text(screen, "HOME", (old_div(scr_width, 2) -250, old_div(scr_height,
                                     2) - 24), prison_text, yellow)
 
-        if prison_choice == E_Prison_Choice.dungeon:
+        if prison_option == E_Prison_Option.dungeon:
             disp_text(screen, "DUNGEON", (old_div(scr_width, 2) - 25, old_div(scr_height,
                                     2) - 24), prison_text1, blue)
         else :
             disp_text(screen, "DUNGEON", (old_div(scr_width, 2) - 25, old_div(scr_height,
                                     2) - 24), prison_text, yellow)
 
-        if prison_choice == E_Prison_Choice.tartarus:
+        if prison_option == E_Prison_Option.tartarus:
             disp_text(screen, "TARTARUS", (old_div(scr_width, 2) + 240, old_div(scr_height,
                                     2) - 24), prison_text1, blue)
         else :
@@ -182,28 +182,28 @@ def menu_screen(game_manager):
                                          old_div(scr_height, 2) + 108, 384, 84), 2)
 
         # display color palette
-        if color_choice == E_Striker_Color.green:
+        if color_option == E_Striker_Color.green:
             pygame.draw.rect(screen, light_green,
                              (old_div(scr_width,2) - 190, old_div(scr_height,2) + 110, 80, 80))
         else:
             pygame.draw.rect(screen, green, (old_div(scr_width, 2) -
                                              185, old_div(scr_height, 2) + 115, 70, 70))
 
-        if color_choice == E_Striker_Color.red:
+        if color_option == E_Striker_Color.red:
             pygame.draw.rect(screen, light_red, (old_div(scr_width,
                                                  2) - 90, old_div(scr_height,2) + 110, 80, 80))
         else:
             pygame.draw.rect(screen, red, (old_div(scr_width,2) - 85,
                                            old_div(scr_height, 2) + 115, 70, 70))
 
-        if color_choice == E_Striker_Color.magenta:
+        if color_option == E_Striker_Color.magenta:
             pygame.draw.rect(screen, light_magenta,
                              (old_div(scr_width,2) + 10, old_div(scr_height,2) + 110, 80, 80))
         else:
             pygame.draw.rect(screen, magenta, (old_div(scr_width,
                                                2) + 15, old_div(scr_height, 2) + 115, 70, 70))
 
-        if color_choice == E_Striker_Color.blue:
+        if color_option == E_Striker_Color.blue:
             pygame.draw.rect(screen, light_blue, (old_div(scr_width,
                                                   2) + 110, old_div(scr_height,2) + 110, 80, 80))
         else:

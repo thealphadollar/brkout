@@ -1,261 +1,69 @@
 from __future__ import absolute_import
 from __future__ import division
+from game.objects import *
+from game.global_objects import *
+from game.gui_package import *
+from game.misc import *
+from game.screens.pause_screen import *
+from past.utils import old_div
 
 # function to set path to current folder (py 2 to 3)
-from past.utils import old_div
+
+
 def import_modify():
     if __name__ == '__main__':
         if __package__ is None:
             import sys
             from os import path
-            sys.path.append(path.abspath(path.join(path.dirname(__file__), '..')))
-
-from game.managers import *
-from game.gui_package import *
-from game.global_objects import *
-from game.objects import *
+            sys.path.append(path.abspath(
+                path.join(path.dirname(__file__), '..')))
 
 
-def init():
-    ball = Ball(main_game_middle_x + 50, main_game_middle_y + strike_bound_radius - 75)
+class Runtime_Vars():
+    def __init__(self):
+        self.hit_count = 0  # stores number of bricks hit
+        self.brick_point = 0  # stores the score accumulated by hitting brick
+        self.score_time = 0  # timer for the score calculation
+        self.time_count = 0  # increases score_time after 60 frames
+        self.count_to_seconds = 0
+        self.seconds_first = 0
+        self.minutes_first = 0
+        self.minutes_second = 0
+        self.seconds_second = 0
+        self.score = 0
+        self.flip_image = 0
+        self.pause_option = 0
+        self.escapes = 0
+        self.busts = 0
+
+
+def game_screen(game_manager, striker_color):
+    pygame = game_manager.pygame
+    screen = game_manager.screen
+    clock = game_manager.clock
+    animation_manager = game_manager.animation_manager
+    sound_manager = game_manager.sound_manager
+    ball = Ball(main_game_middle_x + 50,
+                main_game_middle_y + strike_bound_radius - 75)
     striker = Striker(main_game_middle_x, main_game_middle_y)
 
+    run_vars = Runtime_Vars()
+    sound_manager.play_music('main_music.mp3')
+
     bricks = pygame.sprite.Group()
-    add_to_group()
-    animation_manager = Animation_Manager(screen)
+    add_to_group(bricks)
 
-def add_to_group():
-    y = 0
-    while y < 4:
-        x = 100 + y*vertical_brick_width
-        while x < 800-y*vertical_brick_width:
-            b = Bricks(x, 40 + y*horizontal_brick_height, 1)
-            bricks.add(b)
-            x += horizontal_brick_width
-        y += 1
-    y = 0
-    while y < 4:
-        x = 100 + y*vertical_brick_width
-        while x < 800-y*vertical_brick_width:
-            b = Bricks(x, 670 - y*horizontal_brick_height, 1)
-            bricks.add(b)
-            x += horizontal_brick_width
-        y += 1
-    x = 1
-    while x < 5:
-        y = 40 + x*horizontal_brick_height
-        while y < 700 - x*horizontal_brick_height:
-            b = Bricks(100 + (x-1)*vertical_brick_width, y, 0)
-            bricks.add(b)
-            y += vertical_brick_height
-        x += 1
-
-    x = 1
-    while x < 5:
-        y = 40 + x*horizontal_brick_height
-        while y < 700 - x*horizontal_brick_height:
-            b = Bricks(800 - x*vertical_brick_width, y, 0)
-            bricks.add(b)
-            y += vertical_brick_height
-        x += 1
-
-# function to show time
-
-def show_time(start_timer):
-    global count_to_seconds, seconds_second, seconds_first, minutes_first, minutes_second
-
-    if start_timer:
-        count_to_seconds += 1
-
-    if count_to_seconds == FPS:
-        seconds_first += 1
-        count_to_seconds = 0
-    if seconds_first == 10:
-        seconds_second += 1
-        seconds_first = 0
-    if seconds_second == 6:
-        minutes_first += 1
-        seconds_second = 0
-    if minutes_first == 10:
-        minutes_second += 1
-        minutes_first = 0
-
-    # displaying time label
-    disp_text(screen, "pursuit : ", (scr_width - 110, 21),
-              main_screen_text, silver)
-    disp_text(screen, str(minutes_second)+str(minutes_first)+":"+str(seconds_second)+str(seconds_first),
-              (scr_width - 40, 21), main_screen_number, silver)
-
-# function to show score()
-
-def show_score(start_timer):
-    global score, time_count, score_time, hit_count, brick_point
-    # keeping track of time for scoring
-    if start_timer:
-        time_count += 1
-
-    # updating score variable
-    if time_count == 60:
-        score_time += 1
-        time_count = 0
-
-    if score_time > 0:
-        score = int(
-            old_div(brick_point, (.7 * math.sqrt(score_time) + .3 * (hit_count ** (old_div(1.0,3))))))
-
-    # negative score not allowed
-    if score < 0:
-        score = 0
-
-    # method same as show_time to be adopted for displaying
-
-    # displaying score label
-    disp_text(screen, "score : ", (50, 21), main_screen_text, silver)
-    disp_text(screen, str(score), (100, 21), main_screen_number, silver)
-
-# function to show ball speed
-
-def show_speed(ball):
-
-    disp_text(screen, "speed :", (old_div(scr_width,2) - 30, 21),
-              main_screen_text, silver)
-    if (ball.speed * 10) > 70:
-        disp_text(screen, str(int(ball.speed * 10)),
-                  (old_div(scr_width,2) + 15, 21), main_screen_number, pure_green)
-    elif (ball.speed * 10) > 30:
-        disp_text(screen, str(int(ball.speed * 10)),
-                  (old_div(scr_width, 2) + 15, 21), main_screen_number, yellow)
-    else:
-        disp_text(screen, str(int(ball.speed * 10)),
-                  (old_div(scr_width, 2) + 15, 21), main_screen_number, pure_red)
-
-# rendering static elements
-
-def check_collisions():
-    global hit_count, brick_point, mute
-    for br in bricks:
-        if br.type == 1:
-            did_collide = br.check_hor_coll(ball)
-        else:
-            did_collide = br.check_ver_coll(ball)
-
-        # returns if collision has taken place
-        if did_collide:
-            if mute==1:
-            	collision_sound.set_volume(1.5)
-            	collision_sound.play()
-            hit_count += 1
-            brick_point += br.update(ball.speed,mute, animation_manager)
-            
-            # play ball hit animati0n effect
-            animation_manager.create_new_effect(blast_anim2, blast_anim2_size, 0, False, (ball.x, ball.y))
-
-
-def render_field():
-
-    global flip_image,screen
-
-    screen.fill(black)
-
-    # drawing prison-field
-    #pygame.draw.rect(screen, grey, (100, 40, 700, 660))
-
-    flip_image = (flip_image + 1) % 60
-    # rendering speed images
-    if flip_image < 30:
-        pygame.draw.rect(screen,black,(0,40,100,scr_height-40))
-    else :
-        pygame.draw.rect(screen,white,(0,40,100,scr_height-40))
-
-    if flip_image < 30:
-        pygame.draw.rect(screen,white,(800,40,100,scr_height-40))
-    else :
-        pygame.draw.rect(screen,black,(800,40,100,scr_height-40))
-
-    # drawing the prison styled thin bars
-    draw_walls(screen, post_brick_width, post_brick_height)
-
-    # drawing striker boundary
-    pygame.draw.circle(screen, light_black, (main_game_middle_x,
-                                             main_game_middle_y), strike_bound_radius)
-
-# main game loop
-
-def events(joystick):
-    # getting in events
-    global choice
-    
-    #Jostick variable initizlization
-    hat = False
-    axis1 = False
-    axis2 = False
-    axis3 = False
-    axis4 = False
-
-    for event in pygame.event.get():
-
-        if event.type == pygame.KEYDOWN:
-            # pausing the game
-            if event.key == pygame.K_SPACE or event.key == pygame.K_ESCAPE:
-                # pause_game() function
-                choice = pause_game(screen, clock)
-
-        # quitting the game
-        if event.type == pygame.QUIT:
-            os._exit(0)
-
-    # updating striker
-    if joystick!=None:
-        if joystick.get_numaxes() >= 4:
-            hat = joystick.get_hat(0)
-            axis1 = joystick.get_axis(0)
-            axis2 = joystick.get_axis(1)
-            axis3 = joystick.get_axis(2)
-            axis4 = joystick.get_axis(3)
-        else:
-            hat = False
-            axis1 = False
-            axis2 = False
-            axis3 = False
-            axis4 = False    
-    pressed = pygame.key.get_pressed()
-    if pressed[pygame.K_RIGHT] or pressed[pygame.K_d] or hat == (1,0) or axis1 >=0.7 or axis3 >= 0.7:
-        striker.x_velocity += .5
-    elif pressed[pygame.K_LEFT] or pressed[pygame.K_a] or hat == (-1,0) or axis1 <= -0.7 or axis3 <= -0.7:
-        striker.x_velocity -= .5
-    else:
-        striker.x_velocity = 0
-    if pressed[pygame.K_UP] or pressed[pygame.K_w] or hat == (0,1) or axis2 <= -0.7 or axis4 <= -0.7:
-        striker.y_velocity -= .5
-    elif pressed[pygame.K_DOWN] or pressed[pygame.K_s] or hat == (0,-1) or axis2 >= 0.7 or axis4 >= 0.7:
-        striker.y_velocity += .5
-    else:
-        striker.y_velocity = 0
-
-def gameloop(striker_color):
-    global screen, clock, ball, striker, choice, mute, busts, escapes
-    start_time = False
+    start_timer = False
 
     pygame.joystick.init()
-    
-    #Joystick initialized
-    joystick=None
-    
+
+    # Joystick initialized
+    joystick = None
+
     joystick_count = pygame.joystick.get_count()
     for i in range(joystick_count):
         joystick = pygame.joystick.Joystick(i)
         joystick.init()
-            
-    alert = pygame.mixer.Channel(2)
-
-    pygame.mixer.music.stop()
-    pygame.mixer.music.load(os.path.join(assets_directory, "main_music.mp3"))
-    #pygame.mixer.music.play(-1)
-    pygame.mixer.music.set_volume(.5)
-    if not mute:
-        pygame.mixer.music.pause()
-    else:
-        pygame.mixer.music.unpause()
 
     while True:
 
@@ -263,14 +71,14 @@ def gameloop(striker_color):
         delta_time = old_div(clock.get_time(), 10)
 
         # drawing the game field
-        render_field()
+        render_field(pygame, screen, run_vars)
 
         # getting the events
-        events(joystick)
+        events(pygame, screen, clock, joystick, striker, run_vars)
 
         # returning pause options if it is not resume
-        if choice:
-            return choice + 1
+        if run_vars.pause_option:
+            return run_vars.pause_option + 1
 
         # updating elements
         striker.update(delta_time)
@@ -278,11 +86,12 @@ def gameloop(striker_color):
         striker.check_bound()
 
         # checking collisions
-        check_collisions()
+        check_collisions(ball, bricks, run_vars,
+                         animation_manager, sound_manager)
 
         # check first strike to start timer
-        if not start_time:
-            start_time = ball.collision_striker(striker)
+        if not start_timer:
+            start_timer = ball.collision_striker(striker)
 
             # correct code for striker sound
 #            if start_time:
@@ -300,10 +109,10 @@ def gameloop(striker_color):
         # checking winning
         if ball.check_escape():
             temp_time = pygame.time.get_ticks()
-            escapes+=1
+            run_vars.escapes += 1
             while pygame.time.get_ticks() - temp_time < 400:
                 pass
-            return 1
+            return E_Game_Result.win
 
         # rendering various elements
         striker.draw(screen, striker_color)
@@ -314,21 +123,21 @@ def gameloop(striker_color):
             br.draw23(screen)
 
         # show time function
-        show_time(start_time)
+        show_time(start_timer, screen, run_vars)
 
         # show score
-        show_score(start_time)
+        show_score(start_timer, screen, run_vars)
 
         # show speed
-        show_speed(ball)
+        show_speed(screen, ball)
 
         # check loosing
-        if ball.speed == 0 and start_time:
+        if ball.speed == 0 and start_timer:
             temp_time = pygame.time.get_ticks()
-            busts+=1
+            run_vars.busts += 1
             while pygame.time.get_ticks() - temp_time < 400:
                 pass
-            return 0
+            return E_Game_Result.loss
 
         # draw animations
         animation_manager.draw_animations()
@@ -336,3 +145,198 @@ def gameloop(striker_color):
         # flipping
         pygame.display.update()
         clock.tick(FPS)
+
+
+def add_to_group(bricks):
+    y = 0
+    while y < 4:
+        x = 100 + y * vertical_brick_width
+        while x < 800 - y * vertical_brick_width:
+            b = Bricks(x, 40 + y * horizontal_brick_height, 1)
+            bricks.add(b)
+            x += horizontal_brick_width
+        y += 1
+    y = 0
+    while y < 4:
+        x = 100 + y * vertical_brick_width
+        while x < 800 - y * vertical_brick_width:
+            b = Bricks(x, 670 - y * horizontal_brick_height, 1)
+            bricks.add(b)
+            x += horizontal_brick_width
+        y += 1
+    x = 1
+    while x < 5:
+        y = 40 + x * horizontal_brick_height
+        while y < 700 - x * horizontal_brick_height:
+            b = Bricks(100 + (x - 1) * vertical_brick_width, y, 0)
+            bricks.add(b)
+            y += vertical_brick_height
+        x += 1
+
+    x = 1
+    while x < 5:
+        y = 40 + x * horizontal_brick_height
+        while y < 700 - x * horizontal_brick_height:
+            b = Bricks(800 - x * vertical_brick_width, y, 0)
+            bricks.add(b)
+            y += vertical_brick_height
+        x += 1
+
+
+def show_time(start_timer, screen, run_vars):
+    if start_timer:
+        run_vars.count_to_seconds += 1
+
+    if run_vars.count_to_seconds == FPS:
+        run_vars.seconds_first += 1
+        run_vars.count_to_seconds = 0
+    if run_vars.seconds_first == 10:
+        run_vars.seconds_second += 1
+        run_vars.seconds_first = 0
+    if run_vars.seconds_second == 6:
+        run_vars.minutes_first += 1
+        run_vars.seconds_second = 0
+    if run_vars.minutes_first == 10:
+        run_vars.minutes_second += 1
+        run_vars.minutes_first = 0
+
+    # displaying time label
+    disp_text(screen, "pursuit : ", (scr_width - 110, 21),
+              main_screen_text, silver)
+    disp_text(screen, str(run_vars.minutes_second) + str(run_vars.minutes_first) + ":" + str(run_vars.seconds_second) + str(run_vars.seconds_first),
+              (scr_width - 40, 21), main_screen_number, silver)
+
+
+def show_score(start_timer, screen, run_vars):
+    # keeping track of time for scoring
+    if start_timer:
+        run_vars.time_count += 1
+
+    # updating score variable
+    if run_vars.time_count == 60:
+        run_vars.score_time += 1
+        run_vars.time_count = 0
+
+    if run_vars.score_time > 0:
+        run_vars.score = int(
+            old_div(run_vars.brick_point, (.7 * math.sqrt(run_vars.score_time) + .3 * (run_vars.hit_count ** (old_div(1.0, 3))))))
+
+    # negative score not allowed
+    if run_vars.score < 0:
+        run_vars.score = 0
+
+    # method same as show_time to be adopted for displaying
+
+    # displaying score label
+    disp_text(screen, "score : ", (50, 21), main_screen_text, silver)
+    disp_text(screen, str(run_vars.score),
+              (100, 21), main_screen_number, silver)
+
+
+def show_speed(screen, ball):
+
+    disp_text(screen, "speed :", (old_div(scr_width, 2) - 30, 21),
+              main_screen_text, silver)
+    if (ball.speed * 10) > 70:
+        disp_text(screen, str(int(ball.speed * 10)),
+                  (old_div(scr_width, 2) + 15, 21), main_screen_number, pure_green)
+    elif (ball.speed * 10) > 30:
+        disp_text(screen, str(int(ball.speed * 10)),
+                  (old_div(scr_width, 2) + 15, 21), main_screen_number, yellow)
+    else:
+        disp_text(screen, str(int(ball.speed * 10)),
+                  (old_div(scr_width, 2) + 15, 21), main_screen_number, pure_red)
+
+
+def check_collisions(ball, bricks, run_vars, animation_manager, sound_manager):
+    for br in bricks:
+        if br.type == 1:
+            did_collide = br.check_hor_coll(ball)
+        else:
+            did_collide = br.check_ver_coll(ball)
+
+        # returns if collision has taken place
+        if did_collide:
+            sound_manager.play_sound(collision_sound)
+            run_vars.hit_count += 1
+            run_vars.brick_point += br.update(ball.speed, mute,
+                                              animation_manager, sound_manager)
+
+            # play ball hit animati0n effect
+            animation_manager.create_new_effect(
+                blast_anim2, blast_anim2_size, 0, False, (ball.x, ball.y))
+
+
+def render_field(pygame, screen, run_vars):
+    screen.fill(black)
+
+    # drawing prison-field
+    #pygame.draw.rect(screen, grey, (100, 40, 700, 660))
+
+    run_vars.flip_image = (run_vars.flip_image + 1) % 60
+    # rendering speed images
+    if run_vars.flip_image < 30:
+        pygame.draw.rect(screen, black, (0, 40, 100, scr_height - 40))
+    else:
+        pygame.draw.rect(screen, white, (0, 40, 100, scr_height - 40))
+
+    if run_vars.flip_image < 30:
+        pygame.draw.rect(screen, white, (800, 40, 100, scr_height - 40))
+    else:
+        pygame.draw.rect(screen, black, (800, 40, 100, scr_height - 40))
+
+    # drawing the prison styled thin bars
+    draw_walls(screen, post_brick_width, post_brick_height)
+
+    # drawing striker boundary
+    pygame.draw.circle(screen, light_black, (main_game_middle_x,
+                                             main_game_middle_y), strike_bound_radius)
+
+
+def events(pygame, screen, clock, joystick, striker, run_vars):
+    # Jostick variable initizlization
+    hat = False
+    axis1 = False
+    axis2 = False
+    axis3 = False
+    axis4 = False
+
+    for event in pygame.event.get():
+
+        if event.type == pygame.KEYDOWN:
+            # pausing the game
+            if event.key == pygame.K_SPACE or event.key == pygame.K_ESCAPE:
+                # pause_game() function
+                run_vars.pause_option = pause_game(screen, clock)
+
+        # quitting the game
+        if event.type == pygame.QUIT:
+            os._exit(0)
+
+    # updating striker
+    if joystick != None:
+        if joystick.get_numaxes() >= 4:
+            hat = joystick.get_hat(0)
+            axis1 = joystick.get_axis(0)
+            axis2 = joystick.get_axis(1)
+            axis3 = joystick.get_axis(2)
+            axis4 = joystick.get_axis(3)
+        else:
+            hat = False
+            axis1 = False
+            axis2 = False
+            axis3 = False
+            axis4 = False
+    pressed = pygame.key.get_pressed()
+    if pressed[pygame.K_RIGHT] or pressed[pygame.K_d] or hat == (1, 0) or axis1 >= 0.7 or axis3 >= 0.7:
+        striker.x_velocity += .5
+    elif pressed[pygame.K_LEFT] or pressed[pygame.K_a] or hat == (-1, 0) or axis1 <= -0.7 or axis3 <= -0.7:
+        striker.x_velocity -= .5
+    else:
+        striker.x_velocity = 0
+    if pressed[pygame.K_UP] or pressed[pygame.K_w] or hat == (0, 1) or axis2 <= -0.7 or axis4 <= -0.7:
+        striker.y_velocity -= .5
+    elif pressed[pygame.K_DOWN] or pressed[pygame.K_s] or hat == (0, -1) or axis2 >= 0.7 or axis4 >= 0.7:
+        striker.y_velocity += .5
+    else:
+        striker.y_velocity = 0

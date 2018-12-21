@@ -15,7 +15,6 @@ class Sound_Manager():
         self.settings_manager = settings_manager
         self.volume = self.settings_manager.settings_data['volume']
         self.mute = self.settings_manager.settings_data['mute']
-        pass
 
     def mute_game(self):
         self.pygame.mixer.music.pause()
@@ -42,3 +41,9 @@ class Sound_Manager():
 
         if self.mute:
             self.pygame.mixer.music.pause()
+
+    def play_sound(self, sound):
+        if self.mute:
+            return
+        else:
+            sound.play()

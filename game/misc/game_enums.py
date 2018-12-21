@@ -37,8 +37,14 @@ class E_Striker_Color(Enum):
     blue = 3
 
 
-class E_Prison_Choice(Enum):
+class E_Prison_Option(Enum):
     ''' Enum to decide prison. '''
     home = 0
     dungeon = 1
     tartarus = 2
+
+
+class E_Game_Result(Enum):
+    ''' Enum for game result. '''
+    loss = 0
+    win = 1
