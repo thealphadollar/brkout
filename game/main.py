@@ -43,25 +43,23 @@ def main():
 
         # if the player presses "Let's Escape"
         if main_menu_option == E_Main_Menu_Option.start_game:
-            end_choice = game_screen(game_manager, striker_colors[color_option.value])
+            game_output, run_vars = game_screen(game_manager, striker_colors[color_option.value])
             # As long as player presses restart
             first = True
-            while end_choice == 2 or first:
+            while game_output is E_Pause_Option.restart or first:
                 if not first:
                     init()
-                    end_choice = gameloop(striker_colors[color_choice])
+                    game_output, run_vars = game_screen(game_manager, striker_colors[color_option.value])
 
                 # if the player looses
-                if end_choice == 0:
+                if game_output is E_Game_Result.loss:
                     end_choice = end_screen(
                         screen, False, score, seconds_first, seconds_second, minutes_first, minutes_second, clock, busts, escapes, mute)
 
                 # if the player wins
-                elif end_choice == 1:
+                elif game_output is E_Game_Result.win:
                     end_choice = end_screen(
-
                         screen, True, score, seconds_first, seconds_second, minutes_first, minutes_second, clock, busts, escapes, mute)
-
 
                 first = False
 

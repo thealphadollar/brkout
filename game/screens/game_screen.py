@@ -32,7 +32,7 @@ class Runtime_Vars():
         self.seconds_second = 0
         self.score = 0
         self.flip_image = 0
-        self.pause_option = 0
+        self.pause_option = E_Pause_Option.resume
         self.escapes = 0
         self.busts = 0
 
@@ -74,11 +74,11 @@ def game_screen(game_manager, striker_color):
         render_field(pygame, screen, run_vars)
 
         # getting the events
-        events(pygame, screen, clock, joystick, striker, run_vars)
+        events(game_manager, pygame, screen, clock, joystick, striker, run_vars)
 
         # returning pause options if it is not resume
-        if run_vars.pause_option:
-            return run_vars.pause_option + 1
+        if run_vars.pause_option is not E_Pause_Option.resume:
+            return run_vars.pause_option, run_vars
 
         # updating elements
         striker.update(delta_time)
@@ -112,7 +112,7 @@ def game_screen(game_manager, striker_color):
             run_vars.escapes += 1
             while pygame.time.get_ticks() - temp_time < 400:
                 pass
-            return E_Game_Result.win
+            return E_Game_Result.win, run_vars
 
         # rendering various elements
         striker.draw(screen, striker_color)
@@ -137,7 +137,7 @@ def game_screen(game_manager, striker_color):
             run_vars.busts += 1
             while pygame.time.get_ticks() - temp_time < 400:
                 pass
-            return E_Game_Result.loss
+            return E_Game_Result.loss, run_vars
 
         # draw animations
         animation_manager.draw_animations()
@@ -293,7 +293,7 @@ def render_field(pygame, screen, run_vars):
                                              main_game_middle_y), strike_bound_radius)
 
 
-def events(pygame, screen, clock, joystick, striker, run_vars):
+def events(game_manager, pygame, screen, clock, joystick, striker, run_vars):
     # Jostick variable initizlization
     hat = False
     axis1 = False
@@ -307,7 +307,7 @@ def events(pygame, screen, clock, joystick, striker, run_vars):
             # pausing the game
             if event.key == pygame.K_SPACE or event.key == pygame.K_ESCAPE:
                 # pause_game() function
-                run_vars.pause_option = pause_game(screen, clock)
+                run_vars.pause_option = pause_game(game_manager)
 
         # quitting the game
         if event.type == pygame.QUIT:

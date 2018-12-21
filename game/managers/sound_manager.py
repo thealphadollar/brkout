@@ -6,6 +6,7 @@
 import os
 from game.global_objects.constants import *
 
+
 class Sound_Manager():
 
     def __init__(self, settings_manager, pygame):
@@ -47,3 +48,6 @@ class Sound_Manager():
             return
         else:
             sound.play()
+
+    def stop_sound(self, sound):
+        sound.stop()

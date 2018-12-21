@@ -135,21 +135,21 @@ def menu_screen(game_manager):
         disp_text(screen, "YOUR PRISON", (old_div(scr_width, 2), old_div(scr_height,
                                   2) - 80), prison_text_big, blood_red)
 
-        if prison_option == E_Prison_Option.home:
+        if prison_option is E_Prison_Option.home:
             disp_text(screen, "HOME", (old_div(scr_width, 2) -250, old_div(scr_height,
                                     2) - 24), prison_text1, blue)
         else :
             disp_text(screen, "HOME", (old_div(scr_width, 2) -250, old_div(scr_height,
                                     2) - 24), prison_text, yellow)
 
-        if prison_option == E_Prison_Option.dungeon:
+        if prison_option is E_Prison_Option.dungeon:
             disp_text(screen, "DUNGEON", (old_div(scr_width, 2) - 25, old_div(scr_height,
                                     2) - 24), prison_text1, blue)
         else :
             disp_text(screen, "DUNGEON", (old_div(scr_width, 2) - 25, old_div(scr_height,
                                     2) - 24), prison_text, yellow)
 
-        if prison_option == E_Prison_Option.tartarus:
+        if prison_option is E_Prison_Option.tartarus:
             disp_text(screen, "TARTARUS", (old_div(scr_width, 2) + 240, old_div(scr_height,
                                     2) - 24), prison_text1, blue)
         else :
@@ -168,7 +168,7 @@ def menu_screen(game_manager):
         screen.blit(reset_img,(scr_width - 100,170))
         # display menu
         # display "Let's Play"
-        if main_menu_option == E_Main_Menu_Option.start_game:
+        if main_menu_option is E_Main_Menu_Option.start_game:
             disp_text(screen, "Let's Escape", (old_div(scr_width,2),
                                                old_div(scr_height,2) + 60), menu_item_text_selected, silver)
         else:
@@ -182,28 +182,28 @@ def menu_screen(game_manager):
                                          old_div(scr_height, 2) + 108, 384, 84), 2)
 
         # display color palette
-        if color_option == E_Striker_Color.green:
+        if color_option is E_Striker_Color.green:
             pygame.draw.rect(screen, light_green,
                              (old_div(scr_width,2) - 190, old_div(scr_height,2) + 110, 80, 80))
         else:
             pygame.draw.rect(screen, green, (old_div(scr_width, 2) -
                                              185, old_div(scr_height, 2) + 115, 70, 70))
 
-        if color_option == E_Striker_Color.red:
+        if color_option is E_Striker_Color.red:
             pygame.draw.rect(screen, light_red, (old_div(scr_width,
                                                  2) - 90, old_div(scr_height,2) + 110, 80, 80))
         else:
             pygame.draw.rect(screen, red, (old_div(scr_width,2) - 85,
                                            old_div(scr_height, 2) + 115, 70, 70))
 
-        if color_option == E_Striker_Color.magenta:
+        if color_option is E_Striker_Color.magenta:
             pygame.draw.rect(screen, light_magenta,
                              (old_div(scr_width,2) + 10, old_div(scr_height,2) + 110, 80, 80))
         else:
             pygame.draw.rect(screen, magenta, (old_div(scr_width,
                                                2) + 15, old_div(scr_height, 2) + 115, 70, 70))
 
-        if color_option == E_Striker_Color.blue:
+        if color_option is E_Striker_Color.blue:
             pygame.draw.rect(screen, light_blue, (old_div(scr_width,
                                                   2) + 110, old_div(scr_height,2) + 110, 80, 80))
         else:
@@ -211,7 +211,7 @@ def menu_screen(game_manager):
                                             115, old_div(scr_height, 2) + 115, 70, 70))
 
         # display "I'm Scared"
-        if main_menu_option == E_Main_Menu_Option.quit:
+        if main_menu_option is E_Main_Menu_Option.quit:
             disp_text(screen, "I'm Scared", (old_div(scr_width,2), old_div(scr_height,
                                              2) + 240), menu_item_text_selected, silver)
         else:
@@ -232,10 +232,10 @@ def menu_screen(game_manager):
         elif mouse_x < scr_width - 70 and mouse_x > scr_width - 100 and mouse_y < 200 and mouse_y > 170 :
             disp_text(screen, "Click To Reset Highscore", (old_div(scr_width,
                                                       2), old_div(scr_height,2) + 300), message_text, yellow)
-        elif main_menu_option == E_Main_Menu_Option.start_game:
+        elif main_menu_option is E_Main_Menu_Option.start_game:
             disp_text(screen, "Press Enter To Play", (old_div(scr_width,
                                                       2), old_div(scr_height,2) + 300), message_text, yellow)
-        elif main_menu_option == E_Main_Menu_Option.quit:
+        elif main_menu_option is E_Main_Menu_Option.quit:
             disp_text(screen, "Press Enter To Quit Game", (old_div(scr_width,
                                                            2), old_div(scr_height, 2) + 300), message_text, yellow)
 

@@ -48,3 +48,10 @@ class E_Game_Result(Enum):
     ''' Enum for game result. '''
     loss = 0
     win = 1
+
+class E_Pause_Option(Enum):
+    ''' Enum for pause menu options. '''
+    resume = 0
+    restart = 1
+    main_menu = 2
+    quit = 3

@@ -12,32 +12,29 @@ def import_modify():
 
 from .start_screen import *
 from game.global_objects import *
+from game.misc import *
 
 import pygame
 import os
 
 
-def pause_game(screen, clock):
-
-    # pauses music
-    pygame.mixer.music.pause()
-
-    # play pause screen music
-    if mute:
-        pause_sound.play(-1)
-        pause_sound.set_volume(1)
+def pause_game(game_manager):
+    pygame = game_manager.pygame
+    screen = game_manager.screen
+    clock = game_manager.clock
+    sound_manager = game_manager.sound_manager
+    
+    sound_manager.play_sound(pause_sound)
 
     oldtime = pygame.time.get_ticks()
     pause_ball = Ball(130, 140)  # Initializing pause_ball
-    option = 0
+    pause_option = E_Pause_Option.resume
     # Giving a delay of 200 ms
     while pygame.time.get_ticks() - oldtime < 200:
         pass
 
     oldtime = pygame.time.get_ticks()
     while True:
-        clock.tick(FPS)
-
         newtime = pygame.time.get_ticks()
         delta_time = old_div((newtime - oldtime),10)
         oldtime = newtime
@@ -48,33 +45,21 @@ def pause_game(screen, clock):
                 os._exit(0)
 
             if event.type == pygame.KEYDOWN and (event.key == pygame.K_ESCAPE or event.key == pygame.K_SPACE):
-                # unpause music
-                pause_sound.stop()
-                if mute:
-                    pygame.mixer.music.unpause()
-                return
+                sound_manager.stop_sound(pause_sound)
+                return E_Pause_Option.resume
 
             if event.type == pygame.KEYDOWN and (event.key == pygame.K_UP or event.key == pygame.K_w):
-                option += 3
-                option %= 4
+                pause_option = decrease_enum(pause_option)
 
             if event.type == pygame.KEYDOWN and (event.key == pygame.K_DOWN or event.key == pygame.K_s):
-                option += 1
-                option %= 4
+                pause_option = increase_enum(pause_option)
 
             if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
-                pause_sound.stop()
-                if option != 3 and mute:
-                    # unpause music
-                    pygame.mixer.music.unpause()
-                if option == 0:
-                    return 0
-                if option == 1:
-                    return 1
-                if option == 2:
-                    return 2
-                if option == 3:
+                sound_manager.stop_sound(pause_sound)
+                if pause_option == E_Pause_Option.quit:
                     os._exit(0)
+                else:
+                    return pause_option
 
         # ball updation
         pause_ball.menu_screen_move(delta_time)
@@ -89,7 +74,7 @@ def pause_game(screen, clock):
                                                     old_div(scr_height,2) - 250), pause_text_top, pause_text_tops)
 
         # displaying highlighted options
-        if option == 0:
+        if pause_option == E_Pause_Option.resume:
             disp_text(screen, "JUST A RAT!", (old_div(scr_width, 2),
                                               old_div(scr_height,2) - 100), pause_text_s, pause_sel_col)
             disp_text(screen, "PRESS ENTER TO RESUME", (old_div(scr_width,
@@ -97,7 +82,7 @@ def pause_game(screen, clock):
         else:
             disp_text(screen, "JUST A RAT!", (old_div(scr_width, 2),
                                               old_div(scr_height,2) - 100), pause_text, pause_col)
-        if option == 1:
+        if pause_option == E_Pause_Option.restart:
             disp_text(screen, "YIKES! GUARDS", (old_div(scr_width, 2),
                                                 old_div(scr_height,2) - 20), pause_text_s, pause_sel_col)
             disp_text(screen, "PRESS ENTER TO RESTART", (old_div(scr_width,
@@ -105,7 +90,7 @@ def pause_game(screen, clock):
         else:
             disp_text(screen, "YIKES! GUARDS", (old_div(scr_width, 2),
                                                 old_div(scr_height,2) - 20), pause_text, pause_col)
-        if option == 2:
+        if pause_option == E_Pause_Option.main_menu:
             disp_text(screen, "PRESS ENTER FOR MAIN MENU", (old_div(scr_width,
                                                             2), scr_height - 50), message_text1, credit_orange)
             disp_text(screen, "PULL OUT!", (old_div(scr_width, 2),
@@ -113,7 +98,7 @@ def pause_game(screen, clock):
         else:
             disp_text(screen, "PULL OUT!", (old_div(scr_width, 2),
                                             old_div(scr_height,2) + 60), pause_text, pause_col)
-        if option == 3:
+        if pause_option == E_Pause_Option.quit:
             disp_text(screen, "PRESS ENTER TO QUIT", (old_div(scr_width, 2),
                                                       scr_height - 50), message_text1, credit_orange)
             disp_text(screen, "GIVE UP?", (old_div(scr_width, 2),
@@ -139,3 +124,6 @@ def pause_game(screen, clock):
         # draw ball
         pause_ball.draw(screen)
         pygame.display.update()
+
+        clock.tick(FPS)
+
