@@ -9,7 +9,6 @@ from past.utils import old_div
 
 # function to set path to current folder (py 2 to 3)
 
-
 def import_modify():
     if __name__ == '__main__':
         if __package__ is None:

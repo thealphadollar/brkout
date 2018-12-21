@@ -26,7 +26,8 @@ def decrease_enum(enum):
 class E_Main_Menu_Option(Enum):
     ''' Enum used to decide either to start game or exit on main menu. '''
     start_game = 0
-    quit = 1
+    credits = 1
+    quit = 2
 
 
 class E_Striker_Color(Enum):
@@ -49,9 +50,17 @@ class E_Game_Result(Enum):
     loss = 0
     win = 1
 
+
 class E_Pause_Option(Enum):
     ''' Enum for pause menu options. '''
     resume = 0
     restart = 1
     main_menu = 2
     quit = 3
+
+
+class E_End_Game_Option(Enum):
+    ''' Enum for end game options. '''
+    restart = 0
+    main_menu = 1
+    quit = 2

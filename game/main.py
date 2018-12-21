@@ -53,19 +53,23 @@ def main():
 
                 # if the player looses
                 if game_output is E_Game_Result.loss:
-                    end_choice = end_screen(
-                        screen, False, score, seconds_first, seconds_second, minutes_first, minutes_second, clock, busts, escapes, mute)
+                    end_choice = end_screen(game_manager, False, run_vars)
 
                 # if the player wins
                 elif game_output is E_Game_Result.win:
-                    end_choice = end_screen(
-                        screen, True, score, seconds_first, seconds_second, minutes_first, minutes_second, clock, busts, escapes, mute)
+                    end_choice = end_screen(game_manager, True, run_vars)
 
                 first = False
 
             # if the player presses "Main Menu", loop goes on!
 
-        # if the player presses "I m scared"
-        elif choice == 1:
-            credits_screen(screen, clock)
+        # if the player presses "Credits"
+        elif main_menu_option is E_Main_Menu_Option.credits:
+            credits_screen(game_manager)
+            
+        # if the player presses "I'm Scared"
+        elif main_menu_option is E_Main_Menu_Option.quit:
+            os._exit(0)
+            
+
 main()

@@ -57,9 +57,9 @@ def menu_screen(game_manager):
         for event in events:
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_UP or event.key == pygame.K_w:
-                    main_menu_option = increase_enum(main_menu_option)
-                if event.key == pygame.K_DOWN or event.key == pygame.K_s:
                     main_menu_option = decrease_enum(main_menu_option)
+                if event.key == pygame.K_DOWN or event.key == pygame.K_s:
+                    main_menu_option = increase_enum(main_menu_option)
                 if event.key == pygame.K_LEFT or event.key == pygame.K_a:
                     color_option = decrease_enum(color_option)
                 if event.key == pygame.K_RIGHT or event.key == pygame.K_d:
@@ -166,57 +166,65 @@ def menu_screen(game_manager):
             screen.blit(mute_img,(scr_width - 100,70))
         screen.blit(help_img,(scr_width - 100,120))
         screen.blit(reset_img,(scr_width - 100,170))
-        # display menu
-        # display "Let's Play"
-        if main_menu_option is E_Main_Menu_Option.start_game:
-            disp_text(screen, "Let's Escape", (old_div(scr_width,2),
-                                               old_div(scr_height,2) + 60), menu_item_text_selected, silver)
-        else:
-            disp_text(screen, "Let's Escape", (old_div(scr_width,2),
-                                               old_div(scr_height,2) + 60), menu_item_text, grey)
 
         # display white boundary around color palette
         pygame.draw.rect(screen, white, (old_div(scr_width,2) - 200,
-                                         old_div(scr_height,2) + 100, 400, 100), 3)
+                                         old_div(scr_height,2) + 10, 400, 100), 3)
         pygame.draw.rect(screen, white, (old_div(scr_width, 2) - 192,
-                                         old_div(scr_height, 2) + 108, 384, 84), 2)
+                                         old_div(scr_height, 2) + 18, 384, 84), 2)
 
         # display color palette
         if color_option is E_Striker_Color.green:
             pygame.draw.rect(screen, light_green,
-                             (old_div(scr_width,2) - 190, old_div(scr_height,2) + 110, 80, 80))
+                             (old_div(scr_width,2) - 190, old_div(scr_height,2) + 20, 80, 80))
         else:
             pygame.draw.rect(screen, green, (old_div(scr_width, 2) -
-                                             185, old_div(scr_height, 2) + 115, 70, 70))
+                                             185, old_div(scr_height, 2) + 25, 70, 70))
 
         if color_option is E_Striker_Color.red:
             pygame.draw.rect(screen, light_red, (old_div(scr_width,
-                                                 2) - 90, old_div(scr_height,2) + 110, 80, 80))
+                                                 2) - 90, old_div(scr_height,2) + 20, 80, 80))
         else:
             pygame.draw.rect(screen, red, (old_div(scr_width,2) - 85,
-                                           old_div(scr_height, 2) + 115, 70, 70))
+                                           old_div(scr_height, 2) + 25, 70, 70))
 
         if color_option is E_Striker_Color.magenta:
             pygame.draw.rect(screen, light_magenta,
-                             (old_div(scr_width,2) + 10, old_div(scr_height,2) + 110, 80, 80))
+                             (old_div(scr_width,2) + 10, old_div(scr_height,2) + 20, 80, 80))
         else:
             pygame.draw.rect(screen, magenta, (old_div(scr_width,
-                                               2) + 15, old_div(scr_height, 2) + 115, 70, 70))
+                                               2) + 15, old_div(scr_height, 2) + 25, 70, 70))
 
         if color_option is E_Striker_Color.blue:
             pygame.draw.rect(screen, light_blue, (old_div(scr_width,
-                                                  2) + 110, old_div(scr_height,2) + 110, 80, 80))
+                                                  2) + 110, old_div(scr_height,2) + 20, 80, 80))
         else:
             pygame.draw.rect(screen, blue, (old_div(scr_width, 2) +
-                                            115, old_div(scr_height, 2) + 115, 70, 70))
+                                            115, old_div(scr_height, 2) + 25, 70, 70))
 
-        # display "I'm Scared"
+        # display "Let's Play"
+        if main_menu_option is E_Main_Menu_Option.start_game:
+            disp_text(screen, "Let's Escape", (old_div(scr_width,2),
+                                               old_div(scr_height,2) + 150), menu_item_text_selected, silver)
+        else:
+            disp_text(screen, "Let's Escape", (old_div(scr_width,2),
+                                               old_div(scr_height,2) + 150), menu_item_text, grey)
+
+        # display "Let's Play"
+        if main_menu_option is E_Main_Menu_Option.credits:
+            disp_text(screen, "Credits", (old_div(scr_width,2),
+                                               old_div(scr_height,2) + 200), menu_item_text_selected, silver)
+        else:
+            disp_text(screen, "Credits", (old_div(scr_width,2),
+                                               old_div(scr_height,2) + 200), menu_item_text, grey)
+
+        # display "Credits"
         if main_menu_option is E_Main_Menu_Option.quit:
             disp_text(screen, "I'm Scared", (old_div(scr_width,2), old_div(scr_height,
-                                             2) + 240), menu_item_text_selected, silver)
+                                             2) + 250), menu_item_text_selected, silver)
         else:
             disp_text(screen, "I'm Scared", (old_div(scr_width,2),
-                                             old_div(scr_height,2) + 240), menu_item_text, grey)
+                                             old_div(scr_height,2) + 250), menu_item_text, grey)
 
         # display message
         if mouse_x < scr_width - 70 and mouse_x > scr_width -100 and mouse_y < 100 and mouse_y > 70 :
@@ -235,6 +243,9 @@ def menu_screen(game_manager):
         elif main_menu_option is E_Main_Menu_Option.start_game:
             disp_text(screen, "Press Enter To Play", (old_div(scr_width,
                                                       2), old_div(scr_height,2) + 300), message_text, yellow)
+        elif main_menu_option is E_Main_Menu_Option.credits:
+            disp_text(screen, "Press Enter To See Credits", (old_div(scr_width,
+                                                           2), old_div(scr_height, 2) + 300), message_text, yellow)
         elif main_menu_option is E_Main_Menu_Option.quit:
             disp_text(screen, "Press Enter To Quit Game", (old_div(scr_width,
                                                            2), old_div(scr_height, 2) + 300), message_text, yellow)
