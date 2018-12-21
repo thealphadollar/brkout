@@ -9,6 +9,7 @@ from past.utils import old_div
 
 # function to set path to current folder (py 2 to 3)
 
+
 def import_modify():
     if __name__ == '__main__':
         if __package__ is None:
@@ -35,18 +36,38 @@ class Runtime_Vars():
         self.escapes = 0
         self.busts = 0
 
+    def reset(self):
+        ''' If restarting a game, reset everthing at the start of a run, 
+            except escapes and busts. 
+        '''
+        self.hit_count = 0
+        self.brick_point = 0
+        self.score_time = 0
+        self.time_count = 0
+        self.count_to_seconds = 0
+        self.seconds_first = 0
+        self.minutes_first = 0
+        self.minutes_second = 0
+        self.seconds_second = 0
+        self.score = 0
+        self.flip_image = 0
+        self.pause_option = E_Pause_Option.resume
 
-def game_screen(game_manager, striker_color):
+
+def game_screen(game_manager, striker_color, previous_run_vars):
     pygame = game_manager.pygame
     screen = game_manager.screen
     clock = game_manager.clock
     animation_manager = game_manager.animation_manager
+    animation_manager.remove_all_animations()
     sound_manager = game_manager.sound_manager
     ball = Ball(main_game_middle_x + 50,
                 main_game_middle_y + strike_bound_radius - 75)
     striker = Striker(main_game_middle_x, main_game_middle_y)
 
-    run_vars = Runtime_Vars()
+    run_vars = previous_run_vars
+    run_vars.reset()
+
     sound_manager.play_music('main_music.mp3')
 
     bricks = pygame.sprite.Group()
@@ -73,7 +94,8 @@ def game_screen(game_manager, striker_color):
         render_field(pygame, screen, run_vars)
 
         # getting the events
-        events(game_manager, pygame, screen, clock, joystick, striker, run_vars)
+        events(game_manager, pygame, screen,
+               clock, joystick, striker, run_vars)
 
         # returning pause options if it is not resume
         if run_vars.pause_option is not E_Pause_Option.resume:

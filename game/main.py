@@ -38,36 +38,44 @@ def init():
 def main():
     game_manager = init()
 
+    # main menu game loop
     while True:
         main_menu_option, color_option, prison_option = menu_screen(game_manager)
-
-        # if the player presses "Let's Escape"
+        
         if main_menu_option == E_Main_Menu_Option.start_game:
-            game_output, run_vars = game_screen(game_manager, striker_colors[color_option.value])
-            # As long as player presses restart
-            first = True
-            while game_output is E_Pause_Option.restart or first:
-                if not first:
-                    init()
-                    game_output, run_vars = game_screen(game_manager, striker_colors[color_option.value])
+            run_vars = Runtime_Vars()
+            
+            # game loop
+            while True:
+                game_output, run_vars = game_screen(game_manager, striker_colors[color_option.value], run_vars)
 
-                # if the player looses
                 if game_output is E_Game_Result.loss:
-                    end_choice = end_screen(game_manager, False, run_vars)
+                    end_game_option = end_screen(game_manager, False, run_vars)
 
-                # if the player wins
                 elif game_output is E_Game_Result.win:
-                    end_choice = end_screen(game_manager, True, run_vars)
+                    end_game_option = end_screen(game_manager, True, run_vars)
+                
+                elif game_output is E_Pause_Option.restart:
+                    continue
+                
+                elif game_output is E_Pause_Option.main_menu:
+                    break
+                
+                elif game_output is E_Pause_Option.quit:
+                    os._exit(0)
 
-                first = False
+                if end_game_option is E_End_Game_Option.restart:
+                    continue
+                
+                elif end_game_option is E_End_Game_Option.main_menu:
+                    break
+                
+                elif end_game_option is E_End_Game_Option.quit:
+                    os._exit(0)
 
-            # if the player presses "Main Menu", loop goes on!
-
-        # if the player presses "Credits"
         elif main_menu_option is E_Main_Menu_Option.credits:
             credits_screen(game_manager)
-            
-        # if the player presses "I'm Scared"
+
         elif main_menu_option is E_Main_Menu_Option.quit:
             os._exit(0)
             

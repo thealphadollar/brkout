@@ -15,26 +15,6 @@ from game.global_objects import *
 from game.misc import *
 from game.objects.ball import Ball
 
-# checking for user inputs
-
-def events(end_game_option):
-    for event in pygame.event.get():
-        pressed = pygame.key.get_pressed()
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_F4 and (pressed[pygame.K_RALT] or pressed[pygame.K_LALT]):
-                os._exit(0)
-            if event.key == pygame.K_RIGHT or event.key == pygame.K_DOWN or event.key == pygame.K_s or event.key == pygame.K_d:
-                end_game_option = increase_enum(end_game_option)
-            if event.key == pygame.K_LEFT or event.key == pygame.K_UP or event.key == pygame.K_w or event.key == pygame.K_a:
-                end_game_option = decrease_enum(end_game_option)
-            if event.key == pygame.K_RETURN or event.key == pygame.K_SPACE:
-                return end_game_option 
-        if event.type == pygame.QUIT:
-            os._exit(0)
-    
-    return end_game_option
-
-
 def end_screen(game_manager, win, run_vars):
     pygame = game_manager.pygame
     screen = game_manager.screen
@@ -178,7 +158,19 @@ def end_screen(game_manager, win, run_vars):
         disp_text(screen, "\""+hint_message[random_hint % 7]+"\"",
                   (old_div(scr_width, 2), old_div(scr_height, 4) + 100), quote_text, orange)
 
-        end_game_option = events(end_game_option)
+        for event in pygame.event.get():
+            pressed = pygame.key.get_pressed()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_F4 and (pressed[pygame.K_RALT] or pressed[pygame.K_LALT]):
+                    os._exit(0)
+                if event.key == pygame.K_RIGHT or event.key == pygame.K_DOWN or event.key == pygame.K_s or event.key == pygame.K_d:
+                    end_game_option = increase_enum(end_game_option)
+                if event.key == pygame.K_LEFT or event.key == pygame.K_UP or event.key == pygame.K_w or event.key == pygame.K_a:
+                    end_game_option = decrease_enum(end_game_option)
+                if event.key == pygame.K_RETURN or event.key == pygame.K_SPACE:
+                    return end_game_option 
+            if event.type == pygame.QUIT:
+                os._exit(0)
 
         pygame.display.update()
         clock.tick(FPS)
