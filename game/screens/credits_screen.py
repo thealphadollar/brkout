@@ -13,15 +13,13 @@ def import_modify():
             from os import path
             sys.path.append(path.abspath(path.join(path.dirname(__file__), '..')))
 
-try:
-    from .global_funcs import *
-    from .constants import *
-except SystemError:
-    from global_funcs import *
-    from constants import *
-
 import os
 import pygame as pg
+
+try:
+    from game.global_objects import *
+except SystemError:
+    from .global_objects import *
 
 
 class Credits(pg.sprite.Sprite):
@@ -96,12 +94,12 @@ class Credits(pg.sprite.Sprite):
                   credits_text, self.color2)
 
 
-def credits_screen(screen, clock):
+def credits_screen(game_manager):
+    screen = game_manager.screen
+    clock = game_manager.clock
+
     cr = Credits(screen)
     while True:
-        # Frames per second
-        clock.tick(FPS)
-        # If you want to close
         for event in pg.event.get():
             if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
                 os._exit(0)
@@ -122,5 +120,8 @@ def credits_screen(screen, clock):
             pg.draw.aaline(screen, wall_silver, (x+2, scr_height), (x, 0), 2)
             pg.draw.aaline(screen, wall_silver, (x+3, scr_height), (x, 0), 2)
             x += old_div((float(scr_width-6)), 9)
+        
         cr.draw()
+
         pg.display.update()
+        clock.tick(FPS)

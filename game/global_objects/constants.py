@@ -5,7 +5,7 @@ import os
 pygame.init()
 
 # asset directory
-assets_directory = os.path.join(os.path.dirname(__file__), 'assets')
+assets_directory = 'game/assets'
 
 # mouse buttons
 LEFT = 1

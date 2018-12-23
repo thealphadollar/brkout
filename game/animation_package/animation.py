@@ -19,7 +19,7 @@ class Animation:
         self.surface = surface
         self.frames = frames
         self.frame_size = frame_size
-        self.frame_length = 10
+        self.frame_length = frame_length
         self.looping = looping
         self.frame_index = 0
         self.frame_counter = 0

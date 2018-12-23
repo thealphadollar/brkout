@@ -36,3 +36,7 @@ class Animation_Manager:
     def remove_animation_effect(self, animation_effect):
         ''' Internal function to remove any animation effect from the list, that has finished playing. '''
         self.animation_effects.remove(animation_effect)
+
+    def remove_all_animations(self):
+        ''' Remove all animations from the list. '''
+        self.animation_effects = []

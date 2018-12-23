@@ -1,10 +1,7 @@
 #######################################
 # Easy to use buttons
 #######################################
-try:
-    from .constants import *
-except SystemError:
-    from constants import *
+from game.global_objects import *
 
 class Button():
     def __init__(self, pygame, surface, rect, text, button_color, text_color):
