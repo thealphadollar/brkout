@@ -15,6 +15,8 @@ class Bricks(pygame.sprite.Sprite):
         self.y = y
         # either 400, 500 or 600
         self.health = random.randint(4, 6) * 100
+        if self.health == 600:
+            self.health = 599
         self.ori_health = self.health
         self.type = VH
         if random.random() > 0.94:
@@ -39,7 +41,7 @@ class Bricks(pygame.sprite.Sprite):
         if speed <= 3:
             return 0
 
-        self.health -= old_div(speed, MAX_BALL_SPEED) * 200
+        self.health -= old_div(speed, MAX_BALL_SPEED) * 180
 
         if self.type == 1:
             self.image = brick_imgs_h[self.get_health_index()]
@@ -61,6 +63,6 @@ class Bricks(pygame.sprite.Sprite):
 
     def get_health_index(self):
         health_index = self.health // 100
-        if health_index > 7:
-            health_index = 7
+        if health_index > 6:
+            health_index = 6
         return int(health_index)
