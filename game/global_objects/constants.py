@@ -42,11 +42,13 @@ striker_velocity = 0
 
 # ball constants
 ball_radius = 11
-menu_ball_speed = 15
+menu_ball_speed = 10
 main_ball_speed = 0
 MAX_BALL_SPEED = 10
 ball_mass = 5
 friction = .01
+angular_friction = 0.6
+max_angular_speed = 35
 
 #game constants
 busts=0
@@ -121,6 +123,7 @@ help_img = pygame.transform.scale(pygame.image.load(os.path.join(assets_director
 reset_img = pygame.transform.scale(pygame.image.load(os.path.join(assets_directory, 'restart.png')),(32,32))
 edit_start_img = pygame.image.load(os.path.join(assets_directory, 'edit_start.png'))
 edit_end_img = pygame.image.load(os.path.join(assets_directory, 'edit_end.png'))
+ball_img = pygame.image.load(os.path.join(assets_directory, 'ball_new_white.png'))
 
 # animation sprites
 blast_anim1_size = 120

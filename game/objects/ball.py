@@ -6,6 +6,7 @@ from game.global_objects import *
 from past.utils import old_div
 from game.misc.collisions import *
 import math
+import random
 
 
 class Ball(pygame.sprite.Sprite):
@@ -19,6 +20,10 @@ class Ball(pygame.sprite.Sprite):
         self.speed = main_ball_speed
         self.angle = random.uniform(old_div(-math.pi, 4), old_div(math.pi, 4))
         self.collider = Circle_Collider(self.x, self.y, self.radius)
+        self.angular_speed = 0
+        self.ball_img_unrotated = ball_img.convert_alpha()
+        self.ball_img_rotated = ball_img.convert_alpha()
+        self.total_rotation = 0
 
     def get_collider(self):
         self.collider.x = self.x
@@ -38,10 +43,28 @@ class Ball(pygame.sprite.Sprite):
             speed_x = -speed_x
 
         self.angle = math.atan2(speed_x, speed_y)
+        if random.random() < 0.5:
+            self.angular_speed = max_angular_speed
+        else:
+            self.angular_speed = -max_angular_speed
 
     def menu_screen_move(self, delta_time):
         self.x += math.sin(self.angle) * self.menu_speed * delta_time
         self.y += math.cos(self.angle) * self.menu_speed * delta_time
+
+        if self.angular_speed == 0:
+            self.angular_speed = 0
+        elif self.angular_speed > 0:
+            self.angular_speed -= (angular_friction * delta_time)
+        else:
+            self.angular_speed += (angular_friction * delta_time)
+
+        self.total_rotation += self.angular_speed * delta_time
+        self.rotate_ball(delta_time)
+
+    def rotate_ball(self, delta_time):
+        self.ball_img_rotated = pygame.transform.rotate(
+            self.ball_img_unrotated, self.total_rotation)
 
     def main_screen_move(self, delta_time):
         self.oldx = self.x
@@ -52,6 +75,16 @@ class Ball(pygame.sprite.Sprite):
             self.speed -= (friction * delta_time)
         else:
             self.speed = 0
+
+        if self.angular_speed == 0:
+            self.angular_speed = 0
+        elif self.angular_speed > 0:
+            self.angular_speed -= (angular_friction * delta_time)
+        else:
+            self.angular_speed += (angular_friction * delta_time)
+
+        self.total_rotation += self.angular_speed * delta_time
+        self.rotate_ball(delta_time)
 
     # checks collision with game boundary
     def check_escape(self):
@@ -152,5 +185,5 @@ class Ball(pygame.sprite.Sprite):
         return True
 
     def draw(self, screen):
-        pygame.draw.circle(
-            screen, yellow, (int(self.x), int(self.y)), self.radius)
+        img_rect = self.ball_img_rotated.get_rect(center=(self.x, self.y))
+        screen.blit(self.ball_img_rotated, img_rect.topleft)
