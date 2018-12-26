@@ -198,7 +198,7 @@ file_list = [x for x in range(33, 127) if x != 36]
 
 brick_imgs_h = []
 brick_imgs_v = []
-for i in range(0, 9):
+for i in range(0, 7):
     temp = pygame.image.load('game/assets/bricks/brick' + str(i) + '.png')
     temp_h = pygame.transform.scale(
         temp, (horizontal_brick_width, horizontal_brick_height))
