@@ -37,6 +37,16 @@ def pause_game(game_manager):
     oldtime = pygame.time.get_ticks()
     pause_ball = Ball(130, 140)  # Initializing pause_ball
     pause_option = E_Pause_Option.resume
+
+    box_collider = Rect_Collider(
+        scr_width // 2, scr_height // 2 + 20, 356, 376)
+
+    wall_colliders = [
+        Rect_Collider(scr_width // 2, -20, 2000, 100),                   # top
+        Rect_Collider(scr_width + 20, scr_height, 100, 2000),           # right
+        Rect_Collider(scr_width // 2, scr_height + 20, 2000, 100),      # bottom
+        Rect_Collider(-20, scr_height // 2, 100, 2000)]                  # left
+
     # Giving a delay of 200 ms
     while pygame.time.get_ticks() - oldtime < 200:
         pass
@@ -71,8 +81,18 @@ def pause_game(game_manager):
 
         # ball updation
         pause_ball.menu_screen_move(delta_time)
-        pause_ball.check_collide_wall()
-        pause_ball.check_collide_options()
+
+        collision_result = Collision.check_circle_rects(
+            pause_ball.get_collider(), wall_colliders)
+
+        if collision_result != (0, 0):
+            pause_ball.bounce(collision_result, delta_time)
+
+        collision_result = Collision.check(
+            pause_ball.get_collider(), box_collider)
+
+        if collision_result != (0, 0):
+            pause_ball.bounce(collision_result, delta_time)
 
         # display update
         screen.fill(black)

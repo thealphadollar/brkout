@@ -48,10 +48,19 @@ def menu_screen(game_manager):
         pygame, screen, (34, scr_height - 70, 32, 32), edit_end_img)
     name_input = TextInput('', text_color=(255, 255, 255), cursor_color=(
         255, 255, 255), font_and_size=message_text1)
-    menu_ball = Ball(old_div(scr_width, 2), scr_height
-                     - wall_brick_height - ball_radius)
+    menu_ball = Ball(old_div(scr_width, 2), scr_height -
+                     wall_brick_height - ball_radius)
     mute = settings_manager.settings_data['mute']
     game_manager.game_parameters.friction = 0.01
+
+    box_collider = Rect_Collider(
+        scr_width // 2, scr_height // 2 + 60, 400, 100)
+
+    wall_colliders = [
+        Rect_Collider(scr_width // 2, -20, 2000, 100),                   # top
+        Rect_Collider(scr_width + 20, scr_height, 100, 2000),           # right
+        Rect_Collider(scr_width // 2, scr_height + 20, 2000, 100),      # bottom
+        Rect_Collider(-20, scr_height // 2, 100, 2000)]                  # left
 
     while timer <= 180:
         timer += 1
@@ -136,8 +145,19 @@ def menu_screen(game_manager):
 
         # display moving ball
         menu_ball.menu_screen_move(delta_time)
-        menu_ball.check_collide_wall()
-        menu_ball.check_collide_palette()
+
+        collision_result = Collision.check_circle_rects(
+            menu_ball.get_collider(), wall_colliders)
+
+        if collision_result != (0, 0):
+            menu_ball.bounce(collision_result, delta_time)
+
+        collision_result = Collision.check(
+            menu_ball.get_collider(), box_collider)
+
+        if collision_result != (0, 0):
+            menu_ball.bounce(collision_result, delta_time)
+
         menu_ball.draw(screen)
 
         # display quote
@@ -198,8 +218,8 @@ def menu_screen(game_manager):
             pygame.draw.rect(screen, light_green,
                              (old_div(scr_width, 2) - 190, old_div(scr_height, 2) + 20, 80, 80))
         else:
-            pygame.draw.rect(screen, green, (old_div(scr_width, 2) -
-                                             185, old_div(scr_height, 2) + 25, 70, 70))
+            pygame.draw.rect(screen, green, (old_div(scr_width, 2)
+                                             - 185, old_div(scr_height, 2) + 25, 70, 70))
 
         if color_option is E_Striker_Color.red:
             pygame.draw.rect(screen, light_red, (old_div(scr_width,
@@ -219,8 +239,8 @@ def menu_screen(game_manager):
             pygame.draw.rect(screen, light_blue, (old_div(scr_width,
                                                           2) + 110, old_div(scr_height, 2) + 20, 80, 80))
         else:
-            pygame.draw.rect(screen, blue, (old_div(scr_width, 2) +
-                                            115, old_div(scr_height, 2) + 25, 70, 70))
+            pygame.draw.rect(screen, blue, (old_div(scr_width, 2)
+                                            + 115, old_div(scr_height, 2) + 25, 70, 70))
 
         # display "Let's Play"
         if main_menu_option is E_Main_Menu_Option.start_game:
