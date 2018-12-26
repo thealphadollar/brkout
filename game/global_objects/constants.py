@@ -50,9 +50,9 @@ friction = .01
 angular_friction = 0.6
 max_angular_speed = 35
 
-#game constants
-busts=0
-escapes=0
+# game constants
+busts = 0
+escapes = 0
 
 # text formats
 game_title_text_large = pygame.font.Font(
@@ -108,7 +108,8 @@ start_screen_number1 = pygame.font.Font(
 # music files
 pause_sound = pygame.mixer.Sound(os.path.join(assets_directory, "pause.ogg"))
 collision_sound = pygame.mixer.Sound(os.path.join(assets_directory, "hit.ogg"))
-striker_sound = pygame.mixer.Sound(os.path.join(assets_directory, "striker.ogg"))
+striker_sound = pygame.mixer.Sound(
+    os.path.join(assets_directory, "striker.ogg"))
 break_sound = pygame.mixer.Sound(os.path.join(assets_directory, "break.ogg"))
 
 # images
@@ -117,26 +118,35 @@ speed_blue = pygame.image.load(
     os.path.join(assets_directory, 'speed_blue.png'))
 start_img = pygame.image.load(os.path.join(assets_directory, 'jail.jpeg'))
 start_img_resized = pygame.transform.scale(start_img, (scr_width, scr_height))
-mute_img = pygame.transform.scale(pygame.image.load(os.path.join(assets_directory, 'mute.png')),(32,32))
-unmute_img = pygame.transform.scale(pygame.image.load(os.path.join(assets_directory, 'unmute.png')),(32,32))
-help_img = pygame.transform.scale(pygame.image.load(os.path.join(assets_directory, 'information.png')),(30,30))
-reset_img = pygame.transform.scale(pygame.image.load(os.path.join(assets_directory, 'restart.png')),(32,32))
-edit_start_img = pygame.image.load(os.path.join(assets_directory, 'edit_start.png'))
-edit_end_img = pygame.image.load(os.path.join(assets_directory, 'edit_end.png'))
-ball_img = pygame.image.load(os.path.join(assets_directory, 'ball_new_white.png'))
+mute_img = pygame.transform.scale(pygame.image.load(
+    os.path.join(assets_directory, 'mute.png')), (32, 32))
+unmute_img = pygame.transform.scale(pygame.image.load(
+    os.path.join(assets_directory, 'unmute.png')), (32, 32))
+help_img = pygame.transform.scale(pygame.image.load(
+    os.path.join(assets_directory, 'information.png')), (30, 30))
+reset_img = pygame.transform.scale(pygame.image.load(
+    os.path.join(assets_directory, 'restart.png')), (32, 32))
+edit_start_img = pygame.image.load(
+    os.path.join(assets_directory, 'edit_start.png'))
+edit_end_img = pygame.image.load(
+    os.path.join(assets_directory, 'edit_end.png'))
+ball_img = pygame.image.load(os.path.join(
+    assets_directory, 'ball_new_white.png'))
 
 # animation sprites
 blast_anim1_size = 120
 blast_anim1 = []
 for i in range(0, 6):
-    frame = pygame.image.load(os.path.join(assets_directory, 'animation_sprites/blast1/tile' + str(i).rjust(3, '0') + '.png'))
+    frame = pygame.image.load(os.path.join(
+        assets_directory, 'animation_sprites/blast1/tile' + str(i).rjust(3, '0') + '.png'))
     frame = pygame.transform.scale(frame, (blast_anim1_size, blast_anim1_size))
     blast_anim1.append(frame)
 
 blast_anim2_size = 40
 blast_anim2 = []
 for i in range(0, 8):
-    frame = pygame.image.load(os.path.join(assets_directory, 'animation_sprites/blast2/tile' + str(i).rjust(3, '0') + '.png'))
+    frame = pygame.image.load(os.path.join(
+        assets_directory, 'animation_sprites/blast2/tile' + str(i).rjust(3, '0') + '.png'))
     frame = pygame.transform.scale(frame, (blast_anim2_size, blast_anim2_size))
     blast_anim2.append(frame)
 
@@ -183,3 +193,30 @@ Spend Behind Bars, Worse Are You, Once Out", "To A Patch You Are Bound, Since Th
 
 # file list
 file_list = [x for x in range(33, 127) if x != 36]
+
+# load brick textures
+
+brick_imgs_h = []
+brick_imgs_v = []
+for i in range(0, 9):
+    temp = pygame.image.load('game/assets/bricks/brick' + str(i) + '.png')
+    temp_h = pygame.transform.scale(
+        temp, (horizontal_brick_width, horizontal_brick_height))
+
+    temp_v = pygame.transform.scale(
+        temp, (vertical_brick_height, vertical_brick_width))
+    temp_v = pygame.transform.rotate(temp_v, 90)
+
+    brick_imgs_h.append(temp_h)
+    brick_imgs_v.append(temp_v)
+
+brick_unbreakable_img = pygame.image.load(
+    'game/assets/bricks/brick_unbreakable.png')
+brick_unbreakable_img_h = pygame.transform.scale(
+    brick_unbreakable_img, (horizontal_brick_width, horizontal_brick_height))
+brick_unbreakable_img_v = pygame.transform.scale(
+    brick_unbreakable_img, (vertical_brick_height, vertical_brick_width))
+brick_unbreakable_img_v = pygame.transform.rotate(brick_unbreakable_img_v, 90)
+
+brick_imgs_h.append(brick_unbreakable_img_h)
+brick_imgs_v.append(brick_unbreakable_img_v)
