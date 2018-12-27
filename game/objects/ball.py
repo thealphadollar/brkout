@@ -4,6 +4,9 @@
 import pygame
 from game.global_objects import *
 from past.utils import old_div
+from game.misc.collisions import *
+import math
+import random
 
 
 class Ball(pygame.sprite.Sprite):
@@ -16,10 +19,52 @@ class Ball(pygame.sprite.Sprite):
         self.menu_speed = menu_ball_speed
         self.speed = main_ball_speed
         self.angle = random.uniform(old_div(-math.pi, 4), old_div(math.pi, 4))
+        self.collider = Circle_Collider(self.x, self.y, self.radius)
+        self.angular_speed = 0
+        self.ball_img_unrotated = ball_img.convert_alpha()
+        self.ball_img_rotated = ball_img.convert_alpha()
+        self.total_rotation = 0
+
+    def get_collider(self):
+        self.collider.x = self.x
+        self.collider.y = self.y
+        return self.collider
+
+    def bounce(self, normal, delta_time):
+        speed_x = math.sin(self.angle)
+        speed_y = math.cos(self.angle)
+
+        self.x += normal[0] * self.menu_speed * delta_time
+        self.y += normal[1] * self.menu_speed * delta_time
+
+        if normal == (0, -1) or normal == (0, 1):       # normal up or down
+            speed_y = -speed_y
+        else:                                           # normal right of left
+            speed_x = -speed_x
+
+        self.angle = math.atan2(speed_x, speed_y)
+        if random.random() < 0.5:
+            self.angular_speed = max_angular_speed
+        else:
+            self.angular_speed = -max_angular_speed
 
     def menu_screen_move(self, delta_time):
         self.x += math.sin(self.angle) * self.menu_speed * delta_time
         self.y += math.cos(self.angle) * self.menu_speed * delta_time
+
+        if self.angular_speed == 0:
+            self.angular_speed = 0
+        elif self.angular_speed > 0:
+            self.angular_speed -= (angular_friction * delta_time)
+        else:
+            self.angular_speed += (angular_friction * delta_time)
+
+        self.total_rotation += self.angular_speed * delta_time
+        self.rotate_ball(delta_time)
+
+    def rotate_ball(self, delta_time):
+        self.ball_img_rotated = pygame.transform.rotate(
+            self.ball_img_unrotated, self.total_rotation)
 
     def main_screen_move(self, delta_time):
         self.oldx = self.x
@@ -31,82 +76,15 @@ class Ball(pygame.sprite.Sprite):
         else:
             self.speed = 0
 
-    # function to check collision with menu wall
-    def check_collide_wall(self):
-        if self.x < wall_brick_height + self.radius:
-            self.x = wall_brick_height + self.radius
-            self.oldx = self.x
-            self.angle = -self.angle
+        if self.angular_speed == 0:
+            self.angular_speed = 0
+        elif self.angular_speed > 0:
+            self.angular_speed -= (angular_friction * delta_time)
+        else:
+            self.angular_speed += (angular_friction * delta_time)
 
-        if self.x > scr_width - wall_brick_height - self.radius:
-            self.x = scr_width - wall_brick_height - self.radius
-            self.oldx = self.x
-            self.angle = -self.angle
-
-        if self.y < wall_brick_height + self.radius:
-            self.y = wall_brick_height + self.radius
-            self.oldy = self.y
-            self.angle = math.pi - self.angle
-
-        if self.y > scr_height - wall_brick_height - self.radius:
-            self.y = scr_height - wall_brick_height - self.radius
-            self.oldy = self.y
-            self.angle = math.pi - self.angle
-
-    # function to check collision with color palette
-    def check_collide_palette(self):
-        if (self.y < old_div(scr_height, 2) + 110 + self.radius) and (self.y > old_div(scr_height, 2) + 110 - self.radius):
-            if (self.x < old_div(scr_width, 2) + 200 + self.radius) and (self.x > old_div(scr_width, 2) + 200 + self.radius - 15):
-                self.x = old_div(scr_width, 2) + 200 + self.radius
-                self.angle = -self.angle
-            elif (self.x > old_div(scr_width, 2) - 200 - self.radius) and (self.x < old_div(scr_width, 2) - 200 - self.radius + 15):
-                self.x = old_div(scr_width, 2) - 200 - self.radius
-                self.angle = -self.angle
-
-        if (self.x < old_div(scr_width, 2) + 200 + self.radius) and (self.x > old_div(scr_width, 2) - 200 - self.radius):
-            if (self.y < old_div(scr_height, 2) + 110 + self.radius) and (self.y > old_div(scr_height, 2) + 110 + self.radius - 15):
-                self.y = old_div(scr_height, 2) + 110 + self.radius
-                self.angle = math.pi - self.angle
-            elif (self.y > old_div(scr_height, 2) + 10 - self.radius) and (self.y < old_div(scr_height, 2) + 10 - self.radius + 15):
-                self.y = old_div(scr_height, 2) + 10 - self.radius
-                self.angle = math.pi - self.angle
-
-    # function to check collision with losing end screen box
-    def check_collide_lose(self):
-        if (self.y < old_div(scr_height, 2) + 230 + self.radius) and (self.y > old_div(scr_height, 2) + 40 - self.radius):
-            if (self.x < old_div(scr_width, 2) + 250 + self.radius) and (self.x > old_div(scr_width, 2) + 250 + self.radius - 15):
-                self.x = old_div(scr_width, 2) + 250 + self.radius
-                self.angle = -self.angle
-            elif (self.x > old_div(scr_width, 2) - 250 - self.radius) and (self.x < old_div(scr_width, 2) - 250 - self.radius + 15):
-                self.x = old_div(scr_width, 2) - 250 - self.radius
-                self.angle = -self.angle
-
-        if (self.x < old_div(scr_width, 2) + 250 + self.radius) and (self.x > old_div(scr_width, 2) - 250 - self.radius):
-            if (self.y < old_div(scr_height, 2) + 230 + self.radius) and (self.y > old_div(scr_height, 2) + 230 + self.radius - 15):
-                self.y = old_div(scr_height, 2) + 230 + self.radius
-                self.angle = math.pi - self.angle
-            elif (self.y > old_div(scr_height, 2) + 40 - self.radius) and (self.y < old_div(scr_height, 2) + 40 - self.radius + 15):
-                self.y = old_div(scr_height, 2) + 40 - self.radius
-                self.angle = math.pi - self.angle
-
-    # function to check collision with pause screen box
-
-    def check_collide_options(self):
-        if (self.y < old_div(scr_height, 2) + 208 + self.radius) and (self.y > old_div(scr_height, 2) - 168 - self.radius):
-            if (self.x < old_div(scr_width, 2) + 178 + self.radius) and (self.x > old_div(scr_width, 2) + 178 + self.radius - 15):
-                self.x = old_div(scr_width, 2) + 178 + self.radius
-                self.angle = -self.angle
-            elif (self.x > old_div(scr_width, 2) - 178 - self.radius) and (self.x < old_div(scr_width, 2) - 178 - self.radius + 15):
-                self.x = old_div(scr_width, 2) - 178 - self.radius
-                self.angle = -self.angle
-
-        if (self.x < old_div(scr_width, 2) + 178 + self.radius) and (self.x > old_div(scr_width, 2) - 178 - self.radius):
-            if (self.y < old_div(scr_height, 2) + 208 + self.radius) and (self.y > old_div(scr_height, 2) + 208 + self.radius - 15):
-                self.y = old_div(scr_height, 2) + 208 + self.radius
-                self.angle = math.pi - self.angle
-            elif (self.y > old_div(scr_height, 2) - 168 - self.radius) and (self.y < old_div(scr_height, 2) - 168 - self.radius + 15):
-                self.y = old_div(scr_height, 2) - 168 - self.radius
-                self.angle = math.pi - self.angle
+        self.total_rotation += self.angular_speed * delta_time
+        self.rotate_ball(delta_time)
 
     # checks collision with game boundary
     def check_escape(self):
@@ -207,5 +185,5 @@ class Ball(pygame.sprite.Sprite):
         return True
 
     def draw(self, screen):
-        pygame.draw.circle(
-            screen, yellow, (int(self.x), int(self.y)), self.radius)
+        img_rect = self.ball_img_rotated.get_rect(center=(self.x, self.y))
+        screen.blit(self.ball_img_rotated, img_rect.topleft)

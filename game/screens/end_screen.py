@@ -53,6 +53,19 @@ def end_screen(game_manager, win, run_vars):
                         seconds_second, seconds_first)
 
     random_hint = random.randint(0, 7)  # getting value for random hint
+
+    box_collider = Rect_Collider(
+        scr_width // 2, scr_height // 2 + 135, 500, 190)
+
+    wall_colliders = [
+        Rect_Collider(scr_width // 2, -20, 2000,
+                      100),                      # top
+        Rect_Collider(scr_width + 20, scr_height, 100,
+                      2000),               # right
+        Rect_Collider(scr_width // 2, scr_height + 20,
+                      2000, 100),          # bottom
+        Rect_Collider(-20, scr_height // 2, 100, 2000)]                     # left
+
     while True:
 
         # time passed
@@ -100,8 +113,19 @@ def end_screen(game_manager, win, run_vars):
 
             # ball updates
             ball.menu_screen_move(delta_time)
-            ball.check_collide_lose()
-            ball.check_collide_wall()
+
+            collision_result = Collision.check_circle_rects(
+                ball.get_collider(), wall_colliders)
+
+            if collision_result != (0, 0):
+                ball.bounce(collision_result, delta_time)
+
+            collision_result = Collision.check(
+                ball.get_collider(), box_collider)
+
+            if collision_result != (0, 0):
+                ball.bounce(collision_result, delta_time)
+
             ball.draw(screen)
 
             # displaying menu options

@@ -117,24 +117,14 @@ def game_screen(game_manager, striker_color, previous_run_vars):
 
         # checking collisions
         check_collisions(ball, bricks, run_vars,
-                         animation_manager, sound_manager)
+                         animation_manager, sound_manager, delta_time)
 
         # check first strike to start timer
         if not start_timer:
             start_timer = ball.collision_striker(striker)
-
-            # correct code for striker sound
-#            if start_time:
-#                striker_sound.set_volume(1)
-#                striker_sound.play()
-
         else:
             if ball.collision_striker(striker):
                 pass
-
-                # correct code for striker sound
-#                striker_sound.set_volume(1)
-#                striker_sound.play()
 
         # checking winning
         if ball.check_escape():
@@ -150,7 +140,7 @@ def game_screen(game_manager, striker_color, previous_run_vars):
 
         # drawing bricks
         for br in bricks:
-            br.draw23(screen)
+            br.draw(screen)
 
         # show time function
         show_time(start_timer, screen, run_vars)
@@ -278,23 +268,20 @@ def show_speed(screen, ball):
                   (old_div(scr_width, 2) + 15, 21), main_screen_number, pure_red)
 
 
-def check_collisions(ball, bricks, run_vars, animation_manager, sound_manager):
+def check_collisions(ball, bricks, run_vars, animation_manager, sound_manager, delta_time):
     for br in bricks:
-        if br.type == 1:
-            did_collide = br.check_hor_coll(ball)
-        else:
-            did_collide = br.check_ver_coll(ball)
+        collision_result = Collision.check(ball.get_collider(), br.collider)
 
-        # returns if collision has taken place
-        if did_collide:
+        if collision_result != (0, 0):
+            ball.bounce(collision_result, delta_time)
             sound_manager.play_sound(collision_sound)
             run_vars.hit_count += 1
             run_vars.brick_point += br.update(ball.speed, mute,
                                               animation_manager, sound_manager)
 
-            # play ball hit animati0n effect
             animation_manager.create_new_effect(
                 blast_anim2, blast_anim2_size, 3, False, (ball.x, ball.y))
+            return
 
 
 def render_field(pygame, screen, run_vars):
