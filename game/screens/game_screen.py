@@ -95,7 +95,6 @@ def game_screen(game_manager, striker_color, previous_run_vars):
         joystick.init()
 
     while True:
-
         # time passed
         delta_time = old_div(clock.get_time(), 10)
 
@@ -318,17 +317,35 @@ def events(game_manager, pygame, screen, clock, joystick, striker, run_vars):
     axis3 = False
     axis4 = False
 
-    for event in pygame.event.get():
+    events = pygame.event.get()
 
-        if event.type == pygame.KEYDOWN:
-            # pausing the game
-            if event.key == pygame.K_SPACE or event.key == pygame.K_ESCAPE:
-                # pause_game() function
-                run_vars.pause_option = pause_game(game_manager)
-
+    for event in events:
         # quitting the game
         if event.type == pygame.QUIT:
             os._exit(0)
+
+    # update input manager
+    game_manager.input_manager.update(events)
+    input = game_manager.input_manager
+
+    # pause game
+    if input.get_button('escape'):
+        run_vars.pause_option = pause_game(game_manager)
+
+    input_horizontal = input.get_axis('horizontal')
+    input_vertical = input.get_axis('vertical')
+
+    if input_horizontal == 0:
+        striker.x_velocity = 0
+    else:
+        striker.x_velocity += input_horizontal * 0.5
+
+    if input_vertical == 0:
+        striker.y_velocity = 0
+    else:
+        striker.y_velocity += input_vertical * -0.5
+
+    return
 
     # updating striker
     if joystick != None:

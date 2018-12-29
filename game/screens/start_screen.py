@@ -48,8 +48,8 @@ def menu_screen(game_manager):
         pygame, screen, (34, scr_height - 70, 32, 32), edit_end_img)
     name_input = TextInput('', text_color=(255, 255, 255), cursor_color=(
         255, 255, 255), font_and_size=message_text1)
-    menu_ball = Ball(old_div(scr_width, 2), scr_height -
-                     wall_brick_height - ball_radius)
+    menu_ball = Ball(old_div(scr_width, 2), scr_height
+                     - wall_brick_height - ball_radius)
     mute = settings_manager.settings_data['mute']
     game_manager.game_parameters.friction = 0.01
 
@@ -59,7 +59,8 @@ def menu_screen(game_manager):
     wall_colliders = [
         Rect_Collider(scr_width // 2, -20, 2000, 100),                   # top
         Rect_Collider(scr_width + 20, scr_height, 100, 2000),           # right
-        Rect_Collider(scr_width // 2, scr_height + 20, 2000, 100),      # bottom
+        Rect_Collider(scr_width // 2, scr_height + \
+                      20, 2000, 100),      # bottom
         Rect_Collider(-20, scr_height // 2, 100, 2000)]                  # left
 
     while timer <= 180:
@@ -81,21 +82,29 @@ def menu_screen(game_manager):
         mouse_x, mouse_y = pygame.mouse.get_pos()
         # checking for events
         events = pygame.event.get()
-        for event in events:
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_UP or event.key == pygame.K_w:
-                    main_menu_option = decrease_enum(main_menu_option)
-                if event.key == pygame.K_DOWN or event.key == pygame.K_s:
-                    main_menu_option = increase_enum(main_menu_option)
-                if event.key == pygame.K_LEFT or event.key == pygame.K_a:
-                    color_option = decrease_enum(color_option)
-                if event.key == pygame.K_RIGHT or event.key == pygame.K_d:
-                    color_option = increase_enum(color_option)
-                if event.key == pygame.K_RETURN or event.key == pygame.K_SPACE:
-                    return main_menu_option, color_option, prison_option
 
-                if event.key == pygame.K_ESCAPE:
-                    os._exit(0)
+        game_manager.input_manager.update(events)
+        input = game_manager.input_manager
+
+        if input.get_button('up'):
+            main_menu_option = decrease_enum(main_menu_option)
+
+        if input.get_button('down'):
+            main_menu_option = increase_enum(main_menu_option)
+
+        if input.get_button('right'):
+            color_option = increase_enum(color_option)
+
+        if input.get_button('left'):
+            color_option = decrease_enum(color_option)
+
+        if input.get_button('enter'):
+            return main_menu_option, color_option, prison_option
+
+        for event in events:
+            if event.type == pygame.QUIT:
+                os._exit(0)
+
             if event.type == pygame.MOUSEBUTTONDOWN and pygame.mouse.get_pressed()[0]:
                 if mouse_x < scr_width - 70 and mouse_x > scr_width - 100 and mouse_y < 100 and mouse_y > 70:
                     mute = not mute
@@ -104,6 +113,7 @@ def menu_screen(game_manager):
                         sound_manager.mute_game()
                     else:
                         sound_manager.unmute_game()
+
             if event.type == pygame.MOUSEBUTTONDOWN and pygame.mouse.get_pressed()[0]:
                 if mouse_x < scr_width - 70 and mouse_x > scr_width - 100 and mouse_y < 200 and mouse_y > 170:
                     write_highscore(0, 0, 0, 0, 0)
@@ -218,8 +228,8 @@ def menu_screen(game_manager):
             pygame.draw.rect(screen, light_green,
                              (old_div(scr_width, 2) - 190, old_div(scr_height, 2) + 20, 80, 80))
         else:
-            pygame.draw.rect(screen, green, (old_div(scr_width, 2)
-                                             - 185, old_div(scr_height, 2) + 25, 70, 70))
+            pygame.draw.rect(screen, green, (old_div(scr_width, 2) -
+                                             185, old_div(scr_height, 2) + 25, 70, 70))
 
         if color_option is E_Striker_Color.red:
             pygame.draw.rect(screen, light_red, (old_div(scr_width,
@@ -239,8 +249,8 @@ def menu_screen(game_manager):
             pygame.draw.rect(screen, light_blue, (old_div(scr_width,
                                                           2) + 110, old_div(scr_height, 2) + 20, 80, 80))
         else:
-            pygame.draw.rect(screen, blue, (old_div(scr_width, 2)
-                                            + 115, old_div(scr_height, 2) + 25, 70, 70))
+            pygame.draw.rect(screen, blue, (old_div(scr_width, 2) +
+                                            115, old_div(scr_height, 2) + 25, 70, 70))
 
         # display "Let's Play"
         if main_menu_option is E_Main_Menu_Option.start_game:

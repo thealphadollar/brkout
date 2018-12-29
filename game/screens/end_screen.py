@@ -99,10 +99,10 @@ def end_screen(game_manager, win, run_vars):
                                                          old_div(scr_height, 2) + 180), menu_item_text, light_black)
 
             # drawing box around options
-            pygame.draw.rect(screen, black, (old_div(scr_width, 2)
-                                             - 250, old_div(scr_height, 2) + 40, 500, 190), 2)
-            pygame.draw.rect(screen, black, (old_div(scr_width, 2)
-                                             - 242, old_div(scr_height, 2) + 48, 484, 174), 2)
+            pygame.draw.rect(screen, black, (old_div(scr_width, 2) -
+                                             250, old_div(scr_height, 2) + 40, 500, 190), 2)
+            pygame.draw.rect(screen, black, (old_div(scr_width, 2) -
+                                             242, old_div(scr_height, 2) + 48, 484, 174), 2)
 
         # if player caught
         else:
@@ -151,10 +151,10 @@ def end_screen(game_manager, win, run_vars):
                                                old_div(scr_height, 2) + 180), menu_item_text, grey)
 
             # drawing box around options
-            pygame.draw.rect(screen, white, (old_div(scr_width, 2)
-                                             - 250, old_div(scr_height, 2) + 40, 500, 190), 3)
-            pygame.draw.rect(screen, white, (old_div(scr_width, 2)
-                                             - 242, old_div(scr_height, 2) + 48, 484, 174), 2)
+            pygame.draw.rect(screen, white, (old_div(scr_width, 2) -
+                                             250, old_div(scr_height, 2) + 40, 500, 190), 3)
+            pygame.draw.rect(screen, white, (old_div(scr_width, 2) -
+                                             242, old_div(scr_height, 2) + 48, 484, 174), 2)
 
         # display score
         disp_text(screen, "score : ", (old_div(scr_width, 4) - 65,
@@ -164,13 +164,13 @@ def end_screen(game_manager, win, run_vars):
         # display busts
         disp_text(screen, "busts : ", (scr_width / 2 - 105,
                                        scr_height / 8 - 30), end_screen_text, grey)
-        disp_text(screen, str(busts), (scr_width / 2 - 45, scr_height
-                                       / 8 + 2 - 30), end_screen_number, light_green)
+        disp_text(screen, str(busts), (scr_width / 2 - 45, scr_height /
+                                       8 + 2 - 30), end_screen_number, light_green)
         # display escapes
         disp_text(screen, "escapes : ", (scr_width / 2 + 65,
                                          scr_height / 8 - 30), end_screen_text, grey)
-        disp_text(screen, str(escapes), (scr_width / 2 + 130, scr_height /
-                                         8 + 2 - 30), end_screen_number, light_green)
+        disp_text(screen, str(escapes), (scr_width / 2 + 130, scr_height
+                                         / 8 + 2 - 30), end_screen_number, light_green)
 
         # display time
         disp_text(screen, "pursuit : ", (3 * scr_width / 4,
@@ -193,19 +193,31 @@ def end_screen(game_manager, win, run_vars):
         disp_text(screen, "\"" + hint_message[random_hint % 7] + "\"",
                   (old_div(scr_width, 2), old_div(scr_height, 4) + 100), quote_text, orange)
 
-        for event in pygame.event.get():
-            pressed = pygame.key.get_pressed()
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_F4 and (pressed[pygame.K_RALT] or pressed[pygame.K_LALT]):
-                    os._exit(0)
-                if event.key == pygame.K_RIGHT or event.key == pygame.K_DOWN or event.key == pygame.K_s or event.key == pygame.K_d:
-                    end_game_option = increase_enum(end_game_option)
-                if event.key == pygame.K_LEFT or event.key == pygame.K_UP or event.key == pygame.K_w or event.key == pygame.K_a:
-                    end_game_option = decrease_enum(end_game_option)
-                if event.key == pygame.K_RETURN or event.key == pygame.K_SPACE:
-                    return end_game_option
+        events = pygame.event.get()
+
+        # checking events
+        for event in events:
             if event.type == pygame.QUIT:
                 os._exit(0)
+
+        game_manager.input_manager.update(events)
+        input = game_manager.input_manager
+
+        for event in events:
+            if event.type == pygame.QUIT:
+                os._exit(0)
+
+        if input.get_button('up'):
+            end_game_option = decrease_enum(end_game_option)
+
+        if input.get_button('down'):
+            end_game_option = increase_enum(end_game_option)
+
+        if input.get_button('escape'):
+            return end_game_option
+
+        if input.get_button('enter'):
+            return end_game_option
 
         pygame.display.update()
         clock.tick(FPS)
