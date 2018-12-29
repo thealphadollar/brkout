@@ -203,10 +203,6 @@ def end_screen(game_manager, win, run_vars):
         game_manager.input_manager.update(events)
         input = game_manager.input_manager
 
-        for event in events:
-            if event.type == pygame.QUIT:
-                os._exit(0)
-
         if input.get_button('up'):
             end_game_option = decrease_enum(end_game_option)
 
