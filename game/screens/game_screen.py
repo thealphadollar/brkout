@@ -84,16 +84,6 @@ def game_screen(game_manager, striker_color, previous_run_vars):
 
     start_timer = False
 
-    pygame.joystick.init()
-
-    # Joystick initialized
-    joystick = None
-
-    joystick_count = pygame.joystick.get_count()
-    for i in range(joystick_count):
-        joystick = pygame.joystick.Joystick(i)
-        joystick.init()
-
     while True:
         # time passed
         delta_time = old_div(clock.get_time(), 10)
@@ -103,7 +93,7 @@ def game_screen(game_manager, striker_color, previous_run_vars):
 
         # getting the events
         events(game_manager, pygame, screen,
-               clock, joystick, striker, run_vars)
+               clock, striker, run_vars)
 
         # returning pause options if it is not resume
         if run_vars.pause_option is not E_Pause_Option.resume:
@@ -309,13 +299,7 @@ def render_field(pygame, screen, run_vars):
                                              main_game_middle_y), strike_bound_radius)
 
 
-def events(game_manager, pygame, screen, clock, joystick, striker, run_vars):
-    # Jostick variable initizlization
-    hat = False
-    axis1 = False
-    axis2 = False
-    axis3 = False
-    axis4 = False
+def events(game_manager, pygame, screen, clock, striker, run_vars):
 
     events = pygame.event.get()
 
@@ -344,33 +328,3 @@ def events(game_manager, pygame, screen, clock, joystick, striker, run_vars):
         striker.y_velocity = 0
     else:
         striker.y_velocity += input_vertical * -0.5
-
-    return
-
-    # updating striker
-    if joystick != None:
-        if joystick.get_numaxes() >= 4:
-            hat = joystick.get_hat(0)
-            axis1 = joystick.get_axis(0)
-            axis2 = joystick.get_axis(1)
-            axis3 = joystick.get_axis(2)
-            axis4 = joystick.get_axis(3)
-        else:
-            hat = False
-            axis1 = False
-            axis2 = False
-            axis3 = False
-            axis4 = False
-    pressed = pygame.key.get_pressed()
-    if pressed[pygame.K_RIGHT] or pressed[pygame.K_d] or hat == (1, 0) or axis1 >= 0.7 or axis3 >= 0.7:
-        striker.x_velocity += .5
-    elif pressed[pygame.K_LEFT] or pressed[pygame.K_a] or hat == (-1, 0) or axis1 <= -0.7 or axis3 <= -0.7:
-        striker.x_velocity -= .5
-    else:
-        striker.x_velocity = 0
-    if pressed[pygame.K_UP] or pressed[pygame.K_w] or hat == (0, 1) or axis2 <= -0.7 or axis4 <= -0.7:
-        striker.y_velocity -= .5
-    elif pressed[pygame.K_DOWN] or pressed[pygame.K_s] or hat == (0, -1) or axis2 >= 0.7 or axis4 >= 0.7:
-        striker.y_velocity += .5
-    else:
-        striker.y_velocity = 0
