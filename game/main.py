@@ -15,6 +15,7 @@ from game.screens import *
 from game.animation_package import *
 from game.objects import *
 from game.misc import *
+from game.input_package.input_manager import *
         
 # function to initialise pygame
 
@@ -31,7 +32,9 @@ def init():
     sound_manager = Sound_Manager(settings_manager, pygame)
     animation_manager = Animation_Manager(screen)
     game_parameters = Game_Parameters()
-    game_manager = Game_Manager(pygame, screen, clock, settings_manager, sound_manager, animation_manager, game_parameters)
+    input_manager = Input_Manager()
+    game_manager = Game_Manager(
+        pygame, screen, clock, settings_manager, sound_manager, animation_manager, game_parameters, input_manager)
 
     return game_manager
 

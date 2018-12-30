@@ -44,40 +44,48 @@ def pause_game(game_manager):
     wall_colliders = [
         Rect_Collider(scr_width // 2, -20, 2000, 100),                   # top
         Rect_Collider(scr_width + 20, scr_height, 100, 2000),           # right
-        Rect_Collider(scr_width // 2, scr_height + 20, 2000, 100),      # bottom
+        Rect_Collider(scr_width // 2, scr_height + \
+                      20, 2000, 100),      # bottom
         Rect_Collider(-20, scr_height // 2, 100, 2000)]                  # left
 
     # Giving a delay of 200 ms
-    while pygame.time.get_ticks() - oldtime < 200:
+    while pygame.time.get_ticks() - oldtime < 100:
         pass
 
     oldtime = pygame.time.get_ticks()
     while True:
+
         newtime = pygame.time.get_ticks()
         delta_time = old_div((newtime - oldtime), 10)
         oldtime = newtime
 
+        events = pygame.event.get()
+
         # checking events
-        for event in pygame.event.get():
+        for event in events:
             if event.type == pygame.QUIT:
                 os._exit(0)
 
-            if event.type == pygame.KEYDOWN and (event.key == pygame.K_ESCAPE or event.key == pygame.K_SPACE):
-                sound_manager.stop_sound(pause_sound)
-                return E_Pause_Option.resume
+        game_manager.input_manager.update(events)
+        input = game_manager.input_manager
 
-            if event.type == pygame.KEYDOWN and (event.key == pygame.K_UP or event.key == pygame.K_w):
-                pause_option = decrease_enum(pause_option)
+        if input.get_button('escape'):
+            sound_manager.stop_sound(pause_sound)
+            return E_Pause_Option.resume
+            pass
 
-            if event.type == pygame.KEYDOWN and (event.key == pygame.K_DOWN or event.key == pygame.K_s):
-                pause_option = increase_enum(pause_option)
+        if input.get_button('up'):
+            pause_option = decrease_enum(pause_option)
 
-            if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
-                sound_manager.stop_sound(pause_sound)
-                if pause_option == E_Pause_Option.quit:
-                    os._exit(0)
-                else:
-                    return pause_option
+        if input.get_button('down'):
+            pause_option = increase_enum(pause_option)
+
+        if input.get_button('enter'):
+            sound_manager.stop_sound(pause_sound)
+            if pause_option == E_Pause_Option.quit:
+                os._exit(0)
+            else:
+                return pause_option
 
         # ball updation
         pause_ball.menu_screen_move(delta_time)
