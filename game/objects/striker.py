@@ -5,6 +5,7 @@ from __future__ import division
 import pygame
 from game.global_objects import *
 from past.utils import old_div
+from game.misc.collisions import Circle_Collider
 
 
 class Striker(object):
@@ -15,6 +16,12 @@ class Striker(object):
         self.y_velocity = 0
         self.radius = striker_radius
         self.mass = striker_mass
+        self.collider = Circle_Collider(self.x, self.y, self.radius)
+
+    def get_collider(self):
+        self.collider.x = self.x
+        self.collider.y = self.y
+        return self.collider
 
     def update(self, delta_time):
         self.x += self.x_velocity * delta_time

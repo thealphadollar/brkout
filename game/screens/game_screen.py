@@ -79,6 +79,9 @@ def game_screen(game_manager, striker_color, previous_run_vars):
 
     sound_manager.play_music('main_music.mp3')
 
+    game_area_collider = Rect_Collider(
+        scr_width // 2, scr_height // 2 + 40, scr_width - 200, scr_height - 40)
+
     bricks = pygame.sprite.Group()
     add_to_group(bricks)
 
@@ -116,7 +119,7 @@ def game_screen(game_manager, striker_color, previous_run_vars):
                 pass
 
         # checking winning
-        if ball.check_escape():
+        if ball.check_escape(game_area_collider):
             temp_time = pygame.time.get_ticks()
             run_vars.escapes += 1
             while pygame.time.get_ticks() - temp_time < 400:

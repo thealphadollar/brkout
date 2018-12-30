@@ -87,35 +87,12 @@ class Ball(pygame.sprite.Sprite):
         self.rotate_ball(delta_time)
 
     # checks collision with game boundary
-    def check_escape(self):
-        # right side
-        if self.x >= scr_width - 100:
-            self.angle = -self.angle
-            self.x = scr_width - 100
-            return 1
-            # return True
-        # left side
-        elif self.x <= 100:
-            self.angle = -self.angle
-            self.x = 100
-            return 1
-            # return True
-        # bottom
-        if self.y >= scr_height:
-            self.angle = math.pi - self.angle
-            self.y = scr_height
-            return 1
-            # return True
-        elif self.y <= 40:
-            self.angle = math.pi - self.angle
-            self.y = 40
-            return 1
-            # return True
-        # return False
-
-    # check collision with brick
-
-    # horizontal brick
+    def check_escape(self, game_area_collider):
+        coll = Collision.check(self.get_collider(), game_area_collider)
+        if coll != (0, 0):      # ball in game area
+            return False
+        else:                   # ball outside game area
+            return True
 
     # define collision with striker
     def collision_striker(self, striker):
