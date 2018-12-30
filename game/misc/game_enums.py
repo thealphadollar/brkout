@@ -64,3 +64,11 @@ class E_End_Game_Option(Enum):
     restart = 0
     main_menu = 1
     quit = 2
+
+
+class E_Powerup_Type(Enum):
+    ''' Enum for powerups. '''
+    double_damage = 0
+    double_power = 1
+    double_speed = 2
+    no_friction = 3

@@ -6,17 +6,19 @@ from game.misc.collisions import Circle_Collider
 
 class Powerup(object):
 
-    def __init__(self, name, description, image, radius, pos_x, pos_y, duration, powerup_manager):
+    def __init__(self, name, description, image, radius, pos_x, pos_y, expire_duration, effect_duration, powerup_manager):
         self.name = name
         self.description = description
         self.image = image
         self.x = pos_x
         self.y = pos_y
         self.collider = Circle_Collider(self.x, self.y, radius)
-        self.duration = duration
+        self.expire_duration = expire_duration
+        self.effect_duration = effect_duration
         self.powerup_manager = powerup_manager
         self.activated = False
-        self.timer = 0
+        self.expire_timer = 0
+        self.effect_timer = 0
 
     def get_collider(self):
         return self.collider
