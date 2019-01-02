@@ -236,3 +236,5 @@ double_speed_powerup_img = pygame.image.load(
     'game/assets/powerup_sprites/double_speed.png')
 no_friction_powerup_img = pygame.image.load(
     'game/assets/powerup_sprites/no_friction.png')
+double_score_powerup_img = pygame.image.load(
+    'game/assets/powerup_sprites/double_score.png')

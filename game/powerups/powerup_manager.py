@@ -44,9 +44,10 @@ class Powerup_Manager(object):
     def powerup_expired(self, powerup):
         self.powerups.remove(powerup)
 
-    def reset(self):
+    def reset(self, run_vars):
         self.powerups = []
         self.timer = 0
+        self.run_vars = run_vars
 
     def get_random_position(self):
         rand_angle = random.random() * 360
@@ -54,7 +55,7 @@ class Powerup_Manager(object):
         return(main_game_middle_x + math.cos(rand_angle) * rand_radius, main_game_middle_y + math.sin(rand_angle) * rand_radius)
 
     def spawn_random_powerup(self):
-        rand = random.randint(0, 3)
+        rand = random.randint(0, len(E_Powerup_Type) - 1)
         rand_powerup = E_Powerup_Type(rand)
         rand_pos = self.get_random_position()
 
@@ -89,5 +90,13 @@ class Powerup_Manager(object):
                                           self.powerup_expiry_duration,
                                           self.powerup_effect_duration,
                                           self)
+
+        if rand_powerup == E_Powerup_Type.double_score:
+            powerup = Double_Score_Powerup(rand_pos[0],
+                                           rand_pos[1],
+                                           powerup_collider_radius,
+                                           self.powerup_expiry_duration,
+                                           self.powerup_effect_duration,
+                                           self)
 
         self.powerups.append(powerup)

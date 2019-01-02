@@ -45,6 +45,11 @@ class Runtime_Vars():
         self.pause_option = E_Pause_Option.resume
         self.escapes = 0
         self.busts = 0
+        self.friction = friction
+        self.ball_max_speed = MAX_BALL_SPEED
+        self.ball_mass = ball_mass
+        self.damage_multiplier = 1.0
+        self.score_multiplier = 1.0
 
     def reset(self):
         ''' If restarting a game, reset everthing at the start of a run, 
@@ -62,6 +67,11 @@ class Runtime_Vars():
         self.score = 0
         self.flip_image = 0
         self.pause_option = E_Pause_Option.resume
+        self.friction = friction
+        self.ball_max_speed = MAX_BALL_SPEED
+        self.ball_mass = ball_mass
+        self.damage_multiplier = 1.0
+        self.score_multiplier = 1.0
 
 
 def game_screen(game_manager, striker_color, previous_run_vars):
@@ -78,7 +88,7 @@ def game_screen(game_manager, striker_color, previous_run_vars):
     run_vars = previous_run_vars
     run_vars.reset()
 
-    game_manager.powerup_manager.reset()
+    game_manager.powerup_manager.reset(run_vars)
     sound_manager.play_music('main_music.mp3')
 
     game_area_collider = Rect_Collider(
@@ -275,7 +285,7 @@ def check_collisions(ball, bricks, run_vars, animation_manager, sound_manager, d
             sound_manager.play_sound(collision_sound)
             run_vars.hit_count += 1
             run_vars.brick_point += br.update(ball.speed, mute,
-                                              animation_manager, sound_manager)
+                                              animation_manager, sound_manager) * run_vars.score_multiplier
 
             animation_manager.create_new_effect(
                 blast_anim2, blast_anim2_size, 3, False, (ball.x, ball.y))

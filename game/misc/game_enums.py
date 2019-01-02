@@ -72,3 +72,4 @@ class E_Powerup_Type(Enum):
     double_power = 1
     double_speed = 2
     no_friction = 3
+    double_score = 4
