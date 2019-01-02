@@ -117,7 +117,7 @@ def game_screen(game_manager, striker_color, previous_run_vars):
 
         # updating elements
         striker.update(delta_time)
-        ball.main_screen_move(delta_time)
+        ball.main_screen_move(delta_time, run_vars.friction)
         striker.check_bound()
 
         # checking collisions
@@ -142,13 +142,14 @@ def game_screen(game_manager, striker_color, previous_run_vars):
         # rendering various elements
         striker.draw(screen, striker_color)
         ball.draw(screen)
-        game_manager.powerup_manager.update(
-            delta_time_actual, striker.get_collider())
-        game_manager.powerup_manager.draw()
 
         # drawing bricks
         for br in bricks:
             br.draw(screen)
+
+        game_manager.powerup_manager.update(
+            delta_time_actual, striker.get_collider())
+        game_manager.powerup_manager.draw()
 
         # show time function
         show_time(start_timer, screen, run_vars)
@@ -297,6 +298,7 @@ def render_field(pygame, screen, run_vars):
 
     # drawing prison-field
     #pygame.draw.rect(screen, grey, (100, 40, 700, 660))
+    '''
 
     run_vars.flip_image = (run_vars.flip_image + 1) % 60
     # rendering speed images
@@ -310,6 +312,7 @@ def render_field(pygame, screen, run_vars):
     else:
         pygame.draw.rect(screen, black, (800, 40, 100, scr_height - 40))
 
+    '''
     # drawing the prison styled thin bars
     draw_walls(screen, post_brick_width, post_brick_height)
 

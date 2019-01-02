@@ -66,13 +66,13 @@ class Ball(pygame.sprite.Sprite):
         self.ball_img_rotated = pygame.transform.rotate(
             self.ball_img_unrotated, self.total_rotation)
 
-    def main_screen_move(self, delta_time):
+    def main_screen_move(self, delta_time, current_friction):
         self.oldx = self.x
         self.oldy = self.y
         self.x += math.sin(self.angle) * self.speed * delta_time
         self.y += math.cos(self.angle) * self.speed * delta_time
         if self.speed > 0:
-            self.speed -= (friction * delta_time)
+            self.speed -= (current_friction * delta_time)
         else:
             self.speed = 0
 

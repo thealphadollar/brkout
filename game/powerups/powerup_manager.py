@@ -5,6 +5,7 @@
 import random
 import math
 from game.global_objects.constants import *
+from game.global_objects.global_funcs import disp_text
 from game.misc.game_enums import E_Powerup_Type
 from game.powerups import *
 
@@ -32,14 +33,19 @@ class Powerup_Manager(object):
             powerup.update(delta_time)
 
     def draw(self):
+        i = 0
         for powerup in self.powerups:
             powerup.draw(self.screen)
+            if powerup.activated:
+                i += 1
+                disp_text(self.screen, powerup.name,
+                          (250, 15 * i), message_text, white)
 
     def powerup_activated(self, powerup):
         pass
 
     def powerup_deactivated(self, powerup):
-        pass
+        self.powerups.remove(powerup)
 
     def powerup_expired(self, powerup):
         self.powerups.remove(powerup)
@@ -57,6 +63,7 @@ class Powerup_Manager(object):
     def spawn_random_powerup(self):
         rand = random.randint(0, len(E_Powerup_Type) - 1)
         rand_powerup = E_Powerup_Type(rand)
+        rand_powerup = E_Powerup_Type.no_friction
         rand_pos = self.get_random_position()
 
         if rand_powerup == E_Powerup_Type.double_damage:

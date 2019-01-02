@@ -10,3 +10,12 @@ class Double_Speed_Powerup(Powerup):
         self.name = 'Double Speed'
         self.description = 'Increases max speed'
         self.image = double_speed_powerup_img
+
+    def activate(self):
+        self.old_value = self.powerup_manager.run_vars.ball_max_speed
+        self.powerup_manager.run_vars.ball_max_speed = self.old_value * 2.0
+        self.activated = True
+
+    def deactivate(self):
+        self.powerup_manager.run_vars.ball_max_speed = self.old_value
+        self.powerup_manager.powerup_deactivated(self)

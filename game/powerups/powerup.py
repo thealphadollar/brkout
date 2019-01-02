@@ -35,19 +35,22 @@ class Powerup(object):
 
     def activate(self):
         self.activated = True
-        print(self.name)
 
     def update(self, delta_time):
         if not self.activated:
             self.expire_timer += delta_time
             if self.expire_timer > self.expire_duration:
                 self.expire()
+        else:
+            self.effect_timer += delta_time
+            if self.effect_timer > self.effect_duration:
+                self.deactivate()
 
     def expire(self):
         self.powerup_manager.powerup_expired(self)
 
     def deactivate(self):
-        pass
+        self.powerup_manager.powerup_deactivated(self)
 
     def draw(self, screen):
         if self.activated:

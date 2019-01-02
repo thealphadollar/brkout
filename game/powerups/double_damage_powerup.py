@@ -10,3 +10,12 @@ class Double_Damage_Powerup(Powerup):
         self.name = 'Double Damage'
         self.description = 'Increases damage'
         self.image = double_damage_powerup_img
+
+    def activate(self):
+        self.old_value = self.powerup_manager.run_vars.damage_multiplier
+        self.powerup_manager.run_vars.damage_multiplier = 0.0
+        self.activated = True
+
+    def deactivate(self):
+        self.powerup_manager.run_vars.damage_multiplier = self.old_value
+        self.powerup_manager.powerup_deactivated(self)
