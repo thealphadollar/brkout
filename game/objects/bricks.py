@@ -41,7 +41,7 @@ class Bricks(pygame.sprite.Sprite):
         if speed <= 3:
             return 0
 
-        self.health -= old_div(speed, run_vars.ball_max_speed) * 180 * run_vars.damage_multiplier
+        self.health -= old_div(speed, MAX_BALL_SPEED) * 180 * run_vars.damage_multiplier
 
         if self.type == 1:
             self.image = brick_imgs_h[self.get_health_index()]

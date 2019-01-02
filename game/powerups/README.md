@@ -1,4 +1,10 @@
 # Powerup System
+### Types
+- Double Damage: Doubles the damge caused to bricks
+- Double Power: Sriker's power is doubled
+- Double Score: Score is doubled
+- Double Speed: Ball's maximum speed is doubled
+- No Friction: Friction is removed temporarily
 
 ## How to use
 Initialize the system once in your game
