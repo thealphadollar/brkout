@@ -1,3 +1,7 @@
+##########################################
+# Stiker is twice as powerful at
+# hitting the ball
+##########################################
 from .powerup import Powerup
 from game.global_objects.constants import *
 

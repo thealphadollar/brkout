@@ -1,3 +1,6 @@
+#############################################
+# Get double score from destroying bricks
+#############################################
 from .powerup import Powerup
 from game.global_objects.constants import *
 

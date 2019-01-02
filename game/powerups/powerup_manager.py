@@ -13,6 +13,14 @@ from game.powerups import *
 class Powerup_Manager(object):
 
     def __init__(self, screen, spawn_cooldown, spawn_radius, powerup_expiry_duration, powerup_effect_duration):
+        '''
+         Powerup manager constructor
+         :param screen: drawing surface
+         :param spawn_cooldown: time between powerup spawn
+         :param spawn_radius: maximum distance a powerup can spawn from center
+         :param powerup_expiry_duration: powerup will dissapear after some time, if not picked
+         : param powerup_effect_duration: powerup is active for this amount of time
+        '''
         self.screen = screen
         self.powerups = []
         self.timer = 0
@@ -22,6 +30,10 @@ class Powerup_Manager(object):
         self.powerup_effect_duration = powerup_effect_duration
 
     def update(self, delta_time, striker_collider):
+        '''
+        :param delta_time: time in seconds
+        :param striker_collider: striker's circle collider
+        '''
         self.timer += delta_time
 
         if self.timer > self.spawn_cooldown:

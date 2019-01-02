@@ -1,3 +1,6 @@
+##########################################
+# Removes friction temporarily
+##########################################
 from .powerup import Powerup
 from game.global_objects.constants import *
 

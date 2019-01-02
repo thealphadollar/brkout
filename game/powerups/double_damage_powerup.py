@@ -1,3 +1,6 @@
+##########################################
+# Damage done to bricks is doubled
+##########################################
 from .powerup import Powerup
 from game.global_objects.constants import *
 
