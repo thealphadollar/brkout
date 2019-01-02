@@ -11,7 +11,8 @@ from game.powerups import *
 
 class Powerup_Manager(object):
 
-    def __init__(self, spawn_cooldown, spawn_radius, powerup_expiry_duration, powerup_effect_duration):
+    def __init__(self, screen, spawn_cooldown, spawn_radius, powerup_expiry_duration, powerup_effect_duration):
+        self.screen = screen
         self.powerups = []
         self.timer = 0
         self.spawn_cooldown = spawn_cooldown
@@ -19,7 +20,7 @@ class Powerup_Manager(object):
         self.powerup_expiry_duration = powerup_expiry_duration
         self.powerup_effect_duration = powerup_effect_duration
 
-    def update(self, delta_time):
+    def update(self, delta_time, striker_collider):
         self.timer += delta_time
 
         if self.timer > self.spawn_cooldown:
@@ -27,7 +28,12 @@ class Powerup_Manager(object):
             self.timer = 0
 
         for powerup in self.powerups:
+            powerup.check_collision(striker_collider)
             powerup.update(delta_time)
+
+    def draw(self):
+        for powerup in self.powerups:
+            powerup.draw(self.screen)
 
     def powerup_activated(self, powerup):
         pass
@@ -36,65 +42,36 @@ class Powerup_Manager(object):
         pass
 
     def powerup_expired(self, powerup):
-        pass
+        self.powerups.remove(powerup)
 
     def reset(self):
         self.powerups = []
         self.timer = 0
-        pass
 
     def get_random_position(self):
         rand_angle = random.random() * 360
         rand_radius = random.random() * self.spawn_radius
-        return(math.cos(rand_angle) * rand_radius, math.sin(rand_angle) * rand_radius)
+        return(main_game_middle_x + math.cos(rand_angle) * rand_radius, main_game_middle_y + math.sin(rand_angle) * rand_radius)
 
     def spawn_random_powerup(self):
         rand = random.randint(0, 3)
+        rand_powerup = E_Powerup_Type(rand)
         rand_pos = self.get_random_position()
 
-        if rand == 0:
-            powerup = Double_Damage_Powerup('Double Damage',
-                                            'Increases damage',
-                                            double_damage_powerup_img,
-                                            powerup_img_radius,
-                                            rand_pos[0],
-                                            rand_pos[1],
-                                            self.expire_duration,
-                                            self.effect_duration,
-                                            self)
+        if rand_powerup == E_Powerup_Type.double_damage:
+            powerup = Double_Damage_Powerup(
+                rand_pos[0], rand_pos[1], powerup_collider_radius, self.powerup_expiry_duration, self.powerup_effect_duration, self)
 
-        if rand == 0:
-            powerup = Double_Power_Powerup('Double Power',
-                                           'Increases hitting power',
-                                           double_power_powerup_img,
-                                           powerup_img_radius,
-                                           rand_pos[0],
-                                           rand_pos[1],
-                                           self.expire_duration,
-                                           self.effect_duration,
-                                           self)
+        if rand_powerup == E_Powerup_Type.double_power:
+            powerup = Double_Power_Powerup(
+                rand_pos[0], rand_pos[1], powerup_collider_radius, self.powerup_expiry_duration, self.powerup_effect_duration, self)
 
-        if rand == 0:
-            powerup = Double_Speed_Powerup('Double Speed',
-                                           'Increases max speed',
-                                           double_speed_powerup_img,
-                                           powerup_img_radius,
-                                           rand_pos[0],
-                                           rand_pos[1],
-                                           self.expire_duration,
-                                           self.effect_duration,
-                                           self)
+        if rand_powerup == E_Powerup_Type.double_speed:
+            powerup = Double_Speed_Powerup(
+                rand_pos[0], rand_pos[1], powerup_collider_radius, self.powerup_expiry_duration, self.powerup_effect_duration, self)
 
-        if rand == 0:
-            powerup = No_Friction_Powerup('No Friction',
-                                          'Remoes friction',
-                                          no_friction_powerup_img,
-                                          powerup_img_radius,
-                                          rand_pos[0],
-                                          rand_pos[1],
-                                          self.expire_duration,
-                                          self.effect_duration,
-                                          self)
+        if rand_powerup == E_Powerup_Type.no_friction:
+            powerup = No_Friction_Powerup(
+                rand_pos[0], rand_pos[1], powerup_collider_radius, self.powerup_expiry_duration, self.powerup_effect_duration, self)
 
         self.powerups.append(powerup)
-        # print(rand_powerup)

@@ -2,17 +2,19 @@
 # Base class for all powerups
 ###############################################
 from game.misc.collisions import Circle_Collider
+from game.misc.collisions import Collision
 
 
 class Powerup(object):
 
-    def __init__(self, name, description, image, radius, pos_x, pos_y, expire_duration, effect_duration, powerup_manager):
-        self.name = name
-        self.description = description
-        self.image = image
+    def __init__(self, pos_x, pos_y, radius, expire_duration, effect_duration, powerup_manager):
+        self.name = 'Powerup'
+        self.description = 'Description'
+        self.image = None
+        self.radius = radius
         self.x = pos_x
         self.y = pos_y
-        self.collider = Circle_Collider(self.x, self.y, radius)
+        self.collider = Circle_Collider(self.x, self.y, self.radius)
         self.expire_duration = expire_duration
         self.effect_duration = effect_duration
         self.powerup_manager = powerup_manager
@@ -26,20 +28,23 @@ class Powerup(object):
     def check_collision(self, striker_collider):
         if self.activated:
             return
-        
-        pass
+
+        collision = Collision.check(self.collider, striker_collider)
+        if collision != (0, 0):
+            self.activate()
 
     def activate(self):
-        pass
+        self.activated = True
+        print(self.name)
 
     def update(self, delta_time):
-        self.timer += delta_time
-        if self.timer > self.duration:
-            self.expire()
-        pass
+        if not self.activated:
+            self.expire_timer += delta_time
+            if self.expire_timer > self.expire_duration:
+                self.expire()
 
     def expire(self):
-        pass
+        self.powerup_manager.powerup_expired(self)
 
     def deactivate(self):
         pass
@@ -48,5 +53,5 @@ class Powerup(object):
         if self.activated:
             return
 
-        img_rect = self.ball_img_rotated.get_rect(center=(self.x, self.y))
+        img_rect = self.image.get_rect(center=(self.x, self.y))
         screen.blit(self.image, img_rect.topleft)

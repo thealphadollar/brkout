@@ -226,6 +226,7 @@ brick_imgs_v.append(brick_unbreakable_img_v)
 
 powerup_img_size = 64
 powerup_img_radius = 32
+powerup_collider_radius = 28
 
 double_damage_powerup_img = pygame.image.load(
     'game/assets/powerup_sprites/double_damage.png')

@@ -33,8 +33,9 @@ def init():
     animation_manager = Animation_Manager(screen)
     game_parameters = Game_Parameters()
     input_manager = Input_Manager()
+    powerup_manager = Powerup_Manager(screen, 2, 160, 5, 5)
     game_manager = Game_Manager(
-        pygame, screen, clock, settings_manager, sound_manager, animation_manager, game_parameters, input_manager)
+        pygame, screen, clock, settings_manager, sound_manager, animation_manager, game_parameters, input_manager, powerup_manager)
 
     return game_manager
 

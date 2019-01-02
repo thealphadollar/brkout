@@ -78,8 +78,7 @@ def game_screen(game_manager, striker_color, previous_run_vars):
     run_vars = previous_run_vars
     run_vars.reset()
 
-    powerup_manager = Powerup_Manager(2)
-
+    game_manager.powerup_manager.reset()
     sound_manager.play_music('main_music.mp3')
 
     game_area_collider = Rect_Collider(
@@ -87,15 +86,13 @@ def game_screen(game_manager, striker_color, previous_run_vars):
 
     bricks = pygame.sprite.Group()
     add_to_group(bricks)
-    
+
     start_timer = False
 
     while True:
         # time passed
         delta_time = old_div(clock.get_time(), 10)
         delta_time_actual = clock.get_time() / 1000                 # in seconds
-
-        powerup_manager.update(delta_time_actual)
 
         # drawing the game field
         render_field(pygame, screen, run_vars)
@@ -135,6 +132,9 @@ def game_screen(game_manager, striker_color, previous_run_vars):
         # rendering various elements
         striker.draw(screen, striker_color)
         ball.draw(screen)
+        game_manager.powerup_manager.update(
+            delta_time_actual, striker.get_collider())
+        game_manager.powerup_manager.draw()
 
         # drawing bricks
         for br in bricks:

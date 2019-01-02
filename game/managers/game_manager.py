@@ -7,7 +7,7 @@
 
 class Game_Manager():
 
-    def __init__(self, pygame, screen, clock, settings_manager, sound_manager, animation_manager, game_parameters, input_manager):
+    def __init__(self, pygame, screen, clock, settings_manager, sound_manager, animation_manager, game_parameters, input_manager, powerup_manager):
         self.pygame = pygame
         self.screen = screen
         self.clock = clock
@@ -16,3 +16,4 @@ class Game_Manager():
         self.animation_manager = animation_manager
         self.game_parameters = game_parameters
         self.input_manager = input_manager
+        self.powerup_manager = powerup_manager
