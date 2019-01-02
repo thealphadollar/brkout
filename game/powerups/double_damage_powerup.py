@@ -13,7 +13,7 @@ class Double_Damage_Powerup(Powerup):
 
     def activate(self):
         self.old_value = self.powerup_manager.run_vars.damage_multiplier
-        self.powerup_manager.run_vars.damage_multiplier = 0.0
+        self.powerup_manager.run_vars.damage_multiplier = self.old_value * 2
         self.activated = True
 
     def deactivate(self):

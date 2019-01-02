@@ -63,7 +63,6 @@ class Powerup_Manager(object):
     def spawn_random_powerup(self):
         rand = random.randint(0, len(E_Powerup_Type) - 1)
         rand_powerup = E_Powerup_Type(rand)
-        rand_powerup = E_Powerup_Type.no_friction
         rand_pos = self.get_random_position()
 
         if rand_powerup == E_Powerup_Type.double_damage:

@@ -95,7 +95,7 @@ class Ball(pygame.sprite.Sprite):
             return True
 
     # define collision with striker
-    def collision_striker(self, striker):
+    def collision_striker(self, striker, run_vars):
 
         # distance between striker and ball
         dx = self.x - striker.x
@@ -122,7 +122,7 @@ class Ball(pygame.sprite.Sprite):
         # now this is a case of head on collision
         # setting before collision variables
         M = striker.mass
-        m = self.mass
+        m = run_vars.ball_mass
         U = striker_velocity_along_line
         u = ball_velocity_along_line
         # velocities after elastic collision
@@ -144,8 +144,8 @@ class Ball(pygame.sprite.Sprite):
             math.sin(approach_angle)
         self.angle = math.atan2(ball_x_velocity, ball_y_velocity)
 
-        if self.speed > MAX_BALL_SPEED:
-            self.speed = MAX_BALL_SPEED
+        if self.speed > run_vars.ball_max_speed:
+            self.speed = run_vars.ball_max_speed
         if abs(striker.x_velocity) > MAX_STRIKER_SPEED:
             striker.x_velocity = MAX_STRIKER_SPEED * \
                 (old_div(striker.x_velocity, abs(striker.x_velocity)))

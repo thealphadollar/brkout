@@ -126,9 +126,9 @@ def game_screen(game_manager, striker_color, previous_run_vars):
 
         # check first strike to start timer
         if not start_timer:
-            start_timer = ball.collision_striker(striker)
+            start_timer = ball.collision_striker(striker, run_vars)
         else:
-            if ball.collision_striker(striker):
+            if ball.collision_striker(striker, run_vars):
                 pass
 
         # checking winning
@@ -286,7 +286,7 @@ def check_collisions(ball, bricks, run_vars, animation_manager, sound_manager, d
             sound_manager.play_sound(collision_sound)
             run_vars.hit_count += 1
             run_vars.brick_point += br.update(ball.speed, mute,
-                                              animation_manager, sound_manager) * run_vars.score_multiplier
+                                              animation_manager, sound_manager, run_vars) * run_vars.score_multiplier
 
             animation_manager.create_new_effect(
                 blast_anim2, blast_anim2_size, 3, False, (ball.x, ball.y))

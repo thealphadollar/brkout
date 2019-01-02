@@ -10,3 +10,12 @@ class Double_Power_Powerup(Powerup):
         self.name = 'Double Power'
         self.description = 'Increases hitting power'
         self.image = double_power_powerup_img
+
+    def activate(self):
+        self.old_value = self.powerup_manager.run_vars.ball_mass
+        self.powerup_manager.run_vars.ball_mass = self.old_value / 4.0
+        self.activated = True
+
+    def deactivate(self):
+        self.powerup_manager.run_vars.ball_mass = self.old_value
+        self.powerup_manager.powerup_deactivated(self)
