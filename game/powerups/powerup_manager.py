@@ -59,19 +59,35 @@ class Powerup_Manager(object):
         rand_pos = self.get_random_position()
 
         if rand_powerup == E_Powerup_Type.double_damage:
-            powerup = Double_Damage_Powerup(
-                rand_pos[0], rand_pos[1], powerup_collider_radius, self.powerup_expiry_duration, self.powerup_effect_duration, self)
+            powerup = Double_Damage_Powerup(rand_pos[0],
+                                            rand_pos[1],
+                                            powerup_collider_radius,
+                                            self.powerup_expiry_duration,
+                                            self.powerup_effect_duration,
+                                            self)
 
         if rand_powerup == E_Powerup_Type.double_power:
-            powerup = Double_Power_Powerup(
-                rand_pos[0], rand_pos[1], powerup_collider_radius, self.powerup_expiry_duration, self.powerup_effect_duration, self)
+            powerup = Double_Power_Powerup(rand_pos[0],
+                                           rand_pos[1],
+                                           powerup_collider_radius,
+                                           self.powerup_expiry_duration,
+                                           self.powerup_effect_duration,
+                                           self)
 
         if rand_powerup == E_Powerup_Type.double_speed:
-            powerup = Double_Speed_Powerup(
-                rand_pos[0], rand_pos[1], powerup_collider_radius, self.powerup_expiry_duration, self.powerup_effect_duration, self)
+            powerup = Double_Speed_Powerup(rand_pos[0],
+                                           rand_pos[1],
+                                           powerup_collider_radius,
+                                           self.powerup_expiry_duration,
+                                           self.powerup_effect_duration,
+                                           self)
 
         if rand_powerup == E_Powerup_Type.no_friction:
-            powerup = No_Friction_Powerup(
-                rand_pos[0], rand_pos[1], powerup_collider_radius, self.powerup_expiry_duration, self.powerup_effect_duration, self)
+            powerup = No_Friction_Powerup(rand_pos[0],
+                                          rand_pos[1],
+                                          powerup_collider_radius,
+                                          self.powerup_expiry_duration,
+                                          self.powerup_effect_duration,
+                                          self)
 
         self.powerups.append(powerup)
