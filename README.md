@@ -104,23 +104,28 @@ git push origin master
 6. The game can also be played with a Joystick, which has to be plugged in before you 
    launch the game.It works well with AMKETTE game pad but any standard game pad would also work.
 
-## Powerups
+### Powerups
 
 Currently 5 types of powerups are in the game. Go over a powerup to pick it up. Currently active powerups are shown in top left of the screen.
 
 - Double Damage: Doubles the damge caused to bricks
+
 ![double_damage](https://user-images.githubusercontent.com/6888341/50610393-d2a1ad00-0ef8-11e9-87a1-3d9ad419bc1a.png)
 
 - Double Power: Sriker's power is doubled
+
 ![double_power](https://user-images.githubusercontent.com/6888341/50610396-d7666100-0ef8-11e9-9fe9-e2f85d5839e3.png)
 
 - Double Score: Score is doubled
+
 ![double_score](https://user-images.githubusercontent.com/6888341/50610400-da615180-0ef8-11e9-8b89-8388dc475af5.png)
 
 - Double Speed: Ball's maximum speed is doubled
+
 ![double_speed](https://user-images.githubusercontent.com/6888341/50610404-ddf4d880-0ef8-11e9-9384-e570aebafc4e.png)
 
 - No Friction: Friction is removed temporarily
+
 ![no_friction](https://user-images.githubusercontent.com/6888341/50610407-e0573280-0ef8-11e9-9c33-27492e236c54.png)
 
 
