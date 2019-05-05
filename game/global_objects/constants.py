@@ -220,3 +220,21 @@ brick_unbreakable_img_v = pygame.transform.rotate(brick_unbreakable_img_v, 90)
 
 brick_imgs_h.append(brick_unbreakable_img_h)
 brick_imgs_v.append(brick_unbreakable_img_v)
+
+
+# load powerup images
+
+powerup_img_size = 64
+powerup_img_radius = 32
+powerup_collider_radius = 28
+
+double_damage_powerup_img = pygame.image.load(
+    'game/assets/powerup_sprites/double_damage.png')
+double_power_powerup_img = pygame.image.load(
+    'game/assets/powerup_sprites/double_power.png')
+double_speed_powerup_img = pygame.image.load(
+    'game/assets/powerup_sprites/double_speed.png')
+no_friction_powerup_img = pygame.image.load(
+    'game/assets/powerup_sprites/no_friction.png')
+double_score_powerup_img = pygame.image.load(
+    'game/assets/powerup_sprites/double_score.png')

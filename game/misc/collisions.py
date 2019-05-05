@@ -1,6 +1,8 @@
-#############################
+###############################################
 # Collision system
-#############################
+# normals returned in collison check functions
+# are w.r.t to the first collider
+################################################
 from enum import Enum
 import math
 
@@ -47,6 +49,10 @@ class Collision(object):
             result = Collision.check_circle_rect(collider1, collider2)
             return result
 
+        if collider1.type is Collider_Type.Circle and collider2.type is Collider_Type.Circle:
+            result = Collision.check_circle_circle(collider1, collider2)
+            return result
+
     @staticmethod
     def check_circle_rect(circle, rect):
         distance_x = circle.x - rect.x
@@ -83,3 +89,15 @@ class Collision(object):
                 return result
 
         return (0, 0)
+
+    @staticmethod
+    def check_circle_circle(collider_one, collider_two):
+        distance_x = collider_one.x - collider_two.x
+        distance_y = collider_one.y - collider_two.y
+
+        distance = math.hypot(distance_x, distance_y)
+
+        if distance > collider_one.radius + collider_two.radius:
+            return (0, 0)
+        else:
+            return (distance_x / distance, distance_y / distance)

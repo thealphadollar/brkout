@@ -20,6 +20,7 @@ try:
     from game.gui_package import *
     from game.misc import *
     from game.screens.pause_screen import *
+    from game.powerups.powerup_manager import *
 except SystemError:
     from .objects import *
     from .global_objects import *
@@ -44,6 +45,11 @@ class Runtime_Vars():
         self.pause_option = E_Pause_Option.resume
         self.escapes = 0
         self.busts = 0
+        self.friction = friction
+        self.ball_max_speed = MAX_BALL_SPEED
+        self.ball_mass = ball_mass
+        self.damage_multiplier = 1.0
+        self.score_multiplier = 1.0
 
     def reset(self):
         ''' If restarting a game, reset everthing at the start of a run, 
@@ -61,6 +67,11 @@ class Runtime_Vars():
         self.score = 0
         self.flip_image = 0
         self.pause_option = E_Pause_Option.resume
+        self.friction = friction
+        self.ball_max_speed = MAX_BALL_SPEED
+        self.ball_mass = ball_mass
+        self.damage_multiplier = 1.0
+        self.score_multiplier = 1.0
 
 
 def game_screen(game_manager, striker_color, previous_run_vars):
@@ -77,7 +88,11 @@ def game_screen(game_manager, striker_color, previous_run_vars):
     run_vars = previous_run_vars
     run_vars.reset()
 
+    game_manager.powerup_manager.reset(run_vars)
     sound_manager.play_music('main_music.mp3')
+
+    game_area_collider = Rect_Collider(
+        scr_width // 2, scr_height // 2 + 40, scr_width - 200, scr_height - 40)
 
     bricks = pygame.sprite.Group()
     add_to_group(bricks)
@@ -87,6 +102,7 @@ def game_screen(game_manager, striker_color, previous_run_vars):
     while True:
         # time passed
         delta_time = old_div(clock.get_time(), 10)
+        delta_time_actual = clock.get_time() / 1000                 # in seconds
 
         # drawing the game field
         render_field(pygame, screen, run_vars)
@@ -101,7 +117,7 @@ def game_screen(game_manager, striker_color, previous_run_vars):
 
         # updating elements
         striker.update(delta_time)
-        ball.main_screen_move(delta_time)
+        ball.main_screen_move(delta_time, run_vars.friction)
         striker.check_bound()
 
         # checking collisions
@@ -110,13 +126,13 @@ def game_screen(game_manager, striker_color, previous_run_vars):
 
         # check first strike to start timer
         if not start_timer:
-            start_timer = ball.collision_striker(striker)
+            start_timer = ball.collision_striker(striker, run_vars)
         else:
-            if ball.collision_striker(striker):
+            if ball.collision_striker(striker, run_vars):
                 pass
 
         # checking winning
-        if ball.check_escape():
+        if ball.check_escape(game_area_collider):
             temp_time = pygame.time.get_ticks()
             run_vars.escapes += 1
             while pygame.time.get_ticks() - temp_time < 400:
@@ -130,6 +146,10 @@ def game_screen(game_manager, striker_color, previous_run_vars):
         # drawing bricks
         for br in bricks:
             br.draw(screen)
+
+        game_manager.powerup_manager.update(
+            delta_time_actual, striker.get_collider())
+        game_manager.powerup_manager.draw()
 
         # show time function
         show_time(start_timer, screen, run_vars)
@@ -266,7 +286,7 @@ def check_collisions(ball, bricks, run_vars, animation_manager, sound_manager, d
             sound_manager.play_sound(collision_sound)
             run_vars.hit_count += 1
             run_vars.brick_point += br.update(ball.speed, mute,
-                                              animation_manager, sound_manager)
+                                              animation_manager, sound_manager, run_vars) * run_vars.score_multiplier
 
             animation_manager.create_new_effect(
                 blast_anim2, blast_anim2_size, 3, False, (ball.x, ball.y))
@@ -278,6 +298,7 @@ def render_field(pygame, screen, run_vars):
 
     # drawing prison-field
     #pygame.draw.rect(screen, grey, (100, 40, 700, 660))
+    '''
 
     run_vars.flip_image = (run_vars.flip_image + 1) % 60
     # rendering speed images
@@ -291,6 +312,7 @@ def render_field(pygame, screen, run_vars):
     else:
         pygame.draw.rect(screen, black, (800, 40, 100, scr_height - 40))
 
+    '''
     # drawing the prison styled thin bars
     draw_walls(screen, post_brick_width, post_brick_height)
 

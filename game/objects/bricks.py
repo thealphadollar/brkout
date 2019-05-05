@@ -37,11 +37,11 @@ class Bricks(pygame.sprite.Sprite):
     def draw(self, screen):
         screen.blit(self.image, self.rect)
 
-    def update(self, speed, mute, animation_manager, sound_manager):
+    def update(self, speed, mute, animation_manager, sound_manager, run_vars):
         if speed <= 3:
             return 0
 
-        self.health -= old_div(speed, MAX_BALL_SPEED) * 180
+        self.health -= old_div(speed, MAX_BALL_SPEED) * 180 * run_vars.damage_multiplier
 
         if self.type == 1:
             self.image = brick_imgs_h[self.get_health_index()]

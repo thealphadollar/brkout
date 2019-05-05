@@ -51,7 +51,7 @@ def menu_screen(game_manager):
     menu_ball = Ball(old_div(scr_width, 2), scr_height
                      - wall_brick_height - ball_radius)
     mute = settings_manager.settings_data['mute']
-    game_manager.game_parameters.friction = 0.01
+    friction = 0.01
 
     box_collider = Rect_Collider(
         scr_width // 2, scr_height // 2 + 60, 400, 100)
@@ -121,15 +121,15 @@ def menu_screen(game_manager):
             if event.type == pygame.MOUSEBUTTONDOWN and pygame.mouse.get_pressed()[0]:
                 if mouse_x < 284 and mouse_x > 114 and mouse_y < 336 and mouse_y > 318:
                     prison_option = E_Prison_Option.home
-                    game_manager.game_parameters.friction = 0.01
+                    friction = 0.01
             if event.type == pygame.MOUSEBUTTONDOWN and pygame.mouse.get_pressed()[0]:
                 if mouse_x < 527 and mouse_x > 325 and mouse_y < 336 and mouse_y > 318:
                     prison_option = E_Prison_Option.dungeon
-                    game_manager.game_parameters.friction = 0.018
+                    friction = 0.018
             if event.type == pygame.MOUSEBUTTONDOWN and pygame.mouse.get_pressed()[0]:
                 if mouse_x < 797 and mouse_x > 584 and mouse_y < 336 and mouse_y > 318:
                     prison_option = E_Prison_Option.tartarus
-                    game_manager.game_parameters.friction = 0.025
+                    friction = 0.025
             if event.type == pygame.QUIT:
                 os._exit(0)
 
